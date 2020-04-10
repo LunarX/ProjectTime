@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         currentHealth = theMaxHealth;
-        print("Santé actuelle de " + this + " : " + currentHealth);
+        //print("Santé actuelle de " + this + " : " + currentHealth);
     }
 
     public void Heal(float healAmount)
