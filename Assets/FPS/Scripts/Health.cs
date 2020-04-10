@@ -4,9 +4,10 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     [Tooltip("Maximum amount of health")]
-    public float maxHealth = 10f;
+    public float theMaxHealth = 100f;
     [Tooltip("Health ratio at which the critical health vignette starts appearing")]
-    public float criticalHealthRatio = 0.3f;
+    public float theCriticalHealthRatio = 0.4f;
+    public float gentillesse = 0.3f;
 
     public UnityAction<float, GameObject> onDamaged;
     public UnityAction<float> onHealed;
@@ -14,23 +15,24 @@ public class Health : MonoBehaviour
 
     public float currentHealth { get; set; }
     public bool invincible { get; set; }
-    public bool canPickup() => currentHealth < maxHealth;
+    public bool canPickup() => currentHealth < theMaxHealth;
 
-    public float getRatio() => currentHealth / maxHealth;
-    public bool isCritical() => getRatio() <= criticalHealthRatio;
+    public float getRatio() => currentHealth / theMaxHealth;
+    public bool isCritical() => getRatio() <= theCriticalHealthRatio;
 
     bool m_IsDead;
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth = theMaxHealth;
+        print("Santé actuelle de " + this + " : " + currentHealth);
     }
 
     public void Heal(float healAmount)
     {
         float healthBefore = currentHealth;
         currentHealth += healAmount;
-        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+        currentHealth = Mathf.Clamp(currentHealth, 0f, theMaxHealth);
 
         // call OnHeal action
         float trueHealAmount = currentHealth - healthBefore;
@@ -42,12 +44,13 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage, GameObject damageSource)
     {
+        print("Prend des dégats !");
         if (invincible)
             return;
 
         float healthBefore = currentHealth;
         currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+        currentHealth = Mathf.Clamp(currentHealth, 0f, theMaxHealth);
 
         // call OnDamage action
         float trueDamageAmount = healthBefore - currentHealth;
@@ -66,7 +69,7 @@ public class Health : MonoBehaviour
         // call OnDamage action
         if (onDamaged != null)
         {
-            onDamaged.Invoke(maxHealth, null);
+            onDamaged.Invoke(theMaxHealth, null);
         }
 
         HandleDeath();

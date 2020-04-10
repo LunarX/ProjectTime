@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    [Header("Parameters")]
+    [Header("Les Paramètres :")]
     [Tooltip("The Y height at which the enemy will be automatically killed (if it falls off of the level)")]
     public float selfDestructYHeight = -20f;
     [Tooltip("The distance at which the enemy considers that it has reached its current path destination point")]

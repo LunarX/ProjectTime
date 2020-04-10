@@ -22,6 +22,6 @@ public class PlayerHealthBar : MonoBehaviour
     void Update()
     {
         // update health bar value
-        healthFillImage.fillAmount = m_PlayerHealth.currentHealth / m_PlayerHealth.maxHealth;
+        healthFillImage.fillAmount = m_PlayerHealth.currentHealth / m_PlayerHealth.theMaxHealth;
     }
 }

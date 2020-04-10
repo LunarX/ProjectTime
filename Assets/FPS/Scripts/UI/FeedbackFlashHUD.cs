@@ -59,7 +59,7 @@ public class FeedbackFlashHUD : MonoBehaviour
         if (m_PlayerHealth.isCritical())
         {
             vignetteCanvasGroup.gameObject.SetActive(true);
-            float vignetteAlpha = (1 - (m_PlayerHealth.currentHealth / m_PlayerHealth.maxHealth / m_PlayerHealth.criticalHealthRatio)) * criticaHealthVignetteMaxAlpha;
+            float vignetteAlpha = (1 - (m_PlayerHealth.currentHealth / m_PlayerHealth.theMaxHealth / m_PlayerHealth.theCriticalHealthRatio)) * criticaHealthVignetteMaxAlpha;
 
             if (m_GameFlowManager.gameIsEnding)
                 vignetteCanvasGroup.alpha = vignetteAlpha;
