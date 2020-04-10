@@ -17,9 +17,22 @@ public class TimeManager : MonoBehaviour
     [Tooltip("The key to press to activate bullet time")]
     public KeyCode activateSlowdown = KeyCode.V;
 
+    //[Header("Camera Settings")]
+    //[Tooltip("The camera that will see its FOV changed when time is slowed")]
+    //public Camera cam;
+
+    //[Tooltip("The FOV value that will be reached when bullet time is active")]
+    //public float minFOV = 50f;
+
+    //[Tooltip("The player GameObject")]
+    //public GameObject player;
+
     //private float activationTime = 0;
-    private bool isRecovering = false;
     private float slowdownActualLength;
+    private bool isRecovering = false;
+
+    //private bool isSlowed = false; // Linked to FOV
+    //private float maxFOV; // Linked to FOV
 
     void Start()
     {
@@ -28,7 +41,6 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
-        print(Time.timeScale);
         if (Input.GetKeyDown(activateSlowdown))
         {
             DoSlowmotion();
@@ -39,7 +51,12 @@ public class TimeManager : MonoBehaviour
         //    isRecovering = true;
         //}
 
-        if(isRecovering)
+        //if (isSlowed) // Linked to FOV
+        //{
+        //    player.GetComponent<PlayerWeaponsManager>().SetFOV(minFOV);
+        //}
+
+        if (isRecovering)
         {
             Time.timeScale += (1.0f / recoveryLength) * Time.unscaledDeltaTime;
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
@@ -48,6 +65,7 @@ public class TimeManager : MonoBehaviour
             {
                 Time.fixedDeltaTime = Time.deltaTime;
                 isRecovering = false;
+                
             }
         }
     }
@@ -55,6 +73,7 @@ public class TimeManager : MonoBehaviour
     private void BackToNormal()
     {
         Debug.Log("Starting Recovery");
+        //isSlowed = false; // Linked to FOV
         isRecovering = true;
     }
 
@@ -63,6 +82,9 @@ public class TimeManager : MonoBehaviour
         Debug.Log("Activating Bullet Time");
         Time.timeScale = slowdownFactor;
         Time.fixedDeltaTime = Time.timeScale * .02f;
+
+        //isSlowed = true; // Linked to FOV
+        //maxFOV = cam.fieldOfView;
 
         //activationTime = Time.time;
 
