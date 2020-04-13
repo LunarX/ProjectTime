@@ -13,7 +13,10 @@ public class TargetGenerator : MonoBehaviour
 
 
     [Tooltip("Time the target sticks at the end of its path before being considered as missed")]
-    public float disappearanceTime = 0.2f;
+    public float disapearanceTime = 0.2f;
+
+    [Tooltip("Time it takes for a target to scale to its final size before starting to move")]
+    public float scalingTime = 1f;
 
     [Tooltip("Scaling factor of the size of the targets' sprites")]
     public float scalingFactor = 1f;
@@ -70,10 +73,6 @@ public class TargetGenerator : MonoBehaviour
         go.transform.localScale = new Vector3(0.3f, 0.3f, 1f) * scalingFactor;
 
         TargetBehavior tb = go.AddComponent<TargetBehavior>();
-
-        tb.direction = direction;
-        tb.speed = 3f;
-        tb.stopDistance = minRange;
-        tb.disapearance = disappearanceTime;
+        tb.init(direction, 3f, minRange, disapearanceTime, scalingTime);
     }
 }
