@@ -6,20 +6,20 @@ public class GameManager : MonoBehaviour
 {
     [Header("Settings")]
     [Tooltip("Distance to the origin of the target when it spawns")]
-    public static float maxRange = 4.5f;
+    public float maxRange = 4.5f;
 
     [Tooltip("Distance to the origin of the target when it has to stop because it reached the center")]
-    public static float minRange = 0.98f;
+    public float minRange = 0.74f;
 
 
     [Tooltip("Time the target sticks at the end of its path before being considered as missed")]
-    public static float disapearanceTime = 0.2f;
+    public float disapearanceTime = 0.2f;
 
     [Tooltip("Time it takes for a target to scale to its final size before starting to move")]
-    public static float scalingTime = 1f;
+    public float scalingTime = 1f;
 
     [Tooltip("Scaling factor of the size of the targets' sprites")]
-    public static float scalingFactor = 1.2f;
+    public float scalingFactor = 1.2f;
 
 
     [Header("Testing Key Settings")]
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public KeyCode k_right = KeyCode.D;
 
 
-    //private List<GameObject> right_stack = new List<GameObject>();
+    private List<GameObject> right_stack = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         {
             //print("Generating particle from RIGHT");
             GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.left);
-            //right_stack.Add(t);
+            right_stack.Add(t);
         }
 
         // Illegal target direction
@@ -71,5 +71,10 @@ public class GameManager : MonoBehaviour
         {
             TargetGenerator.GenerateSingleTarget(new Vector2(-1f, -1f));
         }
+    }
+
+    void GM_OnMissed()
+    {
+        print("Received OnMissed Event");
     }
 }

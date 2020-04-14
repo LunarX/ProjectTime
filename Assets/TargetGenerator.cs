@@ -52,8 +52,8 @@ public static class TargetGenerator
         go.transform.position = new Vector3(startingX, startingY, 0f);
         go.transform.localScale = new Vector3(0.3f, 0.3f, 1f) * scalingFactor;
 
-        TargetBehavior tb = go.AddComponent<TargetBehavior>();
-        tb.init(target);
+        //TargetBehavior tb = go.AddComponent<TargetBehavior>();
+        //tb.init(target);
 
         return go;
     }
