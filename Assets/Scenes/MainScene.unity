@@ -407,6 +407,8 @@ MonoBehaviour:
   t_down: 115
   t_left: 97
   t_right: 100
+  t_double_vertical: 101
+  t_double_horizontal: 113
 --- !u!4 &379339203
 Transform:
   m_ObjectHideFlags: 0
