@@ -97,8 +97,13 @@ public class Target : MonoBehaviour
     }
 
 
-    public float getTimeBeforeDeletion()
+    public float GetTimeBeforeDeletion()
     {
         return timeBeforeDeletion;
+    }
+
+    public float GetDistanceLeft()
+    {
+        return Vector2.Distance(GetLimit(), rb.position);
     }
 }

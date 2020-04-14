@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     public float scalingTime = 1.2f;
     [Tooltip("Scaling factor of the size of the targets' sprites")]
     public float scalingFactor = 0.85f;
+    [Tooltip("Distance to the center of a target at which it can already be considered 'hit'")]
+    public float acceptedDistance = 0.1f;
 
     [Header("Playing Key Settings")]
     public KeyCode right = KeyCode.RightArrow;
@@ -47,12 +50,32 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Handles the click hit of targets
+        if (Input.GetKeyDown(right))
+        {
+            ClickTarget(right_stack);
+        }
+        if (Input.GetKeyDown(left))
+        {
+            ClickTarget(left_stack);
+        }
+        if (Input.GetKeyDown(up))
+        {
+            ClickTarget(up_stack);
+        }
+        if (Input.GetKeyDown(down))
+        {
+            ClickTarget(down_stack);
+        }
+
+        // Handles the destruction of missed targets
         // Iterate through all targets currently loaded, and find the ones that should 
         // be destroyed because the user missed it for too long and destroy them.
         DeleteMissedTargets(right_stack);
         DeleteMissedTargets(left_stack);
         DeleteMissedTargets(up_stack);
         DeleteMissedTargets(down_stack);
+
 
         // For testing purposes, generate targets using keyboard.
         if (Input.GetKeyDown(t_up))
@@ -88,10 +111,25 @@ public class GameManager : MonoBehaviour
         for (int i = stack.Count - 1; i >= 0; i--)
         {
             Target t = stack[i].GetComponent(typeof(Target)) as Target;
-            if (t.getTimeBeforeDeletion() <= 0)
+            if (t.GetTimeBeforeDeletion() <= 0)
             {
                 Destroy(stack[i]);
                 stack.RemoveAt(i);
+            }
+        }
+    }
+
+    // Computes if a target has been hit or not and removes it if it does.
+    void ClickTarget(List<GameObject> stack)
+    {
+        if (stack.Count > 0)
+        {
+            var idx = stack.Count - 1;
+            var t = stack[idx].GetComponent(typeof(Target)) as Target;
+            if (t.GetDistanceLeft() < acceptedDistance)
+            {
+                Destroy(stack[idx]);
+                stack.RemoveAt(idx);
             }
         }
     }
