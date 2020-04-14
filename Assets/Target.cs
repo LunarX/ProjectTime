@@ -20,6 +20,7 @@ public class Target : MonoBehaviour
     private float stopDistance;
     private float disapearanceTime;
     private float scalingTime;
+    public float timeBeforeDeletion;
 
 
     private Transform rb;
@@ -32,6 +33,8 @@ public class Target : MonoBehaviour
         this.stopDistance = stopDistance;
         this.disapearanceTime = disapearanceTime;
         this.scalingTime = scalingTime;
+
+        timeBeforeDeletion = disapearanceTime;
     }
 
     // Start is called before the first frame update
@@ -71,11 +74,11 @@ public class Target : MonoBehaviour
                 else
                 {
                     state = WAITING_DEL_STATE;
-                    Invoke("OnMissed", disapearanceTime);
+                    timeBeforeDeletion -= Time.deltaTime;
                 }
                 break;
             case WAITING_DEL_STATE:
-                // Literally do nothing
+                timeBeforeDeletion -= Time.deltaTime;
                 break;
         }
     }
@@ -93,10 +96,15 @@ public class Target : MonoBehaviour
         return -direction * stopDistance;
     }
 
-    // When a target has been missed
-    private void OnMissed()
+
+    public float getTimeBeforeDeletion()
     {
-        //SendMessageUpwards("GM_OnMissed");
-        Destroy(gameObject);
+        return timeBeforeDeletion;
     }
+    // When a target has been missed
+    //private void OnMissed()
+    //{
+    //    //SendMessageUpwards("GM_OnMissed");
+    //    Destroy(gameObject);
+    //}
 }

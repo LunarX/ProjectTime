@@ -35,25 +35,19 @@ public static class TargetGenerator
             return null;
         }
 
-        Sprite sprite = Resources.Load<Sprite>("Targets/Circle");
-
         GameObject go = new GameObject("Target Circle");
-        SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();
-        renderer.sprite = sprite;
 
+        SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();
+        Sprite sprite = Resources.Load<Sprite>("Targets/Circle");
+        renderer.sprite = sprite;
 
         Target target = go.AddComponent<Target>();
         target.init(direction, 3f, minRange, disapearanceTime, scalingTime);
 
-
         float startingX = -direction.x * maxRange;
         float startingY = -direction.y * maxRange;
-
         go.transform.position = new Vector3(startingX, startingY, 0f);
         go.transform.localScale = new Vector3(0.3f, 0.3f, 1f) * scalingFactor;
-
-        //TargetBehavior tb = go.AddComponent<TargetBehavior>();
-        //tb.init(target);
 
         return go;
     }

@@ -393,6 +393,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e82c11ed13a25429d3ef007e1fc053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRange: 4.5
+  minRange: 0.74
+  disapearanceTime: 0.2
+  scalingTime: 1.2
+  scalingFactor: 0.85
   k_up: 119
   k_down: 115
   k_left: 97
