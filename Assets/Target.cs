@@ -101,10 +101,4 @@ public class Target : MonoBehaviour
     {
         return timeBeforeDeletion;
     }
-    // When a target has been missed
-    //private void OnMissed()
-    //{
-    //    //SendMessageUpwards("GM_OnMissed");
-    //    Destroy(gameObject);
-    //}
 }

@@ -16,12 +16,17 @@ public class GameManager : MonoBehaviour
     [Tooltip("Scaling factor of the size of the targets' sprites")]
     public float scalingFactor = 0.85f;
 
+    [Header("Playing Key Settings")]
+    public KeyCode right = KeyCode.RightArrow;
+    public KeyCode left = KeyCode.LeftArrow;
+    public KeyCode up = KeyCode.UpArrow;
+    public KeyCode down = KeyCode.DownArrow;
 
     [Header("Testing Key Settings")]
-    public KeyCode k_up = KeyCode.W;
-    public KeyCode k_down = KeyCode.S;
-    public KeyCode k_left = KeyCode.A;
-    public KeyCode k_right = KeyCode.D;
+    public KeyCode t_up = KeyCode.W;
+    public KeyCode t_down = KeyCode.S;
+    public KeyCode t_left = KeyCode.A;
+    public KeyCode t_right = KeyCode.D;
 
 
     private List<GameObject> right_stack = new List<GameObject>();
@@ -50,25 +55,25 @@ public class GameManager : MonoBehaviour
         DeleteMissedTargets(down_stack);
 
         // For testing purposes, generate targets using keyboard.
-        if (Input.GetKeyDown(k_up))
+        if (Input.GetKeyDown(t_up))
         {
             //print("Generating particle from TOP");
             GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.down);
             up_stack.Add(t);
         }
-        else if (Input.GetKeyDown(k_down))
+        if (Input.GetKeyDown(t_down))
         {
             //print("Generating particle from BOT");
             GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.up);
             down_stack.Add(t);
         }
-        else if (Input.GetKeyDown(k_left))
+        if (Input.GetKeyDown(t_left))
         {
             //print("Generating particle from LEFT");
             GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.right);
             left_stack.Add(t);
         }
-        else if (Input.GetKeyDown(k_right))
+        if (Input.GetKeyDown(t_right))
         {
             //print("Generating particle from RIGHT");
             GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.left);
@@ -76,6 +81,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Loops through the list given as argument, and checks for each target if it should
+    // be considered as missed and destroyed, if so removes it from the list and destroys it.
     void DeleteMissedTargets(List<GameObject> stack)
     {
         for (int i = stack.Count - 1; i >= 0; i--)
