@@ -14,25 +14,29 @@ public class Target : MonoBehaviour
 
     private int state = SCALE_STATE;
 
+    public const int SINGLE = 0;
+    public const int DOUBLE = 1;
 
     private Vector2 direction;
     private float speed;
     private float stopDistance;
     private float disapearanceTime;
     private float scalingTime;
-    public float timeBeforeDeletion;
+    private float timeBeforeDeletion;
+    private int type; // Single target (colored yellow), Double target (colored purple)
 
 
     private Transform rb;
     private Vector3 finalScale;
 
-    public void init(Vector2 direction, float speed, float stopDistance, float disapearanceTime, float scalingTime)
+    public void init(Vector2 direction, float speed, float stopDistance, float disapearanceTime, float scalingTime, int type)
     {
         this.direction = direction;
         this.speed = speed;
         this.stopDistance = stopDistance;
         this.disapearanceTime = disapearanceTime;
         this.scalingTime = scalingTime;
+        this.type = type;
 
         timeBeforeDeletion = disapearanceTime;
     }
@@ -105,5 +109,10 @@ public class Target : MonoBehaviour
     public float GetDistanceLeft()
     {
         return Vector2.Distance(GetLimit(), rb.position);
+    }
+
+    public int GetTargetType()
+    {
+        return type;
     }
 }

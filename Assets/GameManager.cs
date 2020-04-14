@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    private const int RIGHT = 0;
+    private const int LEFT = 1;
+    private const int UP = 2;
+    private const int DOWN = 3;
+
     [Header("Settings")]
     [Tooltip("Distance to the origin of the target when it spawns")]
     public float maxRange = 4.5f;
@@ -18,6 +24,16 @@ public class GameManager : MonoBehaviour
     public float scalingFactor = 0.85f;
     [Tooltip("Distance to the center of a target at which it can already be considered 'hit'")]
     public float acceptedDistance = 0.1f;
+
+
+    [Header("Hit Particles")]
+    public ParticleSystem psRight;
+    public ParticleSystem psLeft;
+    public ParticleSystem psUp;
+    public ParticleSystem psDown;
+    private ParticleSystem[] pss = new ParticleSystem[4];
+    private Gradient yellowGradient;
+    private Gradient purpleGradient;
 
     [Header("Playing Key Settings")]
     public KeyCode right = KeyCode.RightArrow;
@@ -38,6 +54,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> left_stack = new List<GameObject>();
     private List<GameObject> up_stack = new List<GameObject>();
     private List<GameObject> down_stack = new List<GameObject>();
+    private List<GameObject>[] stacks = new List<GameObject>[4];
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +64,35 @@ public class GameManager : MonoBehaviour
         TargetGenerator.disapearanceTime = disapearanceTime;
         TargetGenerator.scalingTime = scalingTime;
         TargetGenerator.scalingFactor = scalingFactor;
+
+        pss[RIGHT] = psRight;
+        pss[LEFT] = psLeft;
+        pss[UP] = psUp;
+        pss[DOWN] = psDown;
+
+        foreach (ParticleSystem ps in pss) {
+            ps.Stop();
+        }
+
+        stacks[RIGHT] = right_stack;
+        stacks[LEFT] = left_stack;
+        stacks[UP] = up_stack;
+        stacks[DOWN] = down_stack;
+
+        var myYellow = new Color(1f, 0.95f, 0f);
+        var myPurple = new Color(0.7961f, 0.2980f, 0.9490f);
+
+        yellowGradient = new Gradient();
+        yellowGradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(myYellow, 0.0f), new GradientColorKey(myYellow, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(0.5f, 0.0f), new GradientAlphaKey(0.25f, 1.0f) }
+        );
+
+        purpleGradient = new Gradient();
+        purpleGradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(myPurple, 0.0f), new GradientColorKey(myPurple, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(0.5f, 0.0f), new GradientAlphaKey(0.25f, 1.0f) }
+        );
     }
 
     // Update is called once per frame
@@ -55,19 +101,19 @@ public class GameManager : MonoBehaviour
         // Handles the click hit of targets
         if (Input.GetKeyDown(right))
         {
-            ClickTarget(right_stack);
+            ClickTarget(RIGHT);
         }
         if (Input.GetKeyDown(left))
         {
-            ClickTarget(left_stack);
+            ClickTarget(LEFT);
         }
         if (Input.GetKeyDown(up))
         {
-            ClickTarget(up_stack);
+            ClickTarget(UP);
         }
         if (Input.GetKeyDown(down))
         {
-            ClickTarget(down_stack);
+            ClickTarget(DOWN);
         }
 
         // Handles the destruction of missed targets
@@ -136,16 +182,24 @@ public class GameManager : MonoBehaviour
     }
 
     // Computes if a target has been hit or not and removes it if it does.
-    void ClickTarget(List<GameObject> stack)
+    void ClickTarget(int direction)
     {
-        if (stack.Count > 0)
+        //List<GameObject> stack
+        if (stacks[direction].Count > 0)
         {
-            var idx = stack.Count - 1;
-            var t = stack[idx].GetComponent(typeof(Target)) as Target;
+            var idx = 0; // stacks[direction].Count - 1;
+            var t = stacks[direction][idx].GetComponent(typeof(Target)) as Target;
             if (t.GetDistanceLeft() < acceptedDistance)
             {
-                Destroy(stack[idx]);
-                stack.RemoveAt(idx);
+                int type = t.GetTargetType();
+
+                var colorModule = pss[direction].colorOverLifetime;
+                if(type == Target.SINGLE) { colorModule.color = yellowGradient; }
+                else { colorModule.color = purpleGradient; }
+                pss[direction].Play();
+
+                Destroy(stacks[direction][idx]);
+                stacks[direction].RemoveAt(idx);
             }
         }
     }

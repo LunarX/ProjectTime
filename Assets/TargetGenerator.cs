@@ -35,7 +35,7 @@ public static class TargetGenerator
             throw new ArgumentException("The given direction isn't accepted");
         }
 
-        return CreateTarget("Targets/Circle", direction, speed);
+        return CreateTarget("Targets/Circle", Target.SINGLE, direction, speed);
     }
 
     public static Tuple<GameObject, GameObject> GenerateDoubleTarget(Vector2 direction1, Vector2 direction2, float speed)
@@ -50,10 +50,10 @@ public static class TargetGenerator
             throw new ArgumentException("At least one of the two given direction isn't accepted");
         }
 
-        return Tuple.Create(CreateTarget("Targets/Circle2", direction1, speed), CreateTarget("Targets/Circle2", direction2, speed));
+        return Tuple.Create(CreateTarget("Targets/Circle2", Target.DOUBLE, direction1, speed), CreateTarget("Targets/Circle2", Target.DOUBLE, direction2, speed));
     }
 
-    private static GameObject CreateTarget(String spritePath, Vector2 direction, float speed)
+    private static GameObject CreateTarget(String spritePath, int type, Vector2 direction, float speed)
     {
         GameObject go = new GameObject("Target Circle");
 
@@ -62,7 +62,7 @@ public static class TargetGenerator
         renderer.sprite = sprite;
 
         Target target = go.AddComponent<Target>();
-        target.init(direction, speed, minRange, disapearanceTime, scalingTime);
+        target.init(direction, speed, minRange, disapearanceTime, scalingTime, type);
 
         float startingX = -direction.x * maxRange;
         float startingY = -direction.y * maxRange;
