@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     public KeyCode t_down = KeyCode.S;
     public KeyCode t_left = KeyCode.A;
     public KeyCode t_right = KeyCode.D;
+    public KeyCode t_double_vertical = KeyCode.E;
+    public KeyCode t_double_horizontal = KeyCode.Q;
 
 
     private List<GameObject> right_stack = new List<GameObject>();
@@ -81,26 +83,40 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(t_up))
         {
             //print("Generating particle from TOP");
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.down);
+            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.down, 3f);
             up_stack.Add(t);
         }
         if (Input.GetKeyDown(t_down))
         {
             //print("Generating particle from BOT");
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.up);
+            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.up, 3f);
             down_stack.Add(t);
         }
         if (Input.GetKeyDown(t_left))
         {
             //print("Generating particle from LEFT");
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.right);
+            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.right, 3f);
             left_stack.Add(t);
         }
         if (Input.GetKeyDown(t_right))
         {
             //print("Generating particle from RIGHT");
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.left);
+            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.left, 3f);
             right_stack.Add(t);
+        }
+
+        if(Input.GetKeyDown(t_double_horizontal))
+        {
+            var ts = TargetGenerator.GenerateDoubleTarget(Vector2.left, Vector2.right, 3f);
+            right_stack.Add(ts.Item1);
+            left_stack.Add(ts.Item2);
+        }
+
+        if (Input.GetKeyDown(t_double_vertical))
+        {
+            var ts = TargetGenerator.GenerateDoubleTarget(Vector2.up, Vector2.down, 3f);
+            down_stack.Add(ts.Item1);
+            up_stack.Add(ts.Item2);
         }
     }
 
