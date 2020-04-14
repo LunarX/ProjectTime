@@ -14,26 +14,16 @@ public class TargetBehavior : MonoBehaviour
 
     private int state = SCALE_STATE;
 
+    // Contains characteristic data of the target
+    private Target target;
 
-    [Header("Settings")]
-    public Vector2 direction;// = Vector2.zero;
-
-    public float speed;// = 0.1f;
-    public float stopDistance;// = 0.98f;
-    public float disapearanceTime;// = 0.2f;
-    public float scalingTime;
-    
 
     private Transform rb;
-    Vector3 finalScale;
+    private Vector3 finalScale;
 
-    public void init(Vector2 direction, float speed, float stopDistance, float disapearanceTime, float scalingTime)
+    public void init(Target target)
     {
-        this.direction = direction;
-        this.speed = speed;
-        this.stopDistance = stopDistance;
-        this.disapearanceTime = disapearanceTime;
-        this.scalingTime = scalingTime;
+        this.target = target;
     }
 
     // Start is called before the first frame update
@@ -52,7 +42,7 @@ public class TargetBehavior : MonoBehaviour
         switch (state)
         {
             case SCALE_STATE:
-                Vector3 nextScale = rb.localScale + (finalScale / scalingTime) * Time.deltaTime;
+                Vector3 nextScale = rb.localScale + (finalScale / target.scalingTime) * Time.deltaTime;
                 nextScale.z = finalScale.z;
                 rb.localScale = nextScale;
 
@@ -66,14 +56,14 @@ public class TargetBehavior : MonoBehaviour
                 Vector2 prev = rb.position;
                 if (!ReachedLimit(prev)) // If the target hasn't reached the limit yet, update its position towards it
                 {
-                    Vector2 nextPos = prev + direction * speed * Time.deltaTime;
+                    Vector2 nextPos = prev + target.direction * target.speed * Time.deltaTime;
                     if (ReachedLimit(nextPos)) nextPos = GetLimit(); // In case we go a little bit too far inbetween two frames, constrain the position at the limit
                     rb.position = nextPos;
                 }
                 else
                 {
                     state = WAITING_DEL_STATE;
-                    Invoke("OnMissed", disapearanceTime);
+                    Invoke("OnMissed", target.disapearanceTime);
                 }
                 break;
             case WAITING_DEL_STATE:
@@ -86,13 +76,13 @@ public class TargetBehavior : MonoBehaviour
     // Returns true if the position of this target is the center position according to its direction
     bool ReachedLimit(Vector2 position)
     {
-        return Mathf.Abs(position.x) <= stopDistance * ((direction.x == 0) ? 0 : 1) && Mathf.Abs(position.y) <= stopDistance * ((direction.y == 0) ? 0 : 1);
+        return Mathf.Abs(position.x) <= target.stopDistance * ((target.direction.x == 0) ? 0 : 1) && Mathf.Abs(position.y) <= target.stopDistance * ((target.direction.y == 0) ? 0 : 1);
     }
 
     // Returns the 2D position of the center position of this direction
     Vector2 GetLimit()
     {
-        return -direction * stopDistance;
+        return -target.direction * target.stopDistance;
     }
 
     // When a target has been missed

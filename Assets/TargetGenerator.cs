@@ -38,33 +38,38 @@ public class TargetGenerator : MonoBehaviour
         if(Input.GetKeyDown(k_up))
         {
             //print("Generating particle from TOP");
-            GenerateTarget(Vector2.down);
+            GenerateSingleTarget(Vector2.down);
         }
         else if(Input.GetKeyDown(k_down))
         {
             //print("Generating particle from BOT");
-            GenerateTarget(Vector2.up);
+            GenerateSingleTarget(Vector2.up);
         }
         else if (Input.GetKeyDown(k_left))
         {
             //print("Generating particle from LEFT");
-            GenerateTarget(Vector2.right);
+            GenerateSingleTarget(Vector2.right);
         }
         else if (Input.GetKeyDown(k_right))
         {
             //print("Generating particle from RIGHT");
-            GenerateTarget(Vector2.left);
+            GenerateSingleTarget(Vector2.left);
         }
     }
 
 
-    private void GenerateTarget(Vector2 direction)
+    private void GenerateSingleTarget(Vector2 direction)
     {
         Sprite sprite = Resources.Load<Sprite>("Targets/Circle");
 
         GameObject go = new GameObject("Target Circle");
         SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();
         renderer.sprite = sprite;
+
+
+        Target target = go.AddComponent<Target>();
+        target.init(direction, 3f, minRange, disapearanceTime, scalingTime);
+
 
         float startingX = -direction.x * maxRange;
         float startingY = -direction.y * maxRange;
@@ -73,6 +78,6 @@ public class TargetGenerator : MonoBehaviour
         go.transform.localScale = new Vector3(0.3f, 0.3f, 1f) * scalingFactor;
 
         TargetBehavior tb = go.AddComponent<TargetBehavior>();
-        tb.init(direction, 3f, minRange, disapearanceTime, scalingTime);
+        tb.init(target);
     }
 }
