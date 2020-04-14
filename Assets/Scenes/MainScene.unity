@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 21967371}
   - component: {fileID: 21967370}
   m_Layer: 0
-  m_Name: ClickedUpSFX
+  m_Name: ClickedUpVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 36263688}
   - component: {fileID: 36263687}
   m_Layer: 0
-  m_Name: ClickedLeftSFX
+  m_Name: ClickedLeftVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -398,6 +398,7 @@ MonoBehaviour:
   disapearanceTime: 0.2
   scalingTime: 1.2
   scalingFactor: 0.85
+  acceptedDistance: 0.1
   right: 275
   left: 276
   up: 273
@@ -573,7 +574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1832510013}
   m_Layer: 0
-  m_Name: ClickedSFX
+  m_Name: ClickedVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -608,7 +609,7 @@ GameObject:
   - component: {fileID: 1886186116}
   - component: {fileID: 1886186115}
   m_Layer: 0
-  m_Name: ClickedDownSFX
+  m_Name: ClickedDownVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -689,7 +690,7 @@ GameObject:
   - component: {fileID: 1925762165}
   - component: {fileID: 1925762164}
   m_Layer: 0
-  m_Name: ClickedRightSFX
+  m_Name: ClickedRightVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -770,7 +771,7 @@ GameObject:
   - component: {fileID: 2116900954}
   - component: {fileID: 2116900953}
   m_Layer: 0
-  m_Name: TapHandler
+  m_Name: HitVFXHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

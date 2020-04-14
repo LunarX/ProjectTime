@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TapHandler : MonoBehaviour
+public class HitVFXHandler : MonoBehaviour
 {
     [Header("Clicked Sprites SFX")]
     public SpriteRenderer rightSFX;
