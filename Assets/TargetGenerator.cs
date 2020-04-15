@@ -69,6 +69,18 @@ public static class TargetGenerator
         go.transform.position = new Vector3(startingX, startingY, 0f);
         go.transform.localScale = new Vector3(0.3f, 0.3f, 1f) * scalingFactor;
 
+        // Rajouté par Quentin (permet la détection de collision)
+        Rigidbody2D rb = go.AddComponent<Rigidbody2D>() as Rigidbody2D;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.simulated = true;
+
+        CircleCollider2D cc = go.AddComponent<CircleCollider2D>() as CircleCollider2D;
+        cc.isTrigger = true;
+        // 
+
         return go;
     }
+
+
+
 }
