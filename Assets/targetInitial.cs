@@ -53,14 +53,14 @@ public class targetInitial : MonoBehaviour
     private int randDir;
     private int toolbarInt = 0;
     private string[] toolbarStrings = new string[] { "Lent", "Moyen", "Rapide" };
-    public float interv = 3f;
+    public static float interv = 3f;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        TargetGenerator.maxRange = maxRange;        // Cercle extérieur
-        TargetGenerator.minRange = minRange;        // Cercle intérieur
+        TargetGenerator.maxRange = maxRange;                    // Cercle extérieur
+        TargetGenerator.minRange = minRange;                    // Cercle intérieur
         TargetGenerator.disapearanceTime = disapearanceTime;    // Temps avant la disparition
         TargetGenerator.scalingTime = scalingTime;  
         TargetGenerator.scalingFactor = scalingFactor;

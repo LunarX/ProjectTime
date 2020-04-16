@@ -25,8 +25,6 @@ public class ProjectilBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)                             // Nom de la fonction qui détecte une collision (est appelée si collision avec l'objet)
     {
-        print("Boule de feu touche sa cible !");                                                  
-
         Destroy(gameObject);                                                        // Détruit l'objet
     }
 }

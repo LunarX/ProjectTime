@@ -17,7 +17,7 @@ public class Target : MonoBehaviour
     public const int SINGLE = 0;
     public const int DOUBLE = 1;
 
-    private Vector2 direction;
+    private Vector2 direction;      // PROPOSITION : à la place d'indiquer une direction, on pourrait juste indiquer à la cible de se diriger vers le centre...
     private float speed;
     private float stopDistance;
     private float disapearanceTime;
@@ -67,6 +67,8 @@ public class Target : MonoBehaviour
                     state = MOVE_STATE;
                 }
                 break;
+
+            
             case MOVE_STATE:
                 Vector2 prev = rb.position;
                 if (!ReachedLimit(prev)) // If the target hasn't reached the limit yet, update its position towards it

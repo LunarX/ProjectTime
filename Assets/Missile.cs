@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    [Header("Paramètres")]
-    [Tooltip("Objet à tirer")]
-    public GameObject projectile;
-
+    
 
     // Update is called once per frame
     void Update()
