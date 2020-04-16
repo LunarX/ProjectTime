@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour
     //[Tooltip("Distance to the center of a target at which it can already be considered 'hit'")]
     //public float acceptedDistance = 0.1f;
 
-
+    [Header("Donnée du jeu")]
+    public static int score = 0;
     //[Header("Hit Particles")]
     //public ParticleSystem psRight;
     //public ParticleSystem psLeft;
@@ -49,8 +50,7 @@ public class GameManager : MonoBehaviour
     //public KeyCode t_double_vertical = KeyCode.E;
     //public KeyCode t_double_horizontal = KeyCode.Q;
 
-    [Header("Donnée du jeu")]
-    public static int score = 0;
+
 
 
     //private List<GameObject> right_stack = new List<GameObject>();

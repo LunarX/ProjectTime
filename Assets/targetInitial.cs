@@ -53,7 +53,7 @@ public class targetInitial : MonoBehaviour
     private int randDir;
     private int toolbarInt = 0;
     private string[] toolbarStrings = new string[] { "Lent", "Moyen", "Rapide" };
-    public int interv = 3;
+    public float interv = 3f;
 
     // Start is called before the first frame update
     void Start()
@@ -125,11 +125,11 @@ public class targetInitial : MonoBehaviour
 
 
         if (toolbarInt == 0)
-            interv = 3;
+            interv = 2.5f;
         else if (toolbarInt == 1)
-            interv = 2;
+            interv = 1.5f;
         else if (toolbarInt == 2)
-            interv = 1;
+            interv = 0.6f;
 
         currentTime = Time.time;
         if (Mathf.Abs(currentTime - oldTime) > interv)      // S'active seul toutes les 'interv' secondes
@@ -188,6 +188,7 @@ public class targetInitial : MonoBehaviour
         }
     }
 
+    // Gui, pour modifier la vitesse de génération des cibles
     void OnGUI()
     {
         toolbarInt = GUI.Toolbar(new Rect(25, 25, 250, 30), toolbarInt, toolbarStrings);
