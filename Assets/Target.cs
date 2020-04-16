@@ -25,7 +25,6 @@ public class Target : MonoBehaviour
     private float timeBeforeDeletion;
     private int type; // Single target (colored yellow), Double target (colored purple)
 
-
     private Transform rb;
     private Vector3 finalScale;
 
@@ -124,11 +123,13 @@ public class Target : MonoBehaviour
 
         if (missile != null)                                                        // Si c'est null, alors ce n'est pas un missile
         {
-            print("Cible touché !");
+
+            GameManager.score += 1;
 
             //Destroy(gameObject);                                                        // Détruit l'objet
             timeBeforeDeletion = 0;
             state = WAITING_DEL_STATE;
+
         }
 
     }
