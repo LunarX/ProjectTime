@@ -25,14 +25,6 @@ public class targetInitial : MonoBehaviour
     [Tooltip("Distance to the center of a target at which it can already be considered 'hit'")]
     public static float acceptedDistance = 0.1f;
 
-    // Touche pour générer soi-même des cibles
-    [Header("Génération des Target")]
-    public KeyCode targetUp = KeyCode.W;        // Venant du haut
-    public KeyCode targetDown = KeyCode.S;      // Venant du bas
-    public KeyCode targetLeft = KeyCode.A;      // Venant de gauche
-    public KeyCode targetRight = KeyCode.D;     // Venant de droite
-    public KeyCode targetVertical = KeyCode.E;  // Venant d'en haut et d'en bas
-    public KeyCode targetHorizontal = KeyCode.Q;    // Venant de à droite et à gauche
 
     // Listes contenant les cibles
     [HideInInspector]
@@ -77,52 +69,6 @@ public class targetInitial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // For testing purposes, generate targets using keyboard.
-        if (Input.GetKeyDown(targetUp))
-        {
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.down, 3f);
-            up_stack.Add(t);
-        }
-        if (Input.GetKeyDown(targetDown))
-        {
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.up, 3f);
-            down_stack.Add(t);
-        }
-        if (Input.GetKeyDown(targetLeft))
-        {
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.right, 3f);
-            left_stack.Add(t);
-        }
-        if (Input.GetKeyDown(targetRight))
-        {
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.left, 3f);
-            right_stack.Add(t);
-        }
-
-        if (Input.GetKeyDown(targetHorizontal))
-        {
-            var ts = TargetGenerator.GenerateDoubleTarget(Vector2.left, Vector2.right, 3f);
-            right_stack.Add(ts.Item1);
-            left_stack.Add(ts.Item2);
-        }
-
-        if (Input.GetKeyDown(targetVertical))
-        {
-            var ts = TargetGenerator.GenerateDoubleTarget(Vector2.up, Vector2.down, 3f);
-            down_stack.Add(ts.Item1);
-            up_stack.Add(ts.Item2);
-        }
-    
-
-
-        // Handles the destruction of missed targets
-        // Iterate through all targets currently loaded, and find the ones that should 
-        // be destroyed because the user missed it for too long and destroy them.
-        DeleteMissedTargets(right_stack);
-        DeleteMissedTargets(left_stack);
-        DeleteMissedTargets(up_stack);
-        DeleteMissedTargets(down_stack);
-
 
         if (toolbarInt == 0)
             interv = 2.5f;
@@ -140,52 +86,6 @@ public class targetInitial : MonoBehaviour
             stacks[randDir].Add(t);     // Evite de faire 4 if
         }
 
-    }
-
-    // Loops through the list given as argument, and checks for each target if it should
-    // be considered as missed and destroyed, if so removes it from the list and destroys it.
-    public void DeleteMissedTargets(List<GameObject> stack)
-    {
-        for (int i = stack.Count - 1; i >= 0; i--)      // Parcours les 4 stacks (gauche, haut, ...)
-        {
-            Target t = stack[i].GetComponent(typeof(Target)) as Target;
-            if (t.GetTimeBeforeDeletion() <= 0)
-            {
-                Destroy(stack[i]);      // Détruit l'objet
-                stack.RemoveAt(i);      // Enlève l'objet de la liste (puisque chaque Update, on parcours tous les objets, il faut l'enlever)
-            }
-        }
-    }
-
-    // Computes if a target has been hit or not and removes it if it does.
-    public static void ClickTarget(int direction)
-    {
-        //List<GameObject> stack
-        if (stacks[direction].Count > 0)
-        {
-            var idx = 0; // stacks[direction].Count - 1;
-            var t = stacks[direction][idx].GetComponent(typeof(Target)) as Target;
-
-            // Si on réussit à bien cliquer
-            if (t.GetDistanceLeft() < acceptedDistance)
-            {
-                int type = t.GetTargetType();
-
-                var colorModule = SideController.pss[direction].colorOverLifetime;
-
-                if (type == Target.SINGLE)      // Cible Jaune
-                    colorModule.color = SideController.yellowGradient;
-                else                            // Cibles Violettes
-                    colorModule.color = SideController.purpleGradient;
-
-                SideController.pss[direction].Play();       // Active les effets hexagones, pour signifier la réussite
-
-                Destroy(stacks[direction][idx]);
-                stacks[direction].RemoveAt(idx);
-
-                GameManager.score += 1;     // Score + 1
-            }
-        }
     }
 
     // Gui, pour modifier la vitesse de génération des cibles
