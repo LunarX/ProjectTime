@@ -54,12 +54,12 @@ public class Skeleton : MonoBehaviour
             diff.Normalize();
 
             float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            
+
 
             // Création de l'objet, et rajout des Components
             GameObject go = new GameObject("Skeletton");                                                    // Création de l'objet
 
-            Sprite image = Resources.Load<Sprite>("Enemy/skelette");                                        // On récupère l'image de la boule de feu     
+            Sprite image = Resources.Load<Sprite>("Enemy/skelette");                                        // On récupère l'image de la boule de feu
             SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();                                    // Rajoute le Component 'Sprite Renderer' pour l'objet
             renderer.sprite = image;                                                                        // Fait le lien entre l'image et l'objet
 
