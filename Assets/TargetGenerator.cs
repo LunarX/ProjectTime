@@ -3,57 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public static class TargetGenerator
+public class TargetGenerator
 {
     [Header("Settings")]
     [Tooltip("Distance to the origin of the target when it spawns")]
-    public static float maxRange = 4.5f;
-
+    private float maxRange;
     [Tooltip("Distance to the origin of the target when it has to stop because it reached the center")]
-    public static float minRange = 0.98f;
-
-
-    [Tooltip("Time the target sticks at the end of its path before being considered as missed")]
-    public static float disapearanceTime = 0.2f;
-
-    [Tooltip("Time it takes for a target to scale to its final size before starting to move")]
-    public static float scalingTime = 1f;
-
+    private float minRange;
     [Tooltip("Scaling factor of the size of the targets' sprites")]
-    public static float scalingFactor = 1.2f;
+    private float scalingFactor;
 
 
+    //[Tooltip("Time the target sticks at the end of its path before being considered as missed")]
+    //public static float disapearanceTime = 0.2f;
 
-    private static readonly Vector2[] acceptedDirections = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
+    //[Tooltip("Time it takes for a target to scale to its final size before starting to move")]
+    //public static float scalingTime;
+
     
 
 
-    public static GameObject GenerateSingleTarget(Vector2 direction, float speed)
+
+    private static readonly Vector2[] acceptedDirections = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
+    
+
+    public TargetGenerator(float maxRange_, float minRange_, float scalingFactor_)
     {
-        if (!Array.Exists(acceptedDirections, element => element == direction))
+        maxRange = maxRange_;
+        minRange = minRange_;
+        scalingFactor = scalingFactor_;
+    }
+
+
+    public GameObject GenerateSingleTarget(int direction, float speed, float disapearanceTime)
+    {
+        if (direction < 0 && direction >= acceptedDirections.Length)
         {
             throw new ArgumentException("The given direction isn't accepted");
         }
 
-        return CreateTarget("Targets/Circle", Target.SINGLE, direction, speed);
+        return CreateTarget("Targets/Circle", Target.SINGLE, acceptedDirections[direction], speed, disapearanceTime);
     }
 
-    public static Tuple<GameObject, GameObject> GenerateDoubleTarget(Vector2 direction1, Vector2 direction2, float speed)
+    public Tuple<GameObject, GameObject> GenerateDoubleTarget(int direction1, int direction2, float speed, float disapearanceTime)
     {
         if(direction1 == direction2)
         {
             throw new ArgumentException("Cannot generate double target on the same side");
         }
-        
-        if (!Array.Exists(acceptedDirections, element => element == direction1) || !Array.Exists(acceptedDirections, element => element == direction2))
+
+        if (direction1 < 0 && direction1 >= acceptedDirections.Length || direction2 < 0 && direction2 >= acceptedDirections.Length)
         {
             throw new ArgumentException("At least one of the two given direction isn't accepted");
         }
 
-        return Tuple.Create(CreateTarget("Targets/Circle2", Target.DOUBLE, direction1, speed), CreateTarget("Targets/Circle2", Target.DOUBLE, direction2, speed));
+        return Tuple.Create(CreateTarget("Targets/Circle2", Target.DOUBLE, acceptedDirections[direction1], speed, disapearanceTime), CreateTarget("Targets/Circle2", Target.DOUBLE, acceptedDirections[direction2], speed, disapearanceTime));
     }
 
-    private static GameObject CreateTarget(String spritePath, int type, Vector2 direction, float speed)
+    private GameObject CreateTarget(String spritePath, int type, Vector2 direction, float speed, float disapearanceTime)
     {
         GameObject go = new GameObject("Target Circle");
 
@@ -62,7 +69,7 @@ public static class TargetGenerator
         renderer.sprite = sprite;
 
         Target target = go.AddComponent<Target>();
-        target.init(direction, speed, minRange, disapearanceTime, scalingTime, type);
+        target.init(direction, speed, minRange, disapearanceTime, type);
 
         float startingX = -direction.x * maxRange;
         float startingY = -direction.y * maxRange;

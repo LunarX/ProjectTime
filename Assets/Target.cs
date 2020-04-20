@@ -28,13 +28,13 @@ public class Target : MonoBehaviour
     private Transform rb;
     private Vector3 finalScale;
 
-    public void init(Vector2 direction, float speed, float stopDistance, float disapearanceTime, float scalingTime, int type)
+    public void init(Vector2 direction, float speed, float stopDistance, float disapearanceTime, int type)
     {
         this.direction = direction;
         this.speed = speed;
         this.stopDistance = stopDistance;
         this.disapearanceTime = disapearanceTime;
-        this.scalingTime = scalingTime;
+        this.scalingTime = 3.6f * (1f/speed);
         this.type = type;
 
         timeBeforeDeletion = disapearanceTime;

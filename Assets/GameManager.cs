@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
     private List<GameObject> up_stack = new List<GameObject>();
     private List<GameObject> down_stack = new List<GameObject>();
     private List<GameObject>[] stacks = new List<GameObject>[4];
+
+    private TargetGenerator tg;// = new TargetGenerator(maxRange, minRange, scalingFactor);
     
 
     // Start is called before the first frame update
@@ -61,7 +63,9 @@ public class GameManager : MonoBehaviour
         stacks[LEFT] = left_stack;
         stacks[UP] = up_stack;
         stacks[DOWN] = down_stack;
-    }
+
+        tg = new TargetGenerator(maxRange, minRange, scalingFactor);
+}
 
     // Update is called once per frame
     void Update()
@@ -75,35 +79,35 @@ public class GameManager : MonoBehaviour
         // For testing purposes, generate targets using keyboard.
         if (Input.GetKeyDown(t_up))
         {
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.down, 3f);
+            GameObject t = tg.GenerateSingleTarget(DOWN, 3f, 0.2f);
             up_stack.Add(t);
         }
         if (Input.GetKeyDown(t_down))
         {
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.up, 3f);
+            GameObject t = tg.GenerateSingleTarget(UP, 3f, 0.2f);
             down_stack.Add(t);
         }
         if (Input.GetKeyDown(t_left))
         {
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.right, 3f);
+            GameObject t = tg.GenerateSingleTarget(RIGHT, 3f, 0.2f);
             left_stack.Add(t);
         }
         if (Input.GetKeyDown(t_right))
         {
-            GameObject t = TargetGenerator.GenerateSingleTarget(Vector2.left, 3f);
+            GameObject t = tg.GenerateSingleTarget(LEFT, 3f, 0.2f);
             right_stack.Add(t);
         }
 
         if (Input.GetKeyDown(t_double_horizontal))
         {
-            var ts = TargetGenerator.GenerateDoubleTarget(Vector2.left, Vector2.right, 3f);
+            var ts = tg.GenerateDoubleTarget(LEFT, RIGHT, 3f, 0.2f);
             right_stack.Add(ts.Item1);
             left_stack.Add(ts.Item2);
         }
 
         if (Input.GetKeyDown(t_double_vertical))
         {
-            var ts = TargetGenerator.GenerateDoubleTarget(Vector2.up, Vector2.down, 3f);
+            var ts = tg.GenerateDoubleTarget(UP, DOWN, 3f, 0.2f);
             down_stack.Add(ts.Item1);
             up_stack.Add(ts.Item2);
         }
