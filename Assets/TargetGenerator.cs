@@ -7,11 +7,11 @@ public class TargetGenerator
 {
     [Header("Settings")]
     [Tooltip("Distance to the origin of the target when it spawns")]
-    private float maxRange;
+    private static float maxRange;
     [Tooltip("Distance to the origin of the target when it has to stop because it reached the center")]
-    private float minRange;
+    private static float minRange;
     [Tooltip("Scaling factor of the size of the targets' sprites")]
-    private float scalingFactor;
+    private static float scalingFactor;
 
 
     //[Tooltip("Time the target sticks at the end of its path before being considered as missed")]
@@ -20,20 +20,20 @@ public class TargetGenerator
     //[Tooltip("Time it takes for a target to scale to its final size before starting to move")]
     //public static float scalingTime;
 
-    
 
 
 
-    private static readonly Vector2[] acceptedDirections = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
-    
 
+    private static readonly Vector2[] acceptedDirections = { Vector2.left, Vector2.right, Vector2.down, Vector2.up };
+    //private static readonly Vector2[] acceptedDirections = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
+
+    // Une fonction et un fichier ayant le même nom ? Un peu dangeureux, non ? Et y a pas void ou un truc dans le genre ?
     public TargetGenerator(float maxRange_, float minRange_, float scalingFactor_)
     {
         maxRange = maxRange_;
         minRange = minRange_;
         scalingFactor = scalingFactor_;
     }
-
 
     public GameObject GenerateSingleTarget(int direction, float speed, float disapearanceTime)
     {
@@ -44,6 +44,16 @@ public class TargetGenerator
 
         return CreateTarget("Targets/Circle", Target.SINGLE, acceptedDirections[direction], speed, disapearanceTime);
     }
+
+    // PROPOSITION :
+    // Direction : 0 = right, 1 = left, ... (cf. acceptedDirections). Evite les if's
+    //public GameObject GenerateSingleTarget(Vector2 direction, float speed, float disapearanceTime)
+    //{
+    //    if (acceptedDirections.Contains(direction))
+    //        return CreateTarget("Targets/Circle", Target.SINGLE, direction, speed, disapearanceTime);
+    //    else
+    //        throw new ArgumentException("The given direction isn't accepted");
+    //}
 
     public Tuple<GameObject, GameObject> GenerateDoubleTarget(int direction1, int direction2, float speed, float disapearanceTime)
     {
@@ -60,7 +70,7 @@ public class TargetGenerator
         return Tuple.Create(CreateTarget("Targets/Circle2", Target.DOUBLE, acceptedDirections[direction1], speed, disapearanceTime), CreateTarget("Targets/Circle2", Target.DOUBLE, acceptedDirections[direction2], speed, disapearanceTime));
     }
 
-    private GameObject CreateTarget(String spritePath, int type, Vector2 direction, float speed, float disapearanceTime)
+    private static GameObject CreateTarget(String spritePath, int type, Vector2 direction, float speed, float disapearanceTime)
     {
         GameObject go = new GameObject("Target Circle");
 
@@ -76,13 +86,14 @@ public class TargetGenerator
         go.transform.position = new Vector3(startingX, startingY, 0f);
         go.transform.localScale = new Vector3(0.3f, 0.3f, 1f) * scalingFactor;
 
+        // Plus utile... (mais au cas où)
         // Rajouté par Quentin (permet la détection de collision)
-        Rigidbody2D rb = go.AddComponent<Rigidbody2D>() as Rigidbody2D;
-        rb.bodyType = RigidbodyType2D.Kinematic;
-        rb.simulated = true;
+        //Rigidbody2D rb = go.AddComponent<Rigidbody2D>() as Rigidbody2D;
+        //rb.bodyType = RigidbodyType2D.Kinematic;
+        //rb.simulated = true;
 
-        CircleCollider2D cc = go.AddComponent<CircleCollider2D>() as CircleCollider2D;
-        cc.isTrigger = true;
+        //CircleCollider2D cc = go.AddComponent<CircleCollider2D>() as CircleCollider2D;
+        //cc.isTrigger = true;
         // 
 
         return go;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkeletonBehaviour : MonoBehaviour
 {
-    public int projectilSpeed = 1;
+    public int projectilSpeed = 2;
     private Transform rb;
     private Vector3 dir;
 
@@ -22,7 +22,7 @@ public class SkeletonBehaviour : MonoBehaviour
     {
         // A modifier (pas besoin de recalculer à chaque fois la direction)
         
-        rb.position = rb.position - dir;                                           // Mise à jour de la position
+        rb.position -= dir;                                           // Mise à jour de la position
     }
 
     private void OnTriggerEnter2D(Collider2D collision)                             // Nom de la fonction qui détecte une collision (est appelée si collision avec l'objet)
@@ -30,12 +30,19 @@ public class SkeletonBehaviour : MonoBehaviour
 
         ProjectilBehavior missile = collision.gameObject.GetComponent<ProjectilBehavior>();     // Permet de s'assurer que la collision soit avec un missile (seule une boule de feu contient le Component 'ProjectilBehavior')
 
+        // Si le squelette est touché par un missile, alors 'missile' ne sera pas nul
         if (missile != null)                                                        // Si c'est null, alors ce n'est pas un missile
         {
-
-            GameManager.score += 1;
             Destroy(gameObject);                                                        // Détruit l'objet
+            ScoreManager.TargetHitted("skeletton", "center");
+        }
 
+        // Si le skelette touche le cercle du centre
+        string center = collision.gameObject.name;
+        if (center == "Center")
+        {
+            Destroy(gameObject);                                                        // Détruit l'objet
+            Orchestrator.numbSkel -= 1;
         }
 
     }

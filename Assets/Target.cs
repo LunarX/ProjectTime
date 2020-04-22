@@ -74,7 +74,8 @@ public class Target : MonoBehaviour
                 if (!ReachedLimit(prev)) // If the target hasn't reached the limit yet, update its position towards it
                 {
                     Vector2 nextPos = prev + direction * speed * Time.deltaTime;
-                    if (ReachedLimit(nextPos)) nextPos = GetLimit(); // In case we go a little bit too far inbetween two frames, constrain the position at the limit
+                    if (ReachedLimit(nextPos))
+                        nextPos = GetLimit(); // In case we go a little bit too far inbetween two frames, constrain the position at the limit
                     rb.position = nextPos;
                 }
                 else

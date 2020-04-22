@@ -38,13 +38,7 @@ public class targetInitial : MonoBehaviour
     //[HideInInspector]
     //public static List<GameObject>[] stacks = new List<GameObject>[4];
 
-    //// Variables pour la génération aléatoire des cibles
-    //private float currentTime;
-    //private float oldTime;
-    //private static readonly Vector2[] acceptedDirections = { Vector2.left, Vector2.right, Vector2.down, Vector2.up };
-    //private int randDir;
-    //private int toolbarInt = 0;
-    //private string[] toolbarStrings = new string[] { "Lent", "Moyen", "Rapide" };
+
     public static float interv = 3f;
 
     //// Start is called before the first frame update

@@ -51,10 +51,11 @@ public class GameManager : MonoBehaviour
     private List<GameObject> left_stack = new List<GameObject>();
     private List<GameObject> up_stack = new List<GameObject>();
     private List<GameObject> down_stack = new List<GameObject>();
-    private List<GameObject>[] stacks = new List<GameObject>[4];
+    [HideInInspector]
+    public static List<GameObject>[] stacks = new List<GameObject>[4]; // Besoin d'y mettre en public, sinon, pas possible d'y accéder depuis Orchestrator
 
-    private TargetGenerator tg;// = new TargetGenerator(maxRange, minRange, scalingFactor);
-    
+    public static TargetGenerator tg;// = new TargetGenerator(maxRange, minRange, scalingFactor);
+    public static SkeletonGenerator sg;
 
     // Start is called before the first frame update
     void Start()
@@ -167,28 +168,25 @@ public class GameManager : MonoBehaviour
         {
             var idx = 0; // stacks[direction].Count - 1;
             var t = stacks[direction][idx].GetComponent(typeof(Target)) as Target;
-            var d = t.GetDistanceLeft();
-            if (d < borderRadius)
+            var d = t.GetDistanceLeft();    // Distance entre la cible et le controlleur (?)
+            //print("D = " + d);
+            if (d < borderRadius)           // Si on a atteint au suffisamment bon moment
             {
-                vfx.PlayHaxagones(direction, t.GetTargetType());
+                vfx.PlayHaxagones(direction, t.GetTargetType());    // Active les effets visuels ??
 
                 Destroy(stacks[direction][idx]);
                 stacks[direction].RemoveAt(idx);
 
-                if(d < centerRadius)
+                if(d < centerRadius)        // Si la cible a été atteint au centre (meilleur score)
                 {
-                    //TODO Call ScoreManager with target hit in the center
+                    ScoreManager.TargetHitted("Circle", "center");
                 }
-                else
+                else                        // TODO : A repenser : impossible d'atteindre cette condition... Les cibles sont trop rapide et l'écart trop petit pour atteindre la cible, mais pas le centre...
                 {
-                    //TODO Call ScoreManager with target hit in the border
+                    ScoreManager.TargetHitted("Circle", "border");
                 }
             }
         }
     }
 
-    void OnGUI()
-    {
-        GUI.Box(new Rect(550, 400, 100, 50), "Score : " + score);
-    }
 }
