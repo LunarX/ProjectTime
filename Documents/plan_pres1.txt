@@ -1,0 +1,35 @@
+Plan:
+
+* Rappeller idee du projet
+  * specifier le but du ralentissement
+  * Défi principal, réussir à intéreser le joueur, sinon pas ralentisesement
+
+* Pour garder intérêt
+  * Scores : +5 et +10 selon zone, pour que les joueur forts puissent chercher la performance parfaite, et les 
+    joueurs nulles vont pas juste rater toutes les cibles
+  * Niveau de difficultée
+
+* Gameplay, forme que prend le jeu
+  * bullet time => matrix, max pain (=> FPS, 3D) (exploré un peu)
+  * Avec 3D on arrivera pas à rendre le jeu captivant
+  * => Jeu stressant, aller vite? J'ai pensé à jeu de rythme 
+  
+
+* Expliquer/Présenter ce qu'on a fait pour l'instant
+  * Prototype + Expliquer les règles de notre jeu 2D (flèches directionelles, points, souris, et plus si besoin)
+	* Targets jaune, target violette, des squelettes, boule de feu  
+  * Heartbeat 
+
+* Ce qu'il nous reste à faire, prochaines grandes étapes
+  * Connecter heartbeat à unity + modifier la difficulté en fonction de cette valeure
+  * Faire le ralentissement
+  * Choisir une direction définitive pour le gameplay
+  * Influencer joueur
+      * Faire de la vie
+      * Plus d'indicateurs visuels
+      * Trouver une musique d'ambiance avec un rythme soutenu, pour te mettre un peu la pression
+      * Faire un tableau des scores
+
+  * Faire un menu principale à notre jeu
+  * Penser à commenter faire l'évalution
+  * Ajouter d'autres gamplays
