@@ -27,7 +27,6 @@ public class TargetGenerator
     private static readonly Vector2[] acceptedDirections = { Vector2.left, Vector2.right, Vector2.down, Vector2.up };
     //private static readonly Vector2[] acceptedDirections = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
 
-    // Une fonction et un fichier ayant le même nom ? Un peu dangeureux, non ? Et y a pas void ou un truc dans le genre ?
     public TargetGenerator(float maxRange_, float minRange_, float scalingFactor_)
     {
         maxRange = maxRange_;

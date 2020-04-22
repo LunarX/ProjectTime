@@ -18,11 +18,15 @@ public class Orchestrator : MonoBehaviour
     private float oldTime;
     private static readonly Vector2[] acceptedDir = { Vector2.left, Vector2.right, Vector2.down, Vector2.up };
     private int randDir;
-    private int toolbarInt = 0;
+    private int toolbarInt = 2;
     private string[] toolbarStrings = new string[] { "Lent", "Moyen", "Rapide" };
-    public static float interv = 3f;
+    public static float interv = 0.6f;
 
     public static int numbSkel = 0;
+
+    public static Dictionary<int, GameObject> dicSkel = new Dictionary<int, GameObject>();
+
+    public static int indexx = 0;
 
 
     // Start is called before the first frame update
@@ -51,10 +55,12 @@ public class Orchestrator : MonoBehaviour
             GameManager.stacks[randDir].Add(t);     // Evite de faire 4 if
 
             // Génère les squelettes :
-            if (numbSkel < 3)
+            if (numbSkel < 10)       // Limite du nombre de squelette
             {
-                GameObject s = SkeletonGenerator.CreateSkel();
+                GameObject s = SkeletonGenerator.CreateSkel(indexx);
+                dicSkel.Add(indexx, s);
                 numbSkel += 1;
+                indexx += 1;
             }
         }
     }

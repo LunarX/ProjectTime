@@ -80,22 +80,22 @@ public class GameManager : MonoBehaviour
         // For testing purposes, generate targets using keyboard.
         if (Input.GetKeyDown(t_up))
         {
-            GameObject t = tg.GenerateSingleTarget(DOWN, 3f, 0.2f);
+            GameObject t = tg.GenerateSingleTarget(UP, 3f, 0.2f);
             up_stack.Add(t);
         }
         if (Input.GetKeyDown(t_down))
         {
-            GameObject t = tg.GenerateSingleTarget(UP, 3f, 0.2f);
+            GameObject t = tg.GenerateSingleTarget(DOWN, 3f, 0.2f);
             down_stack.Add(t);
         }
         if (Input.GetKeyDown(t_left))
         {
-            GameObject t = tg.GenerateSingleTarget(RIGHT, 3f, 0.2f);
+            GameObject t = tg.GenerateSingleTarget(LEFT, 3f, 0.2f);
             left_stack.Add(t);
         }
         if (Input.GetKeyDown(t_right))
         {
-            GameObject t = tg.GenerateSingleTarget(LEFT, 3f, 0.2f);
+            GameObject t = tg.GenerateSingleTarget(RIGHT, 3f, 0.2f);
             right_stack.Add(t);
         }
 

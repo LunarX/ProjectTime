@@ -32,10 +32,10 @@ public class SkeletonGenerator: MonoBehaviour
 
     }
 
-    public static GameObject CreateSkel()
+    public static GameObject CreateSkel(int indexV)
     {
 
-        GameObject go = new GameObject("Skeletton");        // Création formelle d'un GameObject (le paramètre est son nom)
+        GameObject go = new GameObject("Skeletton " + indexV);        // Création formelle d'un GameObject (le paramètre est son nom)
 
         // On génère aléatoirement sa position X et Y
         randPosiX = Random.Range(-7f, 7f);
@@ -85,9 +85,10 @@ public class SkeletonGenerator: MonoBehaviour
         newVerticies.Add(new Vector2(1.999f, 1.382f));
         ec.points = newVerticies.ToArray();
 
-        SkeletonBehaviour pb = go.AddComponent<SkeletonBehaviour>();
+        SkeletonBehaviour sb = go.AddComponent<SkeletonBehaviour>();
+        sb.init(indexV);
 
-        print("Cercle créé !");
+        // print("Cercle créé !");
 
         return go;
     }
