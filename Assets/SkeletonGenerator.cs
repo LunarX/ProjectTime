@@ -57,7 +57,7 @@ public class SkeletonGenerator: MonoBehaviour
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 
 
-        Sprite image = Resources.Load<Sprite>("Enemy/skelette");                                        // On récupère l'image de la boule de feu
+        Sprite image = Resources.Load<Sprite>("Enemy/skelette");                                        // On récupère l'image du squelette
         SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();                                    // Rajoute le Component 'Sprite Renderer' pour l'objet
         renderer.sprite = image;                                                                        // Fait le lien entre l'image et l'objet
 
@@ -70,20 +70,20 @@ public class SkeletonGenerator: MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.simulated = true;
 
-        EdgeCollider2D ec = go.AddComponent<EdgeCollider2D>() as EdgeCollider2D;
+        CircleCollider2D ec = go.AddComponent<CircleCollider2D>() as CircleCollider2D;
         ec.isTrigger = true;
 
         // Rajoute des points, pour entourer le squelette
-        newVerticies.Add(new Vector2(2.035f, 1.424f));
-        newVerticies.Add(new Vector2(1.887f, -0.356f));
-        newVerticies.Add(new Vector2(-0.082f, -1.59f));
-        newVerticies.Add(new Vector2(-2.01f, -0.411f));
-        newVerticies.Add(new Vector2(-1.982f, 1.296f));
-        newVerticies.Add(new Vector2(-1.191f, 0.963f));
-        newVerticies.Add(new Vector2(0.094f, 1.484f));
-        newVerticies.Add(new Vector2(1.043f, 0.927f));
-        newVerticies.Add(new Vector2(1.999f, 1.382f));
-        ec.points = newVerticies.ToArray();
+        //newVerticies.Add(new Vector2(2.035f, 1.424f));
+        //newVerticies.Add(new Vector2(1.887f, -0.356f));
+        //newVerticies.Add(new Vector2(-0.082f, -1.59f));
+        //newVerticies.Add(new Vector2(-2.01f, -0.411f));
+        //newVerticies.Add(new Vector2(-1.982f, 1.296f));
+        //newVerticies.Add(new Vector2(-1.191f, 0.963f));
+        //newVerticies.Add(new Vector2(0.094f, 1.484f));
+        //newVerticies.Add(new Vector2(1.043f, 0.927f));
+        //newVerticies.Add(new Vector2(1.999f, 1.382f));
+        //ec.points = newVerticies.ToArray();
 
         SkeletonBehaviour sb = go.AddComponent<SkeletonBehaviour>();
         sb.init(indexV);

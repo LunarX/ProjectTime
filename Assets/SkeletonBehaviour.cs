@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkeletonBehaviour : MonoBehaviour
 {
-    public int projectilSpeed = 5;      // Vitesse du squelette
+    public int projectilSpeed = 3;      // Vitesse du squelette
     private Transform rb;               // Variable pour la position (mise à jour pour déplacer l'objet)
     private Vector3 dir;                // Direction de l'objet (incrémenté à la position actuelle)
     private int index;                  // Numéro d'identification de l'objet (pour pouvoir le supprimer)
@@ -27,8 +27,9 @@ public class SkeletonBehaviour : MonoBehaviour
     void Update()
     {
         // A modifier (pas besoin de recalculer à chaque fois la direction)
+        // deltaTime pour 
         
-        rb.position -= dir;                                           // Mise à jour de la position
+        rb.position -= dir;                                                         // Mise à jour de la position
     }
 
     private void OnTriggerEnter2D(Collider2D collision)                             // Nom de la fonction qui détecte une collision (est appelée si collision avec l'objet)

@@ -55,7 +55,7 @@ public class Orchestrator : MonoBehaviour
             GameManager.stacks[randDir].Add(t);     // Evite de faire 4 if
 
             // Génère les squelettes :
-            if (numbSkel < 10)       // Limite du nombre de squelette
+            if (numbSkel < 20)       // Limite du nombre de squelette
             {
                 GameObject s = SkeletonGenerator.CreateSkel(indexx);
                 dicSkel.Add(indexx, s);
