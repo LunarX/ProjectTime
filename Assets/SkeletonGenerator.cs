@@ -70,9 +70,11 @@ public class SkeletonGenerator: MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.simulated = true;
 
-        CircleCollider2D ec = go.AddComponent<CircleCollider2D>() as CircleCollider2D;
-        ec.isTrigger = true;
-
+        //CircleCollider2D ec = go.AddComponent<CircleCollider2D>() as CircleCollider2D;
+        //ec.isTrigger = true;
+        BoxCollider2D bc = go.AddComponent<BoxCollider2D>() as BoxCollider2D;
+        bc.isTrigger = true;
+        bc.size = new Vector2(4.11f, 2.33f);
         // Rajoute des points, pour entourer le squelette
         //newVerticies.Add(new Vector2(2.035f, 1.424f));
         //newVerticies.Add(new Vector2(1.887f, -0.356f));

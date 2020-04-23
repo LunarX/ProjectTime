@@ -48,19 +48,39 @@ public class Orchestrator : MonoBehaviour
         currentTime = Time.time;
         if (Mathf.Abs(currentTime - oldTime) > interv)      // S'active seul toutes les 'interv' secondes
         {
-            randDir = Random.Range(0, 4);                   // Direction de la cible, générée aléatoirement
+            randDir = Random.Range(0, 6);                   // Direction de la cible, générée aléatoirement
             oldTime = Time.time;                            // Pour la prochaine cible
-            GameObject t = GameManager.tg.GenerateSingleTarget(randDir, 3f, 0.2f);
-            //GameObject t = TargetGenerator.GenerateSingleTarget(acceptedDir[randDir], 3f, 0.2f);
-            GameManager.stacks[randDir].Add(t);     // Evite de faire 4 if
-
-            // Génère les squelettes :
-            if (numbSkel < 20)       // Limite du nombre de squelette
+            print("RandDir = " + randDir);
+            if (randDir < 4)
             {
-                GameObject s = SkeletonGenerator.CreateSkel(indexx);
-                dicSkel.Add(indexx, s);
-                numbSkel += 1;
-                indexx += 1;
+                GameObject t = GameManager.tg.GenerateSingleTarget(randDir, 3f, 0.2f);
+                //GameObject t = TargetGenerator.GenerateSingleTarget(acceptedDir[randDir], 3f, 0.2f);
+                GameManager.stacks[randDir].Add(t);     // Evite de faire 4 if
+
+                // Génère les squelettes :
+                if (numbSkel < 20)       // Limite du nombre de squelette
+                {
+                    GameObject s = SkeletonGenerator.CreateSkel(indexx);
+                    dicSkel.Add(indexx, s);
+                    numbSkel += 1;
+                    indexx += 1;
+                }
+            }
+            else
+            {
+                if (randDir == 4)
+                {
+                    var ts = GameManager.tg.GenerateDoubleTarget(GameManager.LEFT, GameManager.RIGHT, 3f, 0.2f);
+                    GameManager.stacks[GameManager.LEFT].Add(ts.Item1);
+                    GameManager.stacks[GameManager.RIGHT].Add(ts.Item2);
+                }
+                if (randDir == 5)
+                {
+                    var ts = GameManager.tg.GenerateDoubleTarget(GameManager.UP, GameManager.DOWN, 3f, 0.2f);
+                    GameManager.stacks[GameManager.UP].Add(ts.Item1);
+                    GameManager.stacks[GameManager.DOWN].Add(ts.Item2);
+                }
+
             }
         }
     }
