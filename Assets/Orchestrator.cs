@@ -50,7 +50,6 @@ public class Orchestrator : MonoBehaviour
         {
             randDir = Random.Range(0, 6);                   // Direction de la cible, générée aléatoirement
             oldTime = Time.time;                            // Pour la prochaine cible
-            print("RandDir = " + randDir);
             if (randDir < 4)
             {
                 GameObject t = GameManager.tg.GenerateSingleTarget(randDir, 3f, 0.2f);
