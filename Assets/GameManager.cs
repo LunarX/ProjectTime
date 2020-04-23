@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
     public float scalingFactor = 0.85f;
     public VFXManager vfx;
 
-    private float centerRadius = 0.1f;
-    private float borderRadius = 0.2f;
+    private float centerRadius = 0.175f;
+    private float borderRadius = 0.35f;
 
     //[Tooltip("Time the target sticks at the end of its path before being considered as missed")]
     //public float disapearanceTime = 0.2f;
@@ -156,6 +156,7 @@ public class GameManager : MonoBehaviour
             {
                 Destroy(stacks[direction][i]);
                 stacks[direction].RemoveAt(i);
+                OnMiss();
             }
         }
     }
@@ -187,6 +188,12 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    // OnMiss is called each time a target is missed
+    void OnMiss()
+    {
+
     }
 
 }

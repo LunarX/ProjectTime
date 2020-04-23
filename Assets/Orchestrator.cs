@@ -53,7 +53,7 @@ public class Orchestrator : MonoBehaviour
             print("RandDir = " + randDir);
             if (randDir < 4)
             {
-                GameObject t = GameManager.tg.GenerateSingleTarget(randDir, 3f, 0.2f);
+                GameObject t = GameManager.tg.GenerateSingleTarget(randDir, 3f, 0.15f);
                 //GameObject t = TargetGenerator.GenerateSingleTarget(acceptedDir[randDir], 3f, 0.2f);
                 GameManager.stacks[randDir].Add(t);     // Evite de faire 4 if
 
@@ -70,13 +70,13 @@ public class Orchestrator : MonoBehaviour
             {
                 if (randDir == 4)
                 {
-                    var ts = GameManager.tg.GenerateDoubleTarget(GameManager.LEFT, GameManager.RIGHT, 3f, 0.2f);
+                    var ts = GameManager.tg.GenerateDoubleTarget(GameManager.LEFT, GameManager.RIGHT, 3f, 0.15f);
                     GameManager.stacks[GameManager.LEFT].Add(ts.Item1);
                     GameManager.stacks[GameManager.RIGHT].Add(ts.Item2);
                 }
                 if (randDir == 5)
                 {
-                    var ts = GameManager.tg.GenerateDoubleTarget(GameManager.UP, GameManager.DOWN, 3f, 0.2f);
+                    var ts = GameManager.tg.GenerateDoubleTarget(GameManager.UP, GameManager.DOWN, 3f, 0.15f);
                     GameManager.stacks[GameManager.UP].Add(ts.Item1);
                     GameManager.stacks[GameManager.DOWN].Add(ts.Item2);
                 }
