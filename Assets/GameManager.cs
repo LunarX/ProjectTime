@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
     public KeyCode t_double_vertical = KeyCode.E;
     public KeyCode t_double_horizontal = KeyCode.Q;
 
+    [Header("Santé du joueur :")]
+    public int curHealth = 0;
+    public int maxHealth = 100;
+    public HealthBar healthBar;
+
 
     private List<GameObject> right_stack = new List<GameObject>();
     private List<GameObject> left_stack = new List<GameObject>();
@@ -66,6 +71,7 @@ public class GameManager : MonoBehaviour
         stacks[DOWN] = down_stack;
 
         tg = new TargetGenerator(maxRange, minRange, scalingFactor);
+        //healthBar = GetComponent<HealthBar>();
 }
 
     // Update is called once per frame
@@ -193,7 +199,14 @@ public class GameManager : MonoBehaviour
     // OnMiss is called each time a target is missed
     void OnMiss()
     {
+        DamagePlayer(10);
+    }
 
+    public void DamagePlayer(int damage)
+    {
+        curHealth -= damage;
+
+        healthBar.SetHealth(curHealth);
     }
 
 }

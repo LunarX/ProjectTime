@@ -56,6 +56,7 @@ public class SkeletonBehaviour : MonoBehaviour
             print("Machin " + index + " détruit !");
             Orchestrator.numbSkel -= 1;
             Orchestrator.dicSkel.Remove(index);
+            //GameManager.DamagePlayer(5);
         }
 
     }
