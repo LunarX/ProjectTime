@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager 
 {
-    public static int score;       // Score du joueur
+    private int score;       // Score du joueur
     private int comboLength;    // Nombre de cible atteinte d'affilée
     private const int scoreCenterTarget = 10; // Euh... Je sais plus... (# de points si cible atteinte au centre ??)
     private const int scoreBorderTarget = 5; // Je sais plus non plus...
@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour
         // Rien de spécial à faire...
     }
 
-    public static void TargetHitted(string TargetType, string success)
+    public void TargetHitted(string TargetType, string success)
     {
         if (TargetType == "Circle")        // Une cible (les cercles) est touchée
         {
@@ -35,8 +35,7 @@ public class ScoreManager : MonoBehaviour
             {
                 score += scoreBorderTarget;
             }
-            else
-                print("ERREUR : Circle");
+                //print("ERREUR : Circle");
         }
         else if (TargetType == "skeletton")   // Un squelette (dans les diagonales) est touchée
         {
@@ -48,15 +47,13 @@ public class ScoreManager : MonoBehaviour
             {
                 score += scoreBorderSkel;
             }
-            else
-                print("ERREUR : Squelette");
+                //print("ERREUR : Squelette");
         }
     }
 
-    // Affiche le score (se met à jour automatiquement)
-    void OnGUI()
+    public int GetScore()
     {
-        GUI.Box(new Rect(700, 400, 100, 50), "Score : " + score);
+        return score;
     }
 
 

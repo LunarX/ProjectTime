@@ -9,6 +9,8 @@ public class SkeletonBehaviour : MonoBehaviour
     private Vector3 dir;                // Direction de l'objet (incrémenté à la position actuelle)
     private int index;                  // Numéro d'identification de l'objet (pour pouvoir le supprimer)
 
+    GameManager gm;
+
     public void init(int indexV)
     {
         this.index = indexV;
@@ -21,6 +23,7 @@ public class SkeletonBehaviour : MonoBehaviour
         rb = GetComponent<Transform>();                                         // On récupère les infos concernant la position, rotation, etc...
         dir = Vector3.Normalize(rb.position) * projectilSpeed;         // Direction : Vector3.Normalize(rb.position) est le vecteur, normalisé (pour que toutes les boules aient la même vitesse) ; 0.03 pour diminuer la vitesse
 
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -43,7 +46,7 @@ public class SkeletonBehaviour : MonoBehaviour
         {
             Destroy(Orchestrator.dicSkel[index]);                                                     // Détruit l'objet
             Orchestrator.numbSkel -= 1;
-            ScoreManager.TargetHitted("skeletton", "center");
+            gm.sm.TargetHitted("skeletton", "center");
             Orchestrator.dicSkel.Remove(index);
         }
 
@@ -56,6 +59,7 @@ public class SkeletonBehaviour : MonoBehaviour
             print("Machin " + index + " détruit !");
             Orchestrator.numbSkel -= 1;
             Orchestrator.dicSkel.Remove(index);
+            gm.health.DamagePlayer(5);
             //GameManager.DamagePlayer(5);
         }
 

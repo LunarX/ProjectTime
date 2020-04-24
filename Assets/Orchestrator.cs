@@ -28,11 +28,14 @@ public class Orchestrator : MonoBehaviour
 
     public static int indexx = 0;
 
+    GameManager gm;
+
 
     // Start is called before the first frame update
     void Start()
     {
         currentTime = 0;        // Temps initial (au lancement du jeu)
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -52,9 +55,9 @@ public class Orchestrator : MonoBehaviour
             oldTime = Time.time;                            // Pour la prochaine cible
             if (randDir < 4)
             {
-                GameObject t = GameManager.tg.GenerateSingleTarget(randDir, 3f, 0.15f);
+                GameObject t = gm.tg.GenerateSingleTarget(randDir, 3f, 0.15f);
                 //GameObject t = TargetGenerator.GenerateSingleTarget(acceptedDir[randDir], 3f, 0.2f);
-                GameManager.stacks[randDir].Add(t);     // Evite de faire 4 if
+                gm.stacks[randDir].Add(t);     // Evite de faire 4 if
 
                 // Génère les squelettes :
                 if (numbSkel < 20)       // Limite du nombre de squelette
@@ -69,15 +72,15 @@ public class Orchestrator : MonoBehaviour
             {
                 if (randDir == 4)
                 {
-                    var ts = GameManager.tg.GenerateDoubleTarget(GameManager.LEFT, GameManager.RIGHT, 3f, 0.15f);
-                    GameManager.stacks[GameManager.LEFT].Add(ts.Item1);
-                    GameManager.stacks[GameManager.RIGHT].Add(ts.Item2);
+                    var ts = gm.tg.GenerateDoubleTarget(GameManager.LEFT, GameManager.RIGHT, 3f, 0.15f);
+                    gm.stacks[GameManager.LEFT].Add(ts.Item1);
+                    gm.stacks[GameManager.RIGHT].Add(ts.Item2);
                 }
                 if (randDir == 5)
                 {
-                    var ts = GameManager.tg.GenerateDoubleTarget(GameManager.UP, GameManager.DOWN, 3f, 0.15f);
-                    GameManager.stacks[GameManager.UP].Add(ts.Item1);
-                    GameManager.stacks[GameManager.DOWN].Add(ts.Item2);
+                    var ts = gm.tg.GenerateDoubleTarget(GameManager.UP, GameManager.DOWN, 3f, 0.15f);
+                    gm.stacks[GameManager.UP].Add(ts.Item1);
+                    gm.stacks[GameManager.DOWN].Add(ts.Item2);
                 }
 
             }

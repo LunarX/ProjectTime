@@ -10,17 +10,15 @@ public class HitVFXHandler : MonoBehaviour
     public SpriteRenderer upSFX;
     public SpriteRenderer downSFX;
 
-    [Header("Key Settings")]
-    public KeyCode right = KeyCode.RightArrow;
-    public KeyCode left = KeyCode.LeftArrow;
-    public KeyCode up = KeyCode.UpArrow;
-    public KeyCode down = KeyCode.DownArrow;
+    GameManager gm;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         rightSFX.enabled = false;
         leftSFX.enabled = false;
         upSFX.enabled = false;
@@ -30,37 +28,37 @@ public class HitVFXHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(right))
+        if(Input.GetKeyDown(gm.right))
         {
             rightSFX.enabled = true;
         }
-        else if(Input.GetKeyUp(right)) {
+        else if(Input.GetKeyUp(gm.right)) {
             rightSFX.enabled = false;
         }
 
-        if (Input.GetKeyDown(left))
+        if (Input.GetKeyDown(gm.left))
         {
             leftSFX.enabled = true;
         }
-        else if (Input.GetKeyUp(left))
+        else if (Input.GetKeyUp(gm.left))
         {
             leftSFX.enabled = false;
         }
 
-        if (Input.GetKeyDown(up))
+        if (Input.GetKeyDown(gm.up))
         {
             upSFX.enabled = true;
         }
-        else if (Input.GetKeyUp(up))
+        else if (Input.GetKeyUp(gm.up))
         {
             upSFX.enabled = false;
         }
 
-        if (Input.GetKeyDown(down))
+        if (Input.GetKeyDown(gm.down))
         {
             downSFX.enabled = true;
         }
-        else if (Input.GetKeyUp(down))
+        else if (Input.GetKeyUp(gm.down))
         {
             downSFX.enabled = false;
         }

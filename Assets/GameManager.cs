@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     public const int RIGHT = 0;
     public const int LEFT = 1;
     public const int UP = 2;
@@ -26,16 +25,16 @@ public class GameManager : MonoBehaviour
     public float scalingFactor = 0.85f;
     public VFXManager vfx;
 
-    private float centerRadius = 0.175f;
-    private float borderRadius = 0.35f;
+    private const float centerRadius = 0.175f;
+    private const float borderRadius = 0.35f;
 
     //[Tooltip("Time the target sticks at the end of its path before being considered as missed")]
     //public float disapearanceTime = 0.2f;
     //[Tooltip("Time it takes for a target to scale to its final size before starting to move")]
     //public float scalingTime = 1.2f;
-
-    [Header("Donnée du jeu")]
-    public static int score = 0;
+    
+    [HideInInspector]
+    public ScoreManager sm;
 
 
     [Header("Testing Key Settings")]
@@ -47,9 +46,9 @@ public class GameManager : MonoBehaviour
     public KeyCode t_double_horizontal = KeyCode.Q;
 
     [Header("Santé du joueur :")]
-    public int curHealth = 0;
-    public int maxHealth = 100;
     public HealthBar healthBar;
+    [HideInInspector]
+    public Health health;
 
 
     private List<GameObject> right_stack = new List<GameObject>();
@@ -57,10 +56,9 @@ public class GameManager : MonoBehaviour
     private List<GameObject> up_stack = new List<GameObject>();
     private List<GameObject> down_stack = new List<GameObject>();
     [HideInInspector]
-    public static List<GameObject>[] stacks = new List<GameObject>[4]; // Besoin d'y mettre en public, sinon, pas possible d'y accéder depuis Orchestrator
+    public List<GameObject>[] stacks = new List<GameObject>[4]; // Besoin d'y mettre en public, sinon, pas possible d'y accéder depuis Orchestrator
 
-    public static TargetGenerator tg;// = new TargetGenerator(maxRange, minRange, scalingFactor);
-    public static SkeletonGenerator sg;
+    public TargetGenerator tg;
 
     // Start is called before the first frame update
     void Start()
@@ -71,8 +69,12 @@ public class GameManager : MonoBehaviour
         stacks[DOWN] = down_stack;
 
         tg = new TargetGenerator(maxRange, minRange, scalingFactor);
-        //healthBar = GetComponent<HealthBar>();
-}
+        health = GetComponent<Health>();
+        health.healthBar = healthBar;
+
+        sm = new ScoreManager();
+        //sm = GetComponent<ScoreManager>()
+    }
 
     // Update is called once per frame
     void Update()
@@ -186,11 +188,11 @@ public class GameManager : MonoBehaviour
 
                 if(d < centerRadius)        // Si la cible a été atteint au centre (meilleur score)
                 {
-                    ScoreManager.TargetHitted("Circle", "center");
+                    sm.TargetHitted("Circle", "center");
                 }
                 else                        // TODO : A repenser : impossible d'atteindre cette condition... Les cibles sont trop rapide et l'écart trop petit pour atteindre la cible, mais pas le centre...
                 {
-                    ScoreManager.TargetHitted("Circle", "border");
+                    sm.TargetHitted("Circle", "border");
                 }
             }
         }
@@ -199,14 +201,13 @@ public class GameManager : MonoBehaviour
     // OnMiss is called each time a target is missed
     void OnMiss()
     {
-        DamagePlayer(10);
+        health.DamagePlayer(10);
     }
 
-    public void DamagePlayer(int damage)
+    // Affiche le score (se met à jour automatiquement)
+    void OnGUI()
     {
-        curHealth -= damage;
-
-        healthBar.SetHealth(curHealth);
+        GUI.Box(new Rect(700, 400, 100, 50), "Score : " + sm.GetScore());
     }
 
 }

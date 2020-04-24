@@ -119,22 +119,4 @@ public class Target : MonoBehaviour
         return type;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)                             // Nom de la fonction qui détecte une collision (est appelée si collision avec l'objet)
-    {
-
-        //ProjectilBehavior missile = collision.gameObject.GetComponent<ProjectilBehavior>();     // Permet de s'assurer que la collision soit avec un missile (seule une boule de feu contient le Component 'ProjectilBehavior')
-
-        //if (missile != null)                                                        // Si c'est null, alors ce n'est pas un missile
-        //{
-
-        //    GameManager.score += 1;
-
-        //    //Destroy(gameObject);                                                        // Détruit l'objet
-        //    timeBeforeDeletion = 0;
-        //    state = WAITING_DEL_STATE;
-
-        //}
-
-    }
-
 }
