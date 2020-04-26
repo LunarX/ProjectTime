@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -74,6 +75,8 @@ public class GameManager : MonoBehaviour
 
         sm = new ScoreManager();
         //sm = GetComponent<ScoreManager>()
+
+
     }
 
     // Update is called once per frame
@@ -81,6 +84,13 @@ public class GameManager : MonoBehaviour
     {
         CheckTargets();
         DebugTargetGeneration();
+
+        if (health.curHealth < 0)
+        {
+            print("T'ES MOOOOOOOOOOOORT !");
+            PlayerPrefs.SetInt("Score", sm.GetScore());
+            SceneManager.LoadScene("EndMenu");
+        }
     }
 
     void DebugTargetGeneration()
