@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class PythonConnexion : MonoBehaviour
 {
-    private EquipementMesures pr;
+    public EquipementMesures equipementMesures { get; private set; }
 
-    void Update()
-    {
-        print("bpm:" + pr.bpm);
-    }
+    //void Update()
+    //{
+    //    print("bpm:" + equipementMesures.bpm);
+    //}
 
     void Start()
     {
-        pr = new EquipementMesures();
-        pr.Start();
+        equipementMesures = new EquipementMesures();
+        equipementMesures.Start();
         print("Creating python receiver");
     }
 
     void OnDestroy()
     {
-        pr.Stop();
+        equipementMesures.Stop();
     }
 }
