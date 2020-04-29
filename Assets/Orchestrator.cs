@@ -16,7 +16,7 @@ public class Orchestrator : MonoBehaviour
     // Variables pour la génération aléatoire des cibles
     private float currentTime;
     private float oldTime;
-    private static readonly Vector2[] acceptedDir = { Vector2.left, Vector2.right, Vector2.down, Vector2.up };
+    //private static readonly Vector2[] acceptedDir = { Vector2.left, Vector2.down, Vector2.right, Vector2.up };
     private int randDir;
     private int toolbarInt = 2;
     private string[] toolbarStrings = new string[] { "Lent", "Moyen", "Rapide" };

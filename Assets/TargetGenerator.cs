@@ -24,8 +24,8 @@ public class TargetGenerator
 
 
 
-    private static readonly Vector2[] acceptedDirections = { Vector2.left, Vector2.right, Vector2.down, Vector2.up };
-    //private static readonly Vector2[] acceptedDirections = { Vector2.right, Vector2.left, Vector2.up, Vector2.down };
+    private static readonly Vector2[] acceptedDirections = { Vector2.left, Vector2.down, Vector2.right, Vector2.up };
+
 
     public TargetGenerator(float maxRange_, float minRange_, float scalingFactor_)
     {

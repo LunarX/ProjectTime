@@ -5,7 +5,7 @@ using UnityEngine;
 public class PythonConnexion : MonoBehaviour
 {
     public EquipementMesures equipementMesures { get; private set; }
-
+    
     //void Update()
     //{
     //    print("bpm:" + equipementMesures.bpm);
