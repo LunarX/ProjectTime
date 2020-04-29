@@ -8,7 +8,7 @@ public class PythonConnexion : MonoBehaviour
 
     void Update()
     {
-        print("bpm:" + pr.bpm);
+        //print("bpm:" + pr.bpm);
     }
 
     void Start()

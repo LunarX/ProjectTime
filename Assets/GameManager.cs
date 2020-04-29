@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public const int RIGHT = 0;
-    public const int LEFT = 1;
-    public const int UP = 2;
+    public const int UP = 1;
+    public const int LEFT = 2;
     public const int DOWN = 3;
 
     [Header("Playing Key Settings")]
