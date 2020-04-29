@@ -5,21 +5,36 @@ using UnityEngine;
 public class PythonConnexion : MonoBehaviour
 {
     public EquipementMesures equipementMesures { get; private set; }
-    
+
     //void Update()
     //{
     //    print("bpm:" + equipementMesures.bpm);
     //}
 
+    private static PythonConnexion instance;
+
     void Start()
     {
-        equipementMesures = new EquipementMesures();
-        equipementMesures.Start();
-        print("Creating python receiver");
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+
+            equipementMesures = new EquipementMesures();
+            equipementMesures.Start();
+            print("Creating python receiver");
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void OnDestroy()
     {
-        equipementMesures.Stop();
+        if(equipementMesures != null)
+        {
+            equipementMesures.Stop();
+        }
     }
 }

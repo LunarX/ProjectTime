@@ -58,4 +58,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-__pycache__
+
+# Manually added for Heart Rate folders
+__pycache__/
+Heart_rate_light/output/
