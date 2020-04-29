@@ -217,7 +217,9 @@ public class GameManager : MonoBehaviour
     // Affiche le score (se met à jour automatiquement)
     void OnGUI()
     {
-        GUI.Box(new Rect(700, 400, 100, 50), "Score : " + sm.GetScore());
+        var w = 100;
+        var h = 50;
+        GUI.Box(new Rect(Screen.width-w, Screen.height-h, w, h), "Score : " + sm.GetScore());
     }
 
 }
