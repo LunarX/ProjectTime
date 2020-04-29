@@ -56,7 +56,7 @@ public class SkeletonBehaviour : MonoBehaviour
         {
             // TODO : modifier la destruction, en détruisant l'objet spécifique, en non pas juste gameObject (il faut donc stocker les objets dans une liste)
             Destroy(Orchestrator.dicSkel[index]);                                                        // Détruit l'objet
-            print("Machin " + index + " détruit !");
+            //print("Machin " + index + " détruit !");
             Orchestrator.numbSkel -= 1;
             Orchestrator.dicSkel.Remove(index);
             gm.health.DamagePlayer(5);

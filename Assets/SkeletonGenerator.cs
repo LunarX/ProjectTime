@@ -6,7 +6,7 @@ public class SkeletonGenerator: MonoBehaviour
 {
 
     // Variables pour la génération aléatoire des cibles
-    private static float currentTime;
+    //private static float currentTime;
     private static float oldTime;
     private static readonly Vector2[] acceptedDirections = { Vector2.left, Vector2.right, Vector2.down, Vector2.up };
     private static int randDir;
@@ -23,7 +23,7 @@ public class SkeletonGenerator: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentTime = 0;        // Temps initial (au lancement du jeu)
+        //currentTime = 0;        // Temps initial (au lancement du jeu)
     }
 
     // Update is called once per frame

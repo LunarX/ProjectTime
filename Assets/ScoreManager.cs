@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScoreManager 
 {
     private int score;       // Score du joueur
-    private int comboLength;    // Nombre de cible atteinte d'affilée
+    //private int comboLength;    // Nombre de cible atteinte d'affilée
     private const int scoreCenterTarget = 10; // Euh... Je sais plus... (# de points si cible atteinte au centre ??)
     private const int scoreBorderTarget = 5; // Je sais plus non plus...
     private const int scoreCenterSkel = 10; // Euh... Je sais plus... (# de points si cible atteinte au centre ??)
@@ -14,7 +14,7 @@ public class ScoreManager
     void Start()
     {
         score = 0;
-        comboLength = 0;
+        //comboLength = 0;
     }
 
     // Update is called once per frame
