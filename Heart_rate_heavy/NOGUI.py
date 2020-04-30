@@ -15,7 +15,7 @@ class NOGUI:
     def selectInput(self):
         self.reset()
         self.input = self.webcam
-        print("Input: webcam")
+        print("Input: webca  m")
 
     def reset(self):
         self.process.reset()
