@@ -75,8 +75,6 @@ public class GameManager : MonoBehaviour
 
         sm = new ScoreManager();
         //sm = GetComponent<ScoreManager>()
-
-
     }
 
     // Update is called once per frame
