@@ -61,4 +61,4 @@ crashlytics-build.properties
 
 # Manually added for Heart Rate folders
 __pycache__/
-Heart_rate_light/output/
+#Heart_rate_light/output/
