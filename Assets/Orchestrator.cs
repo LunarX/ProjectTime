@@ -18,15 +18,16 @@ public class Orchestrator : MonoBehaviour
     private float oldTime;
     //private static readonly Vector2[] acceptedDir = { Vector2.left, Vector2.down, Vector2.right, Vector2.up };
     private int randDir;
-    private int toolbarInt = 2;
+    private int toolbarInt = 0;
     private string[] toolbarStrings = new string[] { "Lent", "Moyen", "Rapide" };
-    public static float interv = 0.6f;
+    public static float interv = 2.5f;
 
     public static int numbSkel = 0;
 
     public static Dictionary<int, GameObject> dicSkel = new Dictionary<int, GameObject>();
 
     public static int indexx = 0;
+    public int Zombie;
 
     GameManager gm;
 
@@ -36,17 +37,20 @@ public class Orchestrator : MonoBehaviour
     {
         currentTime = 0;        // Temps initial (au lancement du jeu)
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Zombie = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Zombie = PlayerPrefs.GetInt("Zombie");
+
         if (toolbarInt == 0)
             interv = 2.5f;
         else if (toolbarInt == 1)
             interv = 1.5f;
         else if (toolbarInt == 2)
-            interv = 0.6f;
+            interv = 0.3f;
 
         currentTime = Time.time;
         if (Mathf.Abs(currentTime - oldTime) > interv)      // S'active seul toutes les 'interv' secondes
@@ -60,7 +64,7 @@ public class Orchestrator : MonoBehaviour
                 gm.stacks[randDir].Add(t);     // Evite de faire 4 if
 
                 // Génère les squelettes :
-                if (numbSkel < 20)       // Limite du nombre de squelette
+                if( (numbSkel < 20) && (Zombie == 1) )      // Limite du nombre de squelette
                 {
                     GameObject s = SkeletonGenerator.CreateSkel(indexx);
                     dicSkel.Add(indexx, s);

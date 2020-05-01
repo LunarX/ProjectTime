@@ -43,7 +43,7 @@ public class SkeletonGenerator: MonoBehaviour
 
         // Si on pas assez loin du centre, on l'éloigne
         if (Mathf.Abs(randPosiX) < 3)
-            randPosiY = Mathf.Sign(randPosiX) * (Mathf.Abs(randPosiX) + 3);
+            randPosiX = Mathf.Sign(randPosiX) * (Mathf.Abs(randPosiX) + 3);
         if (Mathf.Abs(randPosiY) < 3)
             randPosiY = Mathf.Sign(randPosiY) * (Mathf.Abs(randPosiY) + 3);
 

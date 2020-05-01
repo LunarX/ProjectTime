@@ -82,7 +82,13 @@ public class GameManager : MonoBehaviour
     {
         CheckTargets();
         DebugTargetGeneration();
+        CheckHealth();
 
+
+    }
+
+    void CheckHealth()
+    {
         if (health.curHealth < 0)
         {
             print("T'ES MOOOOOOOOOOOORT !");

@@ -4,19 +4,34 @@ using UnityEngine;
 
 public class ProjectileGenerator : MonoBehaviour
 {
-    
+
+    public GameObject viseur;
+    private Quaternion rotaViseur;
+    private float angleViseur;
+    private Vector3 posiSouris;
+    private Transform transfoV;
+
+    void Start()
+    {
+        transfoV = viseur.transform;
+    }
 
     // Update is called once per frame
     void Update()
     {
+
+        viseurDirection();
+
         // Get input from player
         if (Input.GetMouseButtonDown(0))
         {
             // On récupère la position de la souris
             Vector3 mousePosition = Input.mousePosition;                    
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);  
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
  
             mousePosition.z = 0;                                                                            // Bizarrement, ça enregistre -10 pour la coordonnée z, avec la souris... Donc on rectifie en remettant à 0
+            Vector3 posiFire = Vector3.Normalize(mousePosition);
+            posiFire.z = 0;
 
             float angle = Vector3.Angle(mousePosition, Vector3.right);                                      // Angle entre la position de la souris et l'axe x (1, 0) (vecteur avec le point origine (0, 0) )
 
@@ -38,7 +53,7 @@ public class ProjectileGenerator : MonoBehaviour
 
             Animator animator = go.AddComponent<Animator>();                                                // Rajoute le Component 'Animator'
             animator.runtimeAnimatorController = Resources.Load("Fireball/Fireball_AC") as RuntimeAnimatorController;       // Ajoute l'animation à l'objet
-            go.transform.position = mousePosition;                                                          // Indique la position où placer la boule de feu
+            go.transform.position = posiFire;                                                          // Indique la position où placer la boule de feu
             go.transform.rotation = rota;                                                                   // Indique la rotation de l'objet
 
             BoxCollider2D bc2D = go.AddComponent<BoxCollider2D>();                                          // Component qui permet la détection de collision
@@ -49,5 +64,15 @@ public class ProjectileGenerator : MonoBehaviour
 
     }
 
+    public void viseurDirection()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        Vector2 direction = new Vector2(
+            mousePosition.x - transfoV.position.x,
+            mousePosition.y - transfoV.position.y
+            );
 
+        transfoV.right = direction;
+    }
 }
