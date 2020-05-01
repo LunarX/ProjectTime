@@ -18,9 +18,9 @@ public class Orchestrator : MonoBehaviour
     private float oldTime;
     //private static readonly Vector2[] acceptedDir = { Vector2.left, Vector2.down, Vector2.right, Vector2.up };
     private int randDir;
-    private int toolbarInt = 2;
+    private int toolbarInt = 0;
     private string[] toolbarStrings = new string[] { "Lent", "Moyen", "Rapide" };
-    public static float interv = 0.6f;
+    public static float interv = 2.5f;
 
     public static int numbSkel = 0;
 

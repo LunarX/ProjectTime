@@ -30,6 +30,12 @@ public class ProjectilBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)                             // Nom de la fonction qui détecte une collision (est appelée si collision avec l'objet)
     {
-        Destroy(gameObject);                                                        // Détruit l'objet
+        SkeletonBehaviour skeletton = collision.gameObject.GetComponent<SkeletonBehaviour>();     // Permet de s'assurer que la collision soit avec un missile (seule une boule de feu contient le Component 'ProjectilBehavior')
+
+        // Si le squelette est touché par un missile, alors 'missile' ne sera pas nul
+        if (skeletton != null)                                                        // Si c'est null, alors ce n'est pas un missile
+        {
+            Destroy(gameObject);                                                        // Détruit l'objet
+        }
     }
 }
