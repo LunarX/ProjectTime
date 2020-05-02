@@ -8,6 +8,7 @@ public class PatternGenerator
     private List<List<(int[] directions, float timeOffset)>> patterns;
     private System.Random rand;
 
+
     public PatternGenerator()
     {
         rand = new System.Random(3);

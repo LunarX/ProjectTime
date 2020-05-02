@@ -38,6 +38,7 @@ public class Orchestrator : MonoBehaviour
         currentTime = 0;        // Temps initial (au lancement du jeu)
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         Zombie = 0;
+        toolbarInt = PlayerPrefs.GetInt("Difficulty");
     }
 
     // Update is called once per frame
@@ -92,8 +93,8 @@ public class Orchestrator : MonoBehaviour
     }
 
     // gui, pour modifier la vitesse de génération des cibles
-    void OnGUI()
-    {
-       toolbarInt = GUI.Toolbar(new Rect(25, 25, 250, 30), toolbarInt, toolbarStrings);
-    }
+    //void OnGUI()
+    //{
+    //   toolbarInt = GUI.Toolbar(new Rect(25, 25, 250, 30), toolbarInt, toolbarStrings);
+    //}
 }

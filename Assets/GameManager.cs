@@ -208,7 +208,9 @@ public class GameManager : MonoBehaviour
                 {
                     sm.TargetHitted("Circle", "border");
                 }
+                SoundManager.PlaySound("targetHit");
             }
+
         }
     }
 
