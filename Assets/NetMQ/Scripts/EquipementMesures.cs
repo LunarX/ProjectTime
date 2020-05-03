@@ -38,8 +38,12 @@ public class EquipementMesures : RunAbleThread
                     server.SendFrame("G");
 
                     var msgs = msg.Split(';');
-                    bpm = float.Parse(msgs[1]);
-                    faceDetected = msgs[0] == "T" ? true : false;
+                    //bpm = float.Parse(msgs[1]);
+                    //if (msgs[0] == "T")
+                    //    faceDetected = true;
+                    //else
+                    //    faceDetected = false;
+                     //= msgs[0] == "T" ? true : false;
                 }
                 Thread.Sleep(5);
             }

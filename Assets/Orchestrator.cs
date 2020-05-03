@@ -5,13 +5,7 @@ using UnityEngine;
 public class Orchestrator : MonoBehaviour
 {
 
-    // Tuple.Create(var1, var2, var3, ...)
-    // if (NeedNewTargets)
-    // var list = GenerateTargets()
-    // var newTargets = list.Item1 
-    // var directions = lsit.Item2
-    // for i in newTargets
-    //  stack[direction[i]] = newTargets[i]
+
 
     // Variables pour la génération aléatoire des cibles
     private float currentTime;
@@ -27,9 +21,11 @@ public class Orchestrator : MonoBehaviour
     public static Dictionary<int, GameObject> dicSkel = new Dictionary<int, GameObject>();
 
     public static int indexx = 0;
-    public int Zombie;
-
+    public int Zombie;      // Nombre max de zombie
+    private PatternGenerator PG = new PatternGenerator();
+    private List<(int[], float)> pattern;
     GameManager gm;
+    private bool patternBool = false;
 
 
     // Start is called before the first frame update
@@ -39,62 +35,87 @@ public class Orchestrator : MonoBehaviour
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         Zombie = 0;
         toolbarInt = PlayerPrefs.GetInt("Difficulty");
+        SetDifficulty();
+        Zombie = PlayerPrefs.GetInt("Zombie");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Zombie = PlayerPrefs.GetInt("Zombie");
 
+
+        if (Mathf.Abs(currentTime - oldTime) > interv)      // S'active seul toutes les 'interv' secondes
+        {
+            oldTime = Time.time;                            // Pour la prochaine cible
+            GenerateSkeletton();
+            GenerateTarget();
+            patternBool = true;
+            pattern = PG.GetRandomPattern();
+        }
+
+        //if (patternBool)
+        //    GeneratePattern();
+
+        currentTime = Time.time;
+        
+    }
+
+    public void SetDifficulty()
+    {
         if (toolbarInt == 0)
             interv = 2.5f;
         else if (toolbarInt == 1)
             interv = 1.5f;
         else if (toolbarInt == 2)
             interv = 0.3f;
+    }
 
-        currentTime = Time.time;
-        if (Mathf.Abs(currentTime - oldTime) > interv)      // S'active seul toutes les 'interv' secondes
+    public void GenerateSkeletton()
+    {
+        // Génère les squelettes :
+        if ((numbSkel < 10) && (Zombie == 1))      // Limite du nombre de squelette && si Skelette autorisé
         {
-            randDir = Random.Range(0, 6);                   // Direction de la cible, générée aléatoirement
-            oldTime = Time.time;                            // Pour la prochaine cible
-            if (randDir < 4)
-            {
-                GameObject t = gm.tg.GenerateSingleTarget(randDir, 3f, 0.15f);
-                //GameObject t = TargetGenerator.GenerateSingleTarget(acceptedDir[randDir], 3f, 0.2f);
-                gm.stacks[randDir].Add(t);     // Evite de faire 4 if
-
-                // Génère les squelettes :
-                if( (numbSkel < 20) && (Zombie == 1) )      // Limite du nombre de squelette
-                {
-                    GameObject s = SkeletonGenerator.CreateSkel(indexx);
-                    dicSkel.Add(indexx, s);
-                    numbSkel += 1;
-                    indexx += 1;
-                }
-            }
-            else
-            {
-                if (randDir == 4)
-                {
-                    var ts = gm.tg.GenerateDoubleTarget(GameManager.LEFT, GameManager.RIGHT, 3f, 0.15f);
-                    gm.stacks[GameManager.LEFT].Add(ts.Item1);
-                    gm.stacks[GameManager.RIGHT].Add(ts.Item2);
-                }
-                if (randDir == 5)
-                {
-                    var ts = gm.tg.GenerateDoubleTarget(GameManager.UP, GameManager.DOWN, 3f, 0.15f);
-                    gm.stacks[GameManager.UP].Add(ts.Item1);
-                    gm.stacks[GameManager.DOWN].Add(ts.Item2);
-                }
-
-            }
+            GameObject s = SkeletonGenerator.CreateSkel(indexx);
+            dicSkel.Add(indexx, s);
+            numbSkel += 1;      // Nombre de skelette en jeu actuellement
+            indexx += 1;        // ID du zombie
         }
     }
 
-    // gui, pour modifier la vitesse de génération des cibles
-    //void OnGUI()
-    //{
-    //   toolbarInt = GUI.Toolbar(new Rect(25, 25, 250, 30), toolbarInt, toolbarStrings);
-    //}
+    public void GenerateTarget()
+    {
+        randDir = Random.Range(0, 6);                   // Direction de la cible, générée aléatoirement
+        
+        if (randDir < 4)
+        {
+            GameObject t = gm.tg.GenerateSingleTarget(randDir, 3f, 0.15f);
+            gm.stacks[randDir].Add(t);     // Evite de faire 4 if
+        }
+        else
+        {
+            if (randDir == 4)
+            {
+                var ts = gm.tg.GenerateDoubleTarget(GameManager.LEFT, GameManager.RIGHT, 3f, 0.15f);
+                gm.stacks[GameManager.LEFT].Add(ts.Item1);
+                gm.stacks[GameManager.RIGHT].Add(ts.Item2);
+            }
+            if (randDir == 5)
+            {
+                var ts = gm.tg.GenerateDoubleTarget(GameManager.UP, GameManager.DOWN, 3f, 0.15f);
+                gm.stacks[GameManager.UP].Add(ts.Item1);
+                gm.stacks[GameManager.DOWN].Add(ts.Item2);
+            }
+
+        }
+        
+    }
+
+    public void GeneratePattern()
+    {
+        //if (Mathf.Abs(Time.time - oldTime) > pattern[1].directions[1])
+        //{
+        //    print("Chapeau !");
+        //}
+    }
+
 }
