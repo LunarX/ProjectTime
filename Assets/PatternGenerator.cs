@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class PatternGenerator
@@ -18,73 +19,43 @@ public class PatternGenerator
         //var file = Resources.Load("patterns") as TextAsset;
         //var patternsSource = file.text;
 
-        //string[] stringSeparators = new string[] { "\r\n\r\n", "\n\n" };
-        //var textPatterns = patternsSource.Split(stringSeparators, StringSplitOptions.None);
+        var patternsSource = File.ReadAllText("./Assets/Resources/patterns.txt");
 
-        //foreach(var p in textPatterns)
-        //{
-        //    if(!String.IsNullOrEmpty(p))
-        //    {
-        //        List<(int[] directions, float timeOffset)> pattern = new List<(int[] directions, float timeOffset)>();
+        string[] stringSeparators = new string[] { "\r\n\r\n", "\n\n" };
+        var textPatterns = patternsSource.Split(stringSeparators, StringSplitOptions.None);
 
-        //        var lines = p.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-        //        foreach (var line in lines)
-        //        {
-        //            if (!String.IsNullOrEmpty(line))
-        //            {
-        //                List<int> dir = new List<int>();
-        //                float offset = -1f;
-
-        //                var values = line.Split(' ');
-        //                for(int i = 0; i<values.Length - 1; i++)
-        //                {
-        //                    //Debug.Log(i + " : " + values[i]);
-        //                    dir.Add(keywords[values[i]]);
-        //                }
-
-        //                offset = float.Parse(values[values.Length - 1]);
-        //                //Debug.Log("[" + dir.ToArray() + "]" + " - " + offset);
-
-        //                pattern.Add((directions: dir.ToArray(), timeOffset: offset));
-        //            }
-        //        }
-
-        //        patterns.Add(pattern);
-        //        //Debug.Log("====");
-        //    }
-        //}
-
-        patterns.Add(
-            new List<(int[] directions, float timeOffset)>
+        foreach (var p in textPatterns)
+        {
+            if (!String.IsNullOrEmpty(p))
             {
-                (directions: new int[] { GameManager.UP }, 0f),
-                (directions: new int[] { GameManager.UP }, 0.5f),
-                (directions: new int[] { GameManager.LEFT, GameManager.RIGHT }, 1f)
-            }
-        );
+                List<(int[] directions, float timeOffset)> pattern = new List<(int[] directions, float timeOffset)>();
 
-        patterns.Add(
-            new List<(int[] directions, float timeOffset)>
-            {
-                (directions: new int[] { GameManager.UP }, 0f),
-                (directions: new int[] { GameManager.RIGHT }, 0.25f),
-                (directions: new int[] { GameManager.DOWN }, 0.5f),
-                (directions: new int[] { GameManager.LEFT }, 0.75f)
-            }
-        );
+                var lines = p.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+                foreach (var line in lines)
+                {
+                    if (!String.IsNullOrEmpty(line))
+                    {
+                        List<int> dir = new List<int>();
+                        float offset = -1f;
 
-        patterns.Add(
-            new List<(int[] directions, float timeOffset)>
-            {
-                (directions: new int[] { GameManager.UP }, 0f),
-                (directions: new int[] { GameManager.LEFT }, 0.25f),
-                (directions: new int[] { GameManager.DOWN }, 0.5f),
-                (directions: new int[] { GameManager.RIGHT }, 0.75f),
-                (directions: new int[] { GameManager.DOWN }, 1f),
-                (directions: new int[] { GameManager.LEFT }, 1.25f),
-                (directions: new int[] { GameManager.UP }, 1.5f)
+                        var values = line.Split(' ');
+                        for (int i = 0; i < values.Length - 1; i++)
+                        {
+                            //Debug.Log(i + " : " + values[i]);
+                            dir.Add(keywords[values[i]]);
+                        }
+
+                        offset = float.Parse(values[values.Length - 1]);
+                        //Debug.Log("[" + dir.ToArray() + "]" + " - " + offset);
+
+                        pattern.Add((directions: dir.ToArray(), timeOffset: offset));
+                    }
+                }
+
+                patterns.Add(pattern);
+                //Debug.Log("====");
             }
-        );
+        }
     }
 
     // ..?
