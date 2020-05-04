@@ -131,7 +131,7 @@ public class Orchestrator : MonoBehaviour
         int[] dir = cible.Item1;
         if (Mathf.Abs(Time.time - patternTime) > offset)
         {
-            if (dir.Length == 0)
+            if (dir.Length == 1)
             {
                 GameObject t = gm.tg.GenerateSingleTarget(dir[0], 3f, 0.15f);
                 gm.stacks[dir[0]].Add(t);     // Evite de faire 4 if
