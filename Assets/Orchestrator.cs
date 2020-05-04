@@ -26,6 +26,9 @@ public class Orchestrator : MonoBehaviour
     private List<(int[], float)> pattern;
     GameManager gm;
     private bool patternBool = false;
+    private float patternTime = 0f;
+    public static float intervPattern = 5f;
+    private int i = 0;
 
 
     // Start is called before the first frame update
@@ -42,21 +45,31 @@ public class Orchestrator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        currentTime = Time.time;
 
         if (Mathf.Abs(currentTime - oldTime) > interv)      // S'active seul toutes les 'interv' secondes
         {
             oldTime = Time.time;                            // Pour la prochaine cible
             GenerateSkeletton();
             GenerateTarget();
-            patternBool = true;
-            pattern = PG.GetRandomPattern();
         }
 
-        //if (patternBool)
-        //    GeneratePattern();
+        if (Mathf.Abs(currentTime - patternTime) > intervPattern)        // Pattern activé tout les 'intervalPattern' secondes
+        {
+            
+            patternTime = Time.time;
+            //GeneratePattern();
+            pattern = PG.GetRandomPattern();
+            patternBool = true;
+            i = 0;
+        }
 
-        currentTime = Time.time;
+        if (patternBool)
+        {
+            GeneratePattern();
+        }
+
+        
         
     }
 
@@ -112,10 +125,32 @@ public class Orchestrator : MonoBehaviour
 
     public void GeneratePattern()
     {
-        //if (Mathf.Abs(Time.time - oldTime) > pattern[1].directions[1])
-        //{
-        //    print("Chapeau !");
-        //}
+        
+        var cible = pattern[i];
+        float offset = cible.Item2;
+        int[] dir = cible.Item1;
+        if (Mathf.Abs(Time.time - patternTime) > offset)
+        {
+            if (dir.Length == 0)
+            {
+                GameObject t = gm.tg.GenerateSingleTarget(dir[0], 3f, 0.15f);
+                gm.stacks[dir[0]].Add(t);     // Evite de faire 4 if
+            }
+            else
+            {
+                var ts = gm.tg.GenerateDoubleTarget(dir[0], dir[1], 3f, 0.15f);
+                gm.stacks[dir[0]].Add(ts.Item1);
+                gm.stacks[dir[1]].Add(ts.Item2);
+            }
+
+            i++;        // On passe à la prochaine cible
+        }
+        if (i == pattern.Count)
+        {
+            patternBool = false;
+            print("Fin pattern");
+        }
+            
     }
 
 }

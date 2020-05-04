@@ -47,6 +47,7 @@ public class PatternGenerator
         );
     }
 
+    // ..?
     public List<(int[], float)> GetRandomPattern()
     {
         var idx = rand.Next(patterns.Count);
