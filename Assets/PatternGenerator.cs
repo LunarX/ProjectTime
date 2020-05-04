@@ -8,7 +8,10 @@ public class PatternGenerator
     private List<List<(int[] directions, float timeOffset)>> patterns;
     private System.Random rand;
 
+<<<<<<< HEAD
     private readonly Dictionary<string, int> keywords = new Dictionary<string, int> { { "UP", GameManager.UP }, { "DOWN", GameManager.DOWN }, { "LEFT", GameManager.LEFT }, { "RIGHT", GameManager.RIGHT } };
+=======
+>>>>>>> 75f38b85f76bd75e784486c41eaa5164306ee46f
 
     public PatternGenerator()
     {
@@ -56,6 +59,7 @@ public class PatternGenerator
         }
     }
 
+    // ..?
     public List<(int[], float)> GetRandomPattern()
     {
         var idx = rand.Next(patterns.Count);

@@ -48,6 +48,7 @@ public class SkeletonBehaviour : MonoBehaviour
             Orchestrator.numbSkel -= 1;
             gm.sm.TargetHitted("skeletton", "center");
             Orchestrator.dicSkel.Remove(index);
+            SoundManager.PlaySound("skeletton");
         }
 
         // Si le skelette touche le cercle du centre
@@ -60,7 +61,7 @@ public class SkeletonBehaviour : MonoBehaviour
             Orchestrator.numbSkel -= 1;
             Orchestrator.dicSkel.Remove(index);
             gm.health.DamagePlayer(5);
-            //GameManager.DamagePlayer(5);
+            
         }
 
     }

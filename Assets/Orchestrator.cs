@@ -5,13 +5,7 @@ using UnityEngine;
 public class Orchestrator : MonoBehaviour
 {
 
-    // Tuple.Create(var1, var2, var3, ...)
-    // if (NeedNewTargets)
-    // var list = GenerateTargets()
-    // var newTargets = list.Item1 
-    // var directions = lsit.Item2
-    // for i in newTargets
-    //  stack[direction[i]] = newTargets[i]
+
 
     // Variables pour la génération aléatoire des cibles
     private float currentTime;
@@ -27,9 +21,14 @@ public class Orchestrator : MonoBehaviour
     public static Dictionary<int, GameObject> dicSkel = new Dictionary<int, GameObject>();
 
     public static int indexx = 0;
-    public int Zombie;
-
+    public int Zombie;      // Nombre max de zombie
+    private PatternGenerator PG = new PatternGenerator();
+    private List<(int[], float)> pattern;
     GameManager gm;
+    private bool patternBool = false;
+    private float patternTime = 0f;
+    public static float intervPattern = 5f;
+    private int i = 0;
 
 
     // Start is called before the first frame update
@@ -38,62 +37,120 @@ public class Orchestrator : MonoBehaviour
         currentTime = 0;        // Temps initial (au lancement du jeu)
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         Zombie = 0;
+        toolbarInt = PlayerPrefs.GetInt("Difficulty");
+        SetDifficulty();
+        Zombie = PlayerPrefs.GetInt("Zombie");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Zombie = PlayerPrefs.GetInt("Zombie");
+        currentTime = Time.time;
 
+        if (Mathf.Abs(currentTime - oldTime) > interv)      // S'active seul toutes les 'interv' secondes
+        {
+            oldTime = Time.time;                            // Pour la prochaine cible
+            GenerateSkeletton();
+            GenerateTarget();
+        }
+
+        if (Mathf.Abs(currentTime - patternTime) > intervPattern)        // Pattern activé tout les 'intervalPattern' secondes
+        {
+            
+            patternTime = Time.time;
+            //GeneratePattern();
+            pattern = PG.GetRandomPattern();
+            patternBool = true;
+            i = 0;
+        }
+
+        if (patternBool)
+        {
+            GeneratePattern();
+        }
+
+        
+        
+    }
+
+    public void SetDifficulty()
+    {
         if (toolbarInt == 0)
             interv = 2.5f;
         else if (toolbarInt == 1)
             interv = 1.5f;
         else if (toolbarInt == 2)
             interv = 0.3f;
+    }
 
-        currentTime = Time.time;
-        if (Mathf.Abs(currentTime - oldTime) > interv)      // S'active seul toutes les 'interv' secondes
+    public void GenerateSkeletton()
+    {
+        // Génère les squelettes :
+        if ((numbSkel < 10) && (Zombie == 1))      // Limite du nombre de squelette && si Skelette autorisé
         {
-            randDir = Random.Range(0, 6);                   // Direction de la cible, générée aléatoirement
-            oldTime = Time.time;                            // Pour la prochaine cible
-            if (randDir < 4)
-            {
-                GameObject t = gm.tg.GenerateSingleTarget(randDir, 3f, 0.15f);
-                //GameObject t = TargetGenerator.GenerateSingleTarget(acceptedDir[randDir], 3f, 0.2f);
-                gm.stacks[randDir].Add(t);     // Evite de faire 4 if
-
-                // Génère les squelettes :
-                if( (numbSkel < 20) && (Zombie == 1) )      // Limite du nombre de squelette
-                {
-                    GameObject s = SkeletonGenerator.CreateSkel(indexx);
-                    dicSkel.Add(indexx, s);
-                    numbSkel += 1;
-                    indexx += 1;
-                }
-            }
-            else
-            {
-                if (randDir == 4)
-                {
-                    var ts = gm.tg.GenerateDoubleTarget(GameManager.LEFT, GameManager.RIGHT, 3f, 0.15f);
-                    gm.stacks[GameManager.LEFT].Add(ts.Item1);
-                    gm.stacks[GameManager.RIGHT].Add(ts.Item2);
-                }
-                if (randDir == 5)
-                {
-                    var ts = gm.tg.GenerateDoubleTarget(GameManager.UP, GameManager.DOWN, 3f, 0.15f);
-                    gm.stacks[GameManager.UP].Add(ts.Item1);
-                    gm.stacks[GameManager.DOWN].Add(ts.Item2);
-                }
-
-            }
+            GameObject s = SkeletonGenerator.CreateSkel(indexx);
+            dicSkel.Add(indexx, s);
+            numbSkel += 1;      // Nombre de skelette en jeu actuellement
+            indexx += 1;        // ID du zombie
         }
     }
 
-    // gui, pour modifier la vitesse de génération des cibles
-    void OnGUI()
+    public void GenerateTarget()
     {
-       toolbarInt = GUI.Toolbar(new Rect(25, 25, 250, 30), toolbarInt, toolbarStrings);
+        randDir = Random.Range(0, 6);                   // Direction de la cible, générée aléatoirement
+        
+        if (randDir < 4)
+        {
+            GameObject t = gm.tg.GenerateSingleTarget(randDir, 3f, 0.15f);
+            gm.stacks[randDir].Add(t);     // Evite de faire 4 if
+        }
+        else
+        {
+            if (randDir == 4)
+            {
+                var ts = gm.tg.GenerateDoubleTarget(GameManager.LEFT, GameManager.RIGHT, 3f, 0.15f);
+                gm.stacks[GameManager.LEFT].Add(ts.Item1);
+                gm.stacks[GameManager.RIGHT].Add(ts.Item2);
+            }
+            if (randDir == 5)
+            {
+                var ts = gm.tg.GenerateDoubleTarget(GameManager.UP, GameManager.DOWN, 3f, 0.15f);
+                gm.stacks[GameManager.UP].Add(ts.Item1);
+                gm.stacks[GameManager.DOWN].Add(ts.Item2);
+            }
+
+        }
+        
     }
+
+    public void GeneratePattern()
+    {
+        
+        var cible = pattern[i];
+        float offset = cible.Item2;
+        int[] dir = cible.Item1;
+        if (Mathf.Abs(Time.time - patternTime) > offset)
+        {
+            if (dir.Length == 0)
+            {
+                GameObject t = gm.tg.GenerateSingleTarget(dir[0], 3f, 0.15f);
+                gm.stacks[dir[0]].Add(t);     // Evite de faire 4 if
+            }
+            else
+            {
+                var ts = gm.tg.GenerateDoubleTarget(dir[0], dir[1], 3f, 0.15f);
+                gm.stacks[dir[0]].Add(ts.Item1);
+                gm.stacks[dir[1]].Add(ts.Item2);
+            }
+
+            i++;        // On passe à la prochaine cible
+        }
+        if (i == pattern.Count)
+        {
+            patternBool = false;
+            print("Fin pattern");
+        }
+            
+    }
+
 }
