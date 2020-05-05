@@ -20614,6 +20614,8 @@ MonoBehaviour:
   psLeft: {fileID: 1290750914}
   psUp: {fileID: 653104313}
   psDown: {fileID: 756679680}
+  plus5Prefab: {fileID: 7553740541582409318, guid: 3910d7b3dd1bb1245b41029956411881,
+    type: 3}
 --- !u!4 &1995303272
 Transform:
   m_ObjectHideFlags: 0
