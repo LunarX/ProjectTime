@@ -57,33 +57,24 @@ public class VFXManager : MonoBehaviour
     }
 
 
-    public void PlayPlus5(Transform targetTransform)
+    public void PlayPlus5(Vector3 pos)
     {
-        //GameObject go = Instantiate(plus5Prefab, targetTransform.position, Quaternion.identity, null) as GameObject;
-        //go.transform.localEulerAngles = new Vector3(-90, 0, 0);
-        //var ps = go.GetComponent<ParticleSystem>();
-        //var psr = go.GetComponent<ParticleSystemRenderer>();
-        //psr.material = Resources.Load<Material>("Materials/plus5");
-        //ps.Play();
-        //Destroy(go, 2);
-        PlayParticle(targetTransform, "Materials/plus5");
+        PlayParticle(pos, "Materials/plus5");
     }
 
-    public void PlayPlus10(Transform targetTransform)
+    public void PlayPlus10(Vector3 pos)
     {
-        //GameObject go = Instantiate(plus5Prefab, targetTransform.position, Quaternion.identity, null) as GameObject;
-        //go.transform.localEulerAngles = new Vector3(-90, 0, 0);
-        //var ps = go.GetComponent<ParticleSystem>();
-        //var psr = go.GetComponent<ParticleSystemRenderer>();
-        //psr.material = Resources.Load<Material>("Materials/plus10");
-        //ps.Play();
-        //Destroy(go, 2);
-        PlayParticle(targetTransform, "Materials/plus10");
+        PlayParticle(pos, "Materials/plus10");
     }
 
-    private void PlayParticle(Transform targetTransform, string materialPath)
+    public void PlayMiss(Vector3 pos)
     {
-        GameObject go = Instantiate(plus5Prefab, targetTransform.position, Quaternion.identity, null) as GameObject;
+        PlayParticle(pos, "Materials/miss");
+    }
+
+    private void PlayParticle(Vector3 pos, string materialPath)
+    {
+        GameObject go = Instantiate(plus5Prefab, pos, Quaternion.identity, null) as GameObject;
         go.transform.localEulerAngles = new Vector3(-90, 0, 0);
         var ps = go.GetComponent<ParticleSystem>();
         var psr = go.GetComponent<ParticleSystemRenderer>();
