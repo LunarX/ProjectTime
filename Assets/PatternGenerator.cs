@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using UnityEngine;
 
@@ -45,7 +46,9 @@ public class PatternGenerator
                             dir.Add(keywords[values[i]]);
                         }
 
-                        offset = float.Parse(values[values.Length - 1]);
+                        CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+                        ci.NumberFormat.CurrencyDecimalSeparator = ".";
+                        offset = float.Parse(values[values.Length - 1], NumberStyles.Any, ci);
                         //Debug.Log("[" + dir.ToArray() + "]" + " - " + offset);
 
                         pattern.Add((directions: dir.ToArray(), timeOffset: offset));
