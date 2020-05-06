@@ -60,7 +60,9 @@ public class ToggleController : MonoBehaviour
 			onIcon.gameObject.SetActive(false);
 			offIcon.gameObject.SetActive(true);
 		}
-	}
+
+        PlayerPrefs.SetInt("Zombie", 1);
+    }
 		
 	void Update()
 	{

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SkeletonBehaviour : MonoBehaviour
 {
+    [Header("Skeletton Key Settings")]
     public int projectilSpeed = 2;      // Vitesse du squelette
     private Transform rb;               // Variable pour la position (mise à jour pour déplacer l'objet)
     private Vector3 dir;                // Direction de l'objet (incrémenté à la position actuelle)
