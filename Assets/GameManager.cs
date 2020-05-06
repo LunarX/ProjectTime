@@ -176,6 +176,7 @@ public class GameManager : MonoBehaviour
             Target t = stacks[direction][i].GetComponent(typeof(Target)) as Target;
             if (t.GetTimeBeforeDeletion() <= 0)
             {
+                vfx.PlayMiss(t.transform.position);
                 Destroy(stacks[direction][i]);
                 stacks[direction].RemoveAt(i);
                 OnMiss();
@@ -203,10 +204,12 @@ public class GameManager : MonoBehaviour
                 if(d < centerRadius)        // Si la cible a été atteint au centre (meilleur score)
                 {
                     sm.TargetHitted("Circle", "center");
+                    vfx.PlayPlus10(t.transform.position);
                 }
                 else                        // TODO : A repenser : impossible d'atteindre cette condition... Les cibles sont trop rapide et l'écart trop petit pour atteindre la cible, mais pas le centre...
                 {
                     sm.TargetHitted("Circle", "border");
+                    vfx.PlayPlus5(t.transform.position);
                 }
                 SoundManager.PlaySound("targetHit");
             }

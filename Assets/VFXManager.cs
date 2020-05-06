@@ -11,6 +11,8 @@ public class VFXManager : MonoBehaviour
     public ParticleSystem psUp;
     public ParticleSystem psDown;
     private static ParticleSystem[] pss = new ParticleSystem[4];
+
+    public GameObject plus5Prefab;
     
     private static Gradient yellowGradient;
     private static Gradient purpleGradient;
@@ -54,4 +56,30 @@ public class VFXManager : MonoBehaviour
         pss[direction].Play();
     }
 
+
+    public void PlayPlus5(Vector3 pos)
+    {
+        PlayParticle(pos, "Materials/plus5");
+    }
+
+    public void PlayPlus10(Vector3 pos)
+    {
+        PlayParticle(pos, "Materials/plus10");
+    }
+
+    public void PlayMiss(Vector3 pos)
+    {
+        PlayParticle(pos, "Materials/miss");
+    }
+
+    private void PlayParticle(Vector3 pos, string materialPath)
+    {
+        GameObject go = Instantiate(plus5Prefab, pos, Quaternion.identity, null) as GameObject;
+        go.transform.localEulerAngles = new Vector3(-90, 0, 0);
+        var ps = go.GetComponent<ParticleSystem>();
+        var psr = go.GetComponent<ParticleSystemRenderer>();
+        psr.material = Resources.Load<Material>(materialPath);
+        ps.Play();
+        Destroy(go, 2);
+    }
 }
