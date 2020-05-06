@@ -57,7 +57,7 @@ public class SkeletonGenerator: MonoBehaviour
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 
 
-        Sprite image = Resources.Load<Sprite>("Enemy/skelette");                                        // On récupère l'image du squelette
+        Sprite image = Resources.Load<Sprite>("Enemy/hexagone_squelette");                                        // On récupère l'image du squelette
         SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();                                    // Rajoute le Component 'Sprite Renderer' pour l'objet
         renderer.sprite = image;                                                                        // Fait le lien entre l'image et l'objet
 
