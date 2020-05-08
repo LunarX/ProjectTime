@@ -41,7 +41,7 @@ public class TargetGenerator
             throw new ArgumentException("The given direction isn't accepted");
         }
 
-        return CreateTarget("Targets/Circle", Target.SINGLE, acceptedDirections[direction], speed, disapearanceTime);
+        return CreateTarget("Targets/NeonYellow", Target.SINGLE, acceptedDirections[direction], speed, disapearanceTime);
     }
 
     // PROPOSITION :
@@ -66,7 +66,7 @@ public class TargetGenerator
             throw new ArgumentException("At least one of the two given direction isn't accepted");
         }
 
-        return Tuple.Create(CreateTarget("Targets/Circle2", Target.DOUBLE, acceptedDirections[direction1], speed, disapearanceTime), CreateTarget("Targets/Circle2", Target.DOUBLE, acceptedDirections[direction2], speed, disapearanceTime));
+        return Tuple.Create(CreateTarget("Targets/NeonPurple", Target.DOUBLE, acceptedDirections[direction1], speed, disapearanceTime), CreateTarget("Targets/NeonPurple", Target.DOUBLE, acceptedDirections[direction2], speed, disapearanceTime));
     }
 
     private static GameObject CreateTarget(String spritePath, int type, Vector2 direction, float speed, float disapearanceTime)
