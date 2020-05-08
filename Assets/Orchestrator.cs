@@ -26,6 +26,7 @@ public class Orchestrator : MonoBehaviour
     private List<(int[], float)> pattern;
     GameManager gm;
     private bool patternBool = false;
+    private bool targetBool = true;
     private float patternTime = 0f;
     public static float intervPattern = 5f;
     private int i = 0;
@@ -51,7 +52,8 @@ public class Orchestrator : MonoBehaviour
         {
             oldTime = Time.time;                            // Pour la prochaine cible
             GenerateSkeletton();
-            GenerateTarget();
+            if (targetBool)
+                GenerateTarget();
         }
 
         if (Mathf.Abs(currentTime - patternTime) > intervPattern)        // Pattern activé tout les 'intervalPattern' secondes
@@ -61,6 +63,7 @@ public class Orchestrator : MonoBehaviour
             //GeneratePattern();
             pattern = PG.GetRandomPattern();
             patternBool = true;
+            targetBool = false;
             i = 0;
         }
 
@@ -148,6 +151,7 @@ public class Orchestrator : MonoBehaviour
         if (i == pattern.Count)
         {
             patternBool = false;
+            targetBool = true;
             print("Fin pattern");
         }
             
