@@ -576,10 +576,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e82c11ed13a25429d3ef007e1fc053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  right: 275
-  left: 276
-  up: 273
-  down: 274
+  right: 100
+  left: 97
+  up: 119
+  down: 115
   maxRange: 4.5
   minRange: 0.74
   scalingFactor: 0.85

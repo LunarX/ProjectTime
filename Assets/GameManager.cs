@@ -60,6 +60,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject>[] stacks = new List<GameObject>[4]; // Besoin d'y mettre en public, sinon, pas possible d'y accéder depuis Orchestrator
 
     public TargetGenerator tg;
+    
+
+    private AudioSource bgm;
+    private AudioClip hard, normal, easy;
 
     // Start is called before the first frame update
     void Start()
@@ -75,13 +79,24 @@ public class GameManager : MonoBehaviour
 
         sm = new ScoreManager();
         //sm = GetComponent<ScoreManager>()
+
+        // BGM Management
+        AudioClip[] clips = new AudioClip[3];
+        clips[2] = Resources.Load<AudioClip>("BGM/BossMain");
+        clips[1] = Resources.Load<AudioClip>("BGM/RoccoW-Electric_Donkey_Muscles");
+        clips[0] = Resources.Load<AudioClip>("BGM/Komiku-Together_we_are_stronger");
+
+        bgm = gameObject.AddComponent<AudioSource>();
+        bgm.loop = true;
+        bgm.clip = clips[PlayerPrefs.GetInt("Difficulty")];
+        bgm.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckTargets();
-        DebugTargetGeneration();
+        //DebugTargetGeneration();
         CheckHealth();
 
 
