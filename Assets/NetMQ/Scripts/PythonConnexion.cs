@@ -10,6 +10,8 @@ public class PythonConnexion : MonoBehaviour
     //{
     //    print("bpm:" + equipementMesures.bpm);
     //}
+    // getcomponent<pythonconnection>
+    // trouver le script
 
     private static PythonConnexion instance;
 

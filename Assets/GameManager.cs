@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
     private AudioSource bgm;
     private AudioClip hard, normal, easy;
 
+    public PythonConnexion PC;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +81,7 @@ public class GameManager : MonoBehaviour
 
         sm = new ScoreManager();
         //sm = GetComponent<ScoreManager>()
+        
 
         // BGM Management
         AudioClip[] clips = new AudioClip[3];
@@ -90,6 +93,13 @@ public class GameManager : MonoBehaviour
         bgm.loop = true;
         bgm.clip = clips[PlayerPrefs.GetInt("Difficulty")];
         bgm.Play();
+
+
+        // PythonConnexion
+        PC = GameObject.Find("PythonConnexion").GetComponent<PythonConnexion>();
+        if (PC != null)
+            print("PC trouvé !");
+
     }
 
     // Update is called once per frame
@@ -98,6 +108,8 @@ public class GameManager : MonoBehaviour
         CheckTargets();
         //DebugTargetGeneration();
         CheckHealth();
+
+        print("BPM = " + PC.equipementMesures.bpm);
 
 
     }
@@ -244,6 +256,8 @@ public class GameManager : MonoBehaviour
         var w = 100;
         var h = 50;
         GUI.Box(new Rect(Screen.width-w, Screen.height-h, w, h), "Score : " + sm.GetScore());
+
+        GUI.Box(new Rect(0, Screen.height - h, w, h), "Score : " + PC.equipementMesures.bpm);
     }
 
 }

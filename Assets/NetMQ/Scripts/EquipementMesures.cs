@@ -38,7 +38,7 @@ public class EquipementMesures : RunAbleThread
                     server.SendFrame("G");
 
                     var msgs = msg.Split(';');
-                    //bpm = float.Parse(msgs[1]);
+                    bpm = float.Parse(msgs[1]);
                     //if (msgs[0] == "T")
                     //    faceDetected = true;
                     //else
