@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public const int UP = 1;
     public const int LEFT = 2;
     public const int DOWN = 3;
-    
+
 
     [Header("Playing Key Settings")]
     public KeyCode right = KeyCode.RightArrow;
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     //public float disapearanceTime = 0.2f;
     //[Tooltip("Time it takes for a target to scale to its final size before starting to move")]
     //public float scalingTime = 1.2f;
-    
+
     [HideInInspector]
     public ScoreManager sm;
 
@@ -64,7 +64,11 @@ public class GameManager : MonoBehaviour
 
     public TargetGenerator tg;
 
-    
+
+    private AudioSource bgm;
+    private AudioClip hard, normal, easy;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -81,7 +85,14 @@ public class GameManager : MonoBehaviour
         sm = new ScoreManager();
         //sm = GetComponent<ScoreManager>()
 
-        
+
+        // BGM Management
+        AudioClip[] clips = new AudioClip[3];
+        clips[2] = Resources.Load<AudioClip>("BGM/BossMain");
+        clips[1] = Resources.Load<AudioClip>("BGM/RoccoW-Electric_Donkey_Muscles");
+        clips[0] = Resources.Load<AudioClip>("BGM/Komiku-Together_we_are_stronger");
+
+
 
     }
 
@@ -89,7 +100,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         CheckTargets();
-        DebugTargetGeneration();
+        //DebugTargetGeneration();
         CheckHealth();
 
 
@@ -238,7 +249,7 @@ public class GameManager : MonoBehaviour
         var w = 100;
         var h = 50;
         GUI.Box(new Rect(Screen.width-w, Screen.height-h, w, h), "Score : " + sm.GetScore());
-            
+
     }
 
 }
