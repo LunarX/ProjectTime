@@ -45,16 +45,19 @@ public class ProjectileGenerator : MonoBehaviour
             // Création de l'objet, et rajout des Components
             GameObject go = new GameObject("Boule de feu");                                                 // Création de l'objet
 
-            Sprite image = Resources.Load<Sprite>("Fireball/spritesheet-512px-by-197px-per-frame 1");       // On récupère l'image de la boule de feu      
-            AnimationClip animation_Fireball = Resources.Load<AnimationClip>("Fireball/Fireball_AC");       // On récupère l'animation de la boule de feu
+            Sprite image = Resources.Load<Sprite>("Fireball/lazer");
+            //Sprite image = Resources.Load<Sprite>("Fireball/spritesheet-512px-by-197px-per-frame 1");       // On récupère l'image de la boule de feu      
+            //AnimationClip animation_Fireball = Resources.Load<AnimationClip>("Fireball/Fireball_AC");       // On récupère l'animation de la boule de feu
 
             SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();                                    // Rajoute le Component 'Sprite Renderer' pour l'objet
             renderer.sprite = image;                                                                        // Fait le lien entre l'image et l'objet
 
-            Animator animator = go.AddComponent<Animator>();                                                // Rajoute le Component 'Animator'
-            animator.runtimeAnimatorController = Resources.Load("Fireball/Fireball_AC") as RuntimeAnimatorController;       // Ajoute l'animation à l'objet
+            //Animator animator = go.AddComponent<Animator>();                                                // Rajoute le Component 'Animator'
+            //animator.runtimeAnimatorController = Resources.Load("Fireball/Fireball_AC") as RuntimeAnimatorController;       // Ajoute l'animation à l'objet
             go.transform.position = posiFire;                                                          // Indique la position où placer la boule de feu
             go.transform.rotation = rota;                                                                   // Indique la rotation de l'objet
+            Vector3 scaleChange = new Vector3(0.3f, 0.3f, 1f);
+            go.transform.localScale = scaleChange;
 
             BoxCollider2D bc2D = go.AddComponent<BoxCollider2D>();                                          // Component qui permet la détection de collision
             bc2D.isTrigger = true;                                                                          // Permet qu'une action soit effectuée en cas de collision
