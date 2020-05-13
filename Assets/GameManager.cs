@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -92,6 +92,17 @@ public class GameManager : MonoBehaviour
         clips[1] = Resources.Load<AudioClip>("BGM/RoccoW-Electric_Donkey_Muscles");
         clips[0] = Resources.Load<AudioClip>("BGM/Komiku-Together_we_are_stronger");
 
+
+        bgm = gameObject.AddComponent<AudioSource>();
+        bgm.loop = true;
+        bgm.clip = clips[PlayerPrefs.GetInt("Difficulty")];
+        bgm.Play();
+
+
+        // PythonConnexion
+        PC = GameObject.Find("PythonConnexion").GetComponent<PythonConnexion>();
+        if (PC != null)
+            print("PC trouvé !");
 
 
     }
