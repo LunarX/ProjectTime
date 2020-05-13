@@ -99,11 +99,6 @@ public class GameManager : MonoBehaviour
         bgm.Play();
 
 
-        // PythonConnexion
-        PC = GameObject.Find("PythonConnexion").GetComponent<PythonConnexion>();
-        if (PC != null)
-            print("PC trouvé !");
-
 
     }
 

@@ -195,7 +195,7 @@ public class Orchestrator : MonoBehaviour
         bpm1 = bpm0;
         bpm0 = PC.equipementMesures.bpm;
 
-        if (bpm2 - bpm0 > 70)
+        if (bpm2 - bpm0 > 70)       // Si le BPM augmente brutalement
         {
             print("Big ecart !");
             difficulty += 0.1f;
@@ -203,11 +203,11 @@ public class Orchestrator : MonoBehaviour
 
         if (Mathf.Abs(currentTime - levelTime) > 1)
         {
-            if ((bpm0 < 60) && (bpm2 < 60))
+            if ((bpm0 < 60) && (bpm2 < 60))     // Si c'est assez calme
             {
                 difficulty -= 0.05f;
             }
-            else if (((bpm0 < 80) && (bpm0 > 60)) && ((bpm2 < 80) && (bpm2 > 60)))
+            else if (((bpm0 < 80) && (bpm0 > 60)) && ((bpm2 < 80) && (bpm2 > 60)))      // Léger stress
             {
                 difficulty -= 0.01f;
             }
