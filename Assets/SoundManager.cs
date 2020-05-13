@@ -8,12 +8,14 @@ public class SoundManager : MonoBehaviour
     public static AudioClip SkelHit, TargetHit;
     static AudioSource audioSrc;
     // Start is called before the first frame update
+    public float volume = 0.7f;
     void Start()
     {
         SkelHit = Resources.Load<AudioClip>("Explosion+1");
         TargetHit = Resources.Load<AudioClip>("TargetHit");
 
         audioSrc = GetComponent<AudioSource>();
+        audioSrc.volume = volume;
     }
 
     // Update is called once per frame
