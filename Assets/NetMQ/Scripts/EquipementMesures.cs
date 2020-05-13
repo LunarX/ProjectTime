@@ -5,6 +5,7 @@ using NetMQ;
 using NetMQ.Sockets;
 using UnityEngine;
 using System.Threading;
+using System.Globalization;
 
 /// <summary>
 ///     Example of requester who only sends Hello. Very nice guy.
@@ -38,12 +39,15 @@ public class EquipementMesures : RunAbleThread
                     server.SendFrame("G");
 
                     var msgs = msg.Split(';');
-                    bpm = float.Parse(msgs[1]);
+                    //bpm = float.Parse(msgs[1]);
+                    CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+                    ci.NumberFormat.CurrencyDecimalSeparator = ".";
+                    bpm = float.Parse(msgs[1], NumberStyles.Any, ci);
                     //if (msgs[0] == "T")
                     //    faceDetected = true;
                     //else
                     //    faceDetected = false;
-                     //= msgs[0] == "T" ? true : false;
+                    //= msgs[0] == "T" ? true : false;
                 }
                 Thread.Sleep(5);
             }

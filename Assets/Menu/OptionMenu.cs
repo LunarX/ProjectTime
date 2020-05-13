@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using System;
+using System.Diagnostics;
 public class OptionMenu : MonoBehaviour
 {
-
+    Process p = new Process();
     public string difficulty;
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,14 @@ public class OptionMenu : MonoBehaviour
         difficulty = "easy";
         // METTRE LA DIFFICULTE dans PLAYER_INFO
         PlayerPrefs.SetInt("Difficulty", 0);
+
+
+        p.StartInfo.UseShellExecute = true;
+        p.StartInfo.FileName = "C:\\Users\\quent\\OneDrive\\Documents\\GitHub\\ProjectTime\\Heart_rate_light\\output\\NOGUI\\NOGUI.exe";
+        p.StartInfo.WorkingDirectory = "C:\\Users\\quent\\OneDrive\\Documents\\GitHub\\ProjectTime\\Heart_rate_light\\output\\NOGUI";
+        p.Start();
+
+
     }
     public void mediumDifficulty()
     {

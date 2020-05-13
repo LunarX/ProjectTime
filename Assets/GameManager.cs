@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+using System.Diagnostics;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class GameManager : MonoBehaviour
     public const int UP = 1;
     public const int LEFT = 2;
     public const int DOWN = 3;
+    
 
     [Header("Playing Key Settings")]
     public KeyCode right = KeyCode.RightArrow;
@@ -61,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     public TargetGenerator tg;
 
-    public PythonConnexion PC;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -78,9 +81,8 @@ public class GameManager : MonoBehaviour
         sm = new ScoreManager();
         //sm = GetComponent<ScoreManager>()
 
-        PC = GameObject.Find("PythonConnexion").GetComponent<PythonConnexion>();
-        if (PC != null)
-            print("PC trouvé !");
+        
+
     }
 
     // Update is called once per frame
@@ -90,7 +92,6 @@ public class GameManager : MonoBehaviour
         DebugTargetGeneration();
         CheckHealth();
 
-        print("BPM = " + PC.equipementMesures.bpm);
 
 
     }
@@ -237,8 +238,7 @@ public class GameManager : MonoBehaviour
         var w = 100;
         var h = 50;
         GUI.Box(new Rect(Screen.width-w, Screen.height-h, w, h), "Score : " + sm.GetScore());
-
-        GUI.Box(new Rect(0, Screen.height - h, w, h), "Score : " + PC.equipementMesures.bpm);
+            
     }
 
 }
