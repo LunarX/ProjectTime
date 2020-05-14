@@ -313,6 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502636d6094e64a41b01ba04c0b1b278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 0.7
 --- !u!82 &210205550
 AudioSource:
   m_ObjectHideFlags: 0
@@ -576,10 +577,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e82c11ed13a25429d3ef007e1fc053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  right: 100
-  left: 97
-  up: 119
-  down: 115
+  right: 275
+  left: 276
+  up: 273
+  down: 274
+  right2: 100
+  left2: 97
+  up2: 119
+  down2: 115
   maxRange: 4.5
   minRange: 0.74
   scalingFactor: 0.85
@@ -592,7 +597,6 @@ MonoBehaviour:
   t_double_horizontal: 113
   healthBar: {fileID: 1005509107}
   health: {fileID: 0}
-  PC: {fileID: 0}
 --- !u!4 &379339203
 Transform:
   m_ObjectHideFlags: 0
@@ -645,6 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Zombie: 0
+  PC: {fileID: 0}
 --- !u!114 &379339209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5705,6 +5710,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.85882354, g: 0.14509805, b: 0.14509805, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -20681,6 +20687,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

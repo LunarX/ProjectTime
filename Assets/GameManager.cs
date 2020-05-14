@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using System.Diagnostics;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class GameManager : MonoBehaviour
     public KeyCode left = KeyCode.LeftArrow;
     public KeyCode up = KeyCode.UpArrow;
     public KeyCode down = KeyCode.DownArrow;
+    public KeyCode right2 = KeyCode.D;
+    public KeyCode left2 = KeyCode.A;
+    public KeyCode up2 = KeyCode.W;
+    public KeyCode down2 = KeyCode.S;
 
     [Header("Settings")]
     [Tooltip("Distance to the origin of the target when it spawns")]
@@ -92,8 +97,8 @@ public class GameManager : MonoBehaviour
         clips[1] = Resources.Load<AudioClip>("BGM/RoccoW-Electric_Donkey_Muscles");
         clips[0] = Resources.Load<AudioClip>("BGM/Komiku-Together_we_are_stronger");
 
-
         bgm = gameObject.AddComponent<AudioSource>();
+        bgm.pitch = 1f;
         bgm.loop = true;
         bgm.clip = clips[PlayerPrefs.GetInt("Difficulty")];
         bgm.Play();
@@ -165,19 +170,19 @@ public class GameManager : MonoBehaviour
     void CheckTargets()
     {
         // Handles the click hit of targets
-        if (Input.GetKeyDown(right))
+        if (Input.GetKeyDown(right) || Input.GetKeyDown(right2))
         {
             ClickTarget(RIGHT);
         }
-        if (Input.GetKeyDown(left))
+        if (Input.GetKeyDown(left) || Input.GetKeyDown(left2))
         {
             ClickTarget(LEFT);
         }
-        if (Input.GetKeyDown(up))
+        if (Input.GetKeyDown(up) || Input.GetKeyDown(up2))
         {
             ClickTarget(UP);
         }
-        if (Input.GetKeyDown(down))
+        if (Input.GetKeyDown(down) || Input.GetKeyDown(down2))
         {
             ClickTarget(DOWN);
         }

@@ -30,8 +30,10 @@ public class OptionMenu : MonoBehaviour
 
 
         p.StartInfo.UseShellExecute = true;
-        p.StartInfo.FileName = "C:\\Users\\quent\\OneDrive\\Documents\\GitHub\\ProjectTime\\Heart_rate_light\\output\\NOGUI\\NOGUI.exe";
-        p.StartInfo.WorkingDirectory = "C:\\Users\\quent\\OneDrive\\Documents\\GitHub\\ProjectTime\\Heart_rate_light\\output\\NOGUI";
+        //p.StartInfo.FileName = "C:\\Users\\quent\\OneDrive\\Documents\\GitHub\\ProjectTime\\Heart_rate_light\\output\\NOGUI\\NOGUI.exe";
+        //p.StartInfo.WorkingDirectory = "C:\\Users\\quent\\OneDrive\\Documents\\GitHub\\ProjectTime\\Heart_rate_light\\output\\NOGUI";
+        p.StartInfo.FileName = "C:\\Users\\Gibran\\Documents\\Gibran\\Ecole\\_Uni\\Master 2\\TimeRythm\\Heart_rate_light\\output\\NOGUI\\NOGUI.exe";
+        p.StartInfo.WorkingDirectory = "C:\\Users\\Gibran\\Documents\\Gibran\\Ecole\\_Uni\\Master 2\\TimeRythm\\Heart_rate_light\\output\\NOGUI";
         p.Start();
 
 
