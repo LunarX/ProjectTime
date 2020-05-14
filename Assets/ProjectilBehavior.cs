@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectilBehavior : MonoBehaviour
 {
 
-    public int projectilSpeed = 1;
+    public int projectilSpeed = 3;
     private Transform rb;
     private Vector3 dir;
 

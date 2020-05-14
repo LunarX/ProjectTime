@@ -249,13 +249,5 @@ public class GameManager : MonoBehaviour
         health.DamagePlayer(10);
     }
 
-    // Affiche le score (se met à jour automatiquement)
-    void OnGUI()
-    {
-        var w = 100;
-        var h = 50;
-        GUI.Box(new Rect(Screen.width-w, Screen.height-h, w, h), "Score : " + sm.GetScore());
-
-    }
 
 }
