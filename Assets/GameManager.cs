@@ -74,7 +74,6 @@ public class GameManager : MonoBehaviour
     private AudioClip hard, normal, easy;
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -98,24 +97,17 @@ public class GameManager : MonoBehaviour
         clips[0] = Resources.Load<AudioClip>("BGM/Komiku-Together_we_are_stronger");
 
         bgm = gameObject.AddComponent<AudioSource>();
-        bgm.pitch = 1f;
         bgm.loop = true;
         bgm.clip = clips[PlayerPrefs.GetInt("Difficulty")];
         bgm.Play();
-
-
-
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         CheckTargets();
-        //DebugTargetGeneration();
         CheckHealth();
 
-
-
+        bgm.pitch = 1f;
     }
 
     void CheckHealth()
