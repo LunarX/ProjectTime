@@ -6,10 +6,11 @@ public class ScoreManager
 {
     private int score;       // Score du joueur
     //private int comboLength;    // Nombre de cible atteinte d'affilée
-    private const int scoreCenterTarget = 10; // Euh... Je sais plus... (# de points si cible atteinte au centre ??)
-    private const int scoreBorderTarget = 5; // Je sais plus non plus...
-    private const int scoreCenterSkel = 10; // Euh... Je sais plus... (# de points si cible atteinte au centre ??)
-    private const int scoreBorderSkel = 5; // Je sais plus non plus...
+    private const int scoreCenterTarget = 10;
+    private const int scoreBorderTarget = 5;
+    private const int scoreCenterSkel = 10; 
+    private const int scoreBorderSkel = 5;
+    public float combos = 1;
 
     void Start()
     {
@@ -29,25 +30,26 @@ public class ScoreManager
         {
             if (success == "center")        // On pourra enlever les { et } inutiles plus tard
             {
-                score += scoreCenterTarget;
+                score += (int) Mathf.Round(scoreCenterTarget *combos);
             }
             else if (success == "border")
             {
-                score += scoreBorderTarget;
+                score += (int) Mathf.Round(scoreBorderTarget * combos);
             }
-                //print("ERREUR : Circle");
+            combos += 0.2f;
         }
         else if (TargetType == "skeletton")   // Un squelette (dans les diagonales) est touchée
         {
             if (success == "center")
             {
-                score += scoreCenterSkel;
+                score += (int)Mathf.Round(scoreCenterSkel * combos);
             }
             else if (success == "border")
             {
-                score += scoreBorderSkel;
+                score += (int)Mathf.Round(scoreBorderSkel * combos);
             }
-                //print("ERREUR : Squelette");
+            //print("ERREUR : Squelette");
+            combos += 0.2f;
         }
     }
 
