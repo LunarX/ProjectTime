@@ -1,0 +1,80 @@
+* Questionaire initiale (démographique):
+
+Quel est votre age
+Quel est votre familiarité avec l'utilisation d'ordinateur
+Avez-vous l'habitude de jouer aux jeux-vidéos
+Êtes-vous doué aux jeux-vidéos
+Avez-vous l'habitude de jouer à des jeux de rythme spécifiquement
+Êtes-vous de tendance calme dans la vie en générale
+Êtes-vous sportif
+Êtes-vous adèpte de sensation fortes (films d'horreur, manèges, etc...)
+
+
+
+
+* Introduction/familiarisation:
+Expliquation des règles
+Jouer ~2 minutes pour se familiariser
+
+
+
+
+* Tâches:
+
+Tâche:		Jouer une partie facile avec hexgaones
+État initial:	Menu principal
+Critère succès:	Plus de 5 cibles ont été touchées avant de mourir et la partie est terminée
+Benchmark:	Partie terminée
+
+Tâche:		Jouer une partie normal avec hexgaones
+État initial:	Menu principal
+Critère succès:	Plus de 5 cibles ont été touchées avant de mourir et la partie est terminée
+Benchmark:	Partie terminée
+
+Tâche:		Jouer une partie difficile avec hexgaones
+État initial:	Menu principal
+Critère succès:	Plus de 5 cibles ont été touchées avant de mourir et la partie est terminée
+Benchmark:	Partie terminée
+
+Tâche:		Jouer une partie à choix sans hexagones
+État initial:	Menu principal
+Critère succès:	Plus de 5 cibles ont été touchées avant de mourir et la partie est terminée
+Benchmark:	Partie terminée
+
+Tâche:		Jouer 3 parties avec niveaux de difficultée à choix avec ou sans hexagones
+État initial:	Menu principal
+Critère succès:	Plus de 5 cibles ont été touchées avant de mourir dans chaque partie et les deux partise sont terminées
+Benchmark:	Parties terminées
+
+
+
+
+* Questionaire post-expérimental:
+
+Noter de "Trop facile" à "Parfait" à "Trop difficile" (de 1 à 5) la difficultée de chaque niveau
+Êtes-vous d'accord avec l'affirmation: "Lorsque je n'avais presque plus de vie, je me suis sentie plus stressé que le reste du temps". Noter parmis "Tout à fait d'accord, Plutôt d'accord, ni l'un ni l'autre, Plutôt pas d'accord, Pas du tout d'accord" (de 1 à 5)
+Êtes-vous d'accord avec l'affirmation: "J'ai préféré jouer avec les hexagones que sans". Noter parmis "Tout à fait d'accord, Plutôt d'accord, ni l'un ni l'autre, Plutôt pas d'accord, Pas du tout d'accord" (de 1 à 5)
+Êtes-vous d'accord avec l'affirmation: "Il est plus facile de jouer sans hexagones qu'avec hexagones". Noter parmis "Tout à fait d'accord, Plutôt d'accord, ni l'un ni l'autre, Plutôt pas d'accord, Pas du tout d'accord" (de 1 à 5)
+Êtes-vous d'accord avec l'affirmation: "J'ai apprecié le jeu". Noter parmis "Tout à fait d'accord, Plutôt d'accord, ni l'un ni l'autre, Plutôt pas d'accord, Pas du tout d'accord" (de 1 à 5)
+Êtes-vous d'accord avec l'affirmation: "J'aimerais rejouer à ce jeu chez moi". Noter parmis "Tout à fait d'accord, Plutôt d'accord, ni l'un ni l'autre, Plutôt pas d'accord, Pas du tout d'accord" (de 1 à 5)
+
+
+
+
+* Récolte des données:
+
+Score moyen de toutes les parties par niveau de difficulté
+Temps moyen de jeu pour toutes les parties par niveau de difficulté
+Choix des difficultées lors que le choix est laissé à l'utilisateur
+Nombre de parties avec hexagones lorsque le choix est laissé à l'utilisateur
+Nombre de fois où le ralentissement s'est déclanché
+
+
+
+
+====
+
+Sujet de l'évalution: L'émotion
+
+
+
