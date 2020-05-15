@@ -6,26 +6,35 @@ using TMPro;
 
 public class ScoreUpdate : MonoBehaviour
 {
-    public TextMeshProUGUI changingText;
+    public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI ComboText;
     public int score = 0;
+    public float combo = 1;
     GameManager gm;
     // Start is called before the first frame update
     void Start()
     {
-        TextChange();
+        ScoreChange();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        changingText.GetComponent<TextMeshProUGUI>();
+        ScoreText.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
         score = gm.sm.GetScore();
-        TextChange();
+        combo = gm.sm.combos;
+        ScoreChange();
+        ComboChange();
     }
 
-    public void TextChange()
+    public void ScoreChange()
     {
-        changingText.text = "Score\n" + score.ToString();
+        ScoreText.text = "Score\n" + score.ToString();
+    }
+
+    public void ComboChange()
+    {
+        ComboText.text = "x " + System.Math.Round(combo, 2);
     }
 }

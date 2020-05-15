@@ -247,6 +247,7 @@ public class GameManager : MonoBehaviour
     void OnMiss()
     {
         health.DamagePlayer(10);
+        sm.combos = 1;
     }
 
 
