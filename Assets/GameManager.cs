@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
 
     private AudioSource bgm;
     private AudioClip hard, normal, easy;
+    private Orchestrator orch;
 
 
     // Start is called before the first frame update
@@ -100,6 +101,8 @@ public class GameManager : MonoBehaviour
         bgm.loop = true;
         bgm.clip = clips[PlayerPrefs.GetInt("Difficulty")];
         bgm.Play();
+
+
     }
     
     void Update()
