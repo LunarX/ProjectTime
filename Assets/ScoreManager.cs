@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScoreManager 
 {
-    private int score;       // Score du joueur
+    public int score;       // Score du joueur
     //private int comboLength;    // Nombre de cible atteinte d'affilée
     private const int scoreCenterTarget = 10;
     private const int scoreBorderTarget = 5;

@@ -183,7 +183,6 @@ public class Orchestrator : MonoBehaviour
         {
             patternBool = false;
             targetBool = true;
-            print("Fin pattern");
         }
             
     }
@@ -197,7 +196,6 @@ public class Orchestrator : MonoBehaviour
 
         if (bpm2 - bpm0 > 70)       // Si le BPM augmente brutalement
         {
-            print("Big ecart !");
             difficulty += 0.1f;
         }
 

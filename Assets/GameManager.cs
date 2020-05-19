@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public Health health;
 
+    private int bestscore;
 
     private List<GameObject> right_stack = new List<GameObject>();
     private List<GameObject> left_stack = new List<GameObject>();
@@ -100,6 +101,9 @@ public class GameManager : MonoBehaviour
         bgm.loop = true;
         bgm.clip = clips[PlayerPrefs.GetInt("Difficulty")];
         bgm.Play();
+
+        bestscore = PlayerPrefs.GetInt("BestScore");
+        print("Best score :" + bestscore);
     }
     
     void Update()
@@ -114,8 +118,9 @@ public class GameManager : MonoBehaviour
     {
         if (health.curHealth < 0)
         {
-            print("T'ES MOOOOOOOOOOOORT !");
             PlayerPrefs.SetInt("Score", sm.GetScore());
+            if (sm.GetScore() > bestscore)
+                PlayerPrefs.SetInt("BestScore", sm.GetScore());
             SceneManager.LoadScene("EndMenu");
         }
     }

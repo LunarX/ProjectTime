@@ -17,8 +17,7 @@ public class HealthBar : MonoBehaviour
         healthBar = GetComponent<Slider>();
         healthBar.maxValue = playerHealth.maxHealth;
         healthBar.value = playerHealth.maxHealth;
-        //RT = GetComponent<RectTransform>();
-        //RT.localPosition = new Vector3(Screen.width-100, 100, 0);
+        
         fill.color = gradient.Evaluate(1f);
     }
 

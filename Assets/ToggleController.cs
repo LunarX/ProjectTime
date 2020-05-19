@@ -52,16 +52,20 @@ public class ToggleController : MonoBehaviour
 			handleTransform.localPosition = new Vector3(onPosX, 0f, 0f);
 			onIcon.gameObject.SetActive(true);
 			offIcon.gameObject.SetActive(false);
-		}
+
+            PlayerPrefs.SetInt("Zombie", 1);
+        }
 		else
 		{
 			toggleBgImage.color = offColorBg;
 			handleTransform.localPosition = new Vector3(offPosX, 0f, 0f);
 			onIcon.gameObject.SetActive(false);
 			offIcon.gameObject.SetActive(true);
-		}
 
-        PlayerPrefs.SetInt("Zombie", 1);
+            PlayerPrefs.SetInt("Zombie", 0);
+        }
+
+        
     }
 		
 	void Update()
