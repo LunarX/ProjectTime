@@ -10,6 +10,7 @@ public class HealthBar : MonoBehaviour
     public RectTransform RT;
     public Gradient gradient;
     public Image fill;
+    public GameObject background;
 
     public void Start()
     {
@@ -26,5 +27,10 @@ public class HealthBar : MonoBehaviour
         healthBar.value = hp;
 
         fill.color = gradient.Evaluate(healthBar.normalizedValue);
+    }
+
+    public float GetNormalHealth()
+    {
+        return healthBar.value;
     }
 }

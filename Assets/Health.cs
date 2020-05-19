@@ -6,7 +6,6 @@ public class Health : MonoBehaviour
 {
     public int curHealth = 0;
     public int maxHealth = 100;
-
     public HealthBar healthBar;
 
     // Start is called before the first frame update
@@ -26,5 +25,19 @@ public class Health : MonoBehaviour
         curHealth -= damage;
 
         healthBar.SetHealth(curHealth);
+
+    }
+
+
+    public int GetHealth()
+    {
+        return curHealth;
+    }
+
+    public float NormalHealth()
+    {
+        float aaa = (float)curHealth;
+        float bbb = (float)maxHealth;
+        return aaa/bbb;
     }
 }
