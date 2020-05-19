@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     private AudioSource bgm;
     private AudioClip hard, normal, easy;
+    private Orchestrator orch;
 
 
     // Start is called before the first frame update
@@ -105,7 +106,7 @@ public class GameManager : MonoBehaviour
         bestscore = PlayerPrefs.GetInt("BestScore");
         print("Best score :" + bestscore);
     }
-    
+
     void Update()
     {
         CheckTargets();

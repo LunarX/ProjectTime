@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Bangers SDF Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords:
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Bangers SDF
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   hashCode: 2134875903
   material: {fileID: 2100000}
   materialHashCode: -1865135980
@@ -657,10 +657,6 @@ MonoBehaviour:
     m_Y: 642
     m_Width: 30
     m_Height: 125
-  - m_X: 99
-    m_Y: 772
-    m_Width: 924
-    m_Height: 120
   - m_X: 169
     m_Y: 257
     m_Width: 12
@@ -740,7 +736,7 @@ MonoBehaviour:
   fallbackFontAssets: []
   m_FallbackFontAssetTable: []
   m_CreationSettings:
-    sourceFontFileName: 
+    sourceFontFileName:
     sourceFontFileGUID: 5dd49b3eacc540408c98eee0de38e0f1
     pointSizeSamplingMode: 1
     pointSize: 144
@@ -749,9 +745,9 @@ MonoBehaviour:
     atlasWidth: 1024
     atlasHeight: 1024
     characterSetSelectionMode: 6
-    characterSequence: 
+    characterSequence:
     referencedFontAssetGUID: 125cb55b44b24c4393181402bc6200e6
-    referencedTextAssetGUID: 
+    referencedTextAssetGUID:
     fontStyle: 0
     fontStyleModifier: 0
     renderMode: 4165
@@ -844,4 +840,4 @@ Texture2D:
   m_StreamData:
     offset: 0
     size: 0
-    path: 
+    path:
