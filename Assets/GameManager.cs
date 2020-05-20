@@ -75,6 +75,20 @@ public class GameManager : MonoBehaviour
     private AudioClip hard, normal, easy;
     private Orchestrator orch;
 
+    [Header("Bullet Time Settings")]
+    [Tooltip("The speed at which the game will be running during bullet time")]
+    [Range(0, 1)]
+    public float slowdownFactor = 0.05f;
+    [Tooltip("Time after which the bullet time will start to disapear")]
+    public float slowdownLength = 4f;
+    [Tooltip("The time it takes to the bullet time to go back to normal speed")]
+    public float recoveryLength = 1.5f;
+    [Tooltip("The key to press to activate bullet time")]
+    public KeyCode activateSlowdown = KeyCode.V;
+
+    private float slowdownActualLength;
+    private bool isRecovering = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -107,6 +121,8 @@ public class GameManager : MonoBehaviour
         print("Best score :" + bestscore);
 
         orch = GetComponent<Orchestrator>();
+
+        slowdownActualLength = slowdownLength * slowdownFactor;
     }
 
     void Update()
@@ -114,9 +130,27 @@ public class GameManager : MonoBehaviour
         CheckTargets();
         CheckHealth();
 
-        print("difficulty: " + (1.5f - 0.5f * orch.GetDifficulty()));
+        //print("difficulty: " + (1.5f - 0.5f * orch.GetDifficulty()));
         //bgm.pitch = (2 - orch.GetDifficulty());
         bgm.pitch = (1.5f - 0.5f*orch.GetDifficulty());
+
+        if (Input.GetKeyDown(activateSlowdown))
+        {
+            DoSlowmotion();
+        }
+
+        if (isRecovering)
+        {
+            Time.timeScale += (1.0f / recoveryLength) * Time.unscaledDeltaTime;
+            Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
+
+            if (Time.timeScale == 1.0f)
+            {
+                Time.fixedDeltaTime = Time.deltaTime;
+                isRecovering = false;
+
+            }
+        }
     }
 
     void CheckHealth()
@@ -257,5 +291,18 @@ public class GameManager : MonoBehaviour
         sm.combos = 1;
     }
 
+    void DoSlowmotion()
+    {
+        print("Activating Bullet Time");
+        Time.timeScale = slowdownFactor;
+        Time.fixedDeltaTime = Time.timeScale * .02f;
 
+        Invoke("BackToNormal", slowdownActualLength);
+    }
+
+    private void BackToNormal()
+    {
+        print("Starting Recovery");
+        isRecovering = true;
+    }
 }
