@@ -105,6 +105,8 @@ public class GameManager : MonoBehaviour
 
         bestscore = PlayerPrefs.GetInt("BestScore");
         print("Best score :" + bestscore);
+
+        orch = GetComponent<Orchestrator>();
     }
 
     void Update()
@@ -112,7 +114,9 @@ public class GameManager : MonoBehaviour
         CheckTargets();
         CheckHealth();
 
-        bgm.pitch = 1f;
+        print("difficulty: " + (1.5f - 0.5f * orch.GetDifficulty()));
+        //bgm.pitch = (2 - orch.GetDifficulty());
+        bgm.pitch = (1.5f - 0.5f*orch.GetDifficulty());
     }
 
     void CheckHealth()

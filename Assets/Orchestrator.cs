@@ -213,6 +213,11 @@ public class Orchestrator : MonoBehaviour
 
     }
 
+    public float GetDifficulty()
+    {
+        return difficulty;
+    }
+
     void OnGUI()
     {
         var w = 100;
