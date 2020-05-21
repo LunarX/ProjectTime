@@ -911,6 +911,10 @@ MonoBehaviour:
   t_double_horizontal: 113
   healthBar: {fileID: 1005509107}
   health: {fileID: 0}
+  slowdownFactor: 0.4
+  slowdownLength: 5
+  recoveryLength: 1
+  activateSlowdown: 118
 --- !u!4 &379339203
 Transform:
   m_ObjectHideFlags: 0
