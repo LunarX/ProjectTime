@@ -35,4 +35,16 @@ public class LevelLoader : MonoBehaviour
         // Load scene
         SceneManager.LoadScene(levelIndex);
     }
+
+    public void PlayGame()
+    {
+        //SceneManager.LoadScene("MainScene");
+        LoadNextLevel();
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("QUIT !");
+        Application.Quit();
+    }
 }
