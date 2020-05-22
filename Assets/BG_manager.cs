@@ -36,7 +36,6 @@ public class BG_manager : MonoBehaviour
 
         if (changeBG)
         {
-            print("Changement de BG !");
             changeBG = false;
             currentBG = colorBG;
             NewBG();

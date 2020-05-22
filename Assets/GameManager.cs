@@ -89,6 +89,8 @@ public class GameManager : MonoBehaviour
     private float slowdownActualLength;
     private bool isRecovering = false;
 
+    public string sBpm = "";    // Pour stocker les BPM
+
 
     // Start is called before the first frame update
     void Start()
@@ -155,12 +157,16 @@ public class GameManager : MonoBehaviour
 
     void CheckHealth()
     {
-        if (health.curHealth < 0)
+        if (health.curHealth < 0)   // Si on a perdu
         {
             PlayerPrefs.SetInt("Score", sm.GetScore());
-            if (sm.GetScore() > bestscore)
+            if (sm.GetScore() > bestscore)      // Mise à jour du meilleur score si nécessaire
                 PlayerPrefs.SetInt("BestScore", sm.GetScore());
             SceneManager.LoadScene("EndMenu");
+            if (sBpm != "")
+                PlayerPrefs.SetString("BPM", sBpm);
+            else
+                PlayerPrefs.SetString("BPM", "X");
         }
     }
 

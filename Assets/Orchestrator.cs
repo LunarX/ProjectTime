@@ -35,6 +35,8 @@ public class Orchestrator : MonoBehaviour
     private string level = "";
     private float difficulty = 1f;
     private float bpm0 = 0, bpm1 = 0, bpm2 = 0;
+    private float BPMstoreTime = 0f;
+    
 
     public PythonConnexion PC;
 
@@ -85,16 +87,16 @@ public class Orchestrator : MonoBehaviour
 
         if (patternBool)
         {
-            GeneratePattern();
+            GeneratePattern();      // Génération des patterns, si le moment est venu (cf patternBool)
+        }
+
+        if (PC != null)     // Permet d'éviter une erreur, si on joue sans le PC (Python Controller)
+        {
+            PC_control();   // Mesure du BPM, et mise à jour de la difficulté
         }
 
         if (PC != null)
-        {
-            PC_control();
-        }
-
-
-
+            storeBPM();
 
     }
 
@@ -233,6 +235,16 @@ public class Orchestrator : MonoBehaviour
             else
                 GUI.color = Color.white;
             GUI.Box(new Rect(0, Screen.height - h, w, h), "BPM : " + bpm0);
+        }
+    }
+
+    // Store the BPM into a string
+    public void storeBPM()
+    {
+        if (Mathf.Abs(currentTime - BPMstoreTime) > 1f)
+        {
+            BPMstoreTime = Time.time;
+            gm.sBpm += (int) Mathf.Round(bpm0) + " ";
         }
     }
 
