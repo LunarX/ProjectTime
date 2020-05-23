@@ -14,16 +14,6 @@ public class TargetGenerator
     private static float scalingFactor;
 
 
-    //[Tooltip("Time the target sticks at the end of its path before being considered as missed")]
-    //public static float disapearanceTime = 0.2f;
-
-    //[Tooltip("Time it takes for a target to scale to its final size before starting to move")]
-    //public static float scalingTime;
-
-
-
-
-
     private static readonly Vector2[] acceptedDirections = { Vector2.left, Vector2.down, Vector2.right, Vector2.up };
 
 
@@ -44,15 +34,6 @@ public class TargetGenerator
         return CreateTarget("Targets/NeonYellow", Target.SINGLE, acceptedDirections[direction], speed, disapearanceTime);
     }
 
-    // PROPOSITION :
-    // Direction : 0 = right, 1 = left, ... (cf. acceptedDirections). Evite les if's
-    //public GameObject GenerateSingleTarget(Vector2 direction, float speed, float disapearanceTime)
-    //{
-    //    if (acceptedDirections.Contains(direction))
-    //        return CreateTarget("Targets/Circle", Target.SINGLE, direction, speed, disapearanceTime);
-    //    else
-    //        throw new ArgumentException("The given direction isn't accepted");
-    //}
 
     public Tuple<GameObject, GameObject> GenerateDoubleTarget(int direction1, int direction2, float speed, float disapearanceTime)
     {
@@ -84,16 +65,6 @@ public class TargetGenerator
         float startingY = -direction.y * maxRange;
         go.transform.position = new Vector3(startingX, startingY, 0f);
         go.transform.localScale = new Vector3(0.3f, 0.3f, 1f) * scalingFactor;
-
-        // Plus utile... (mais au cas où)
-        // Rajouté par Quentin (permet la détection de collision)
-        //Rigidbody2D rb = go.AddComponent<Rigidbody2D>() as Rigidbody2D;
-        //rb.bodyType = RigidbodyType2D.Kinematic;
-        //rb.simulated = true;
-
-        //CircleCollider2D cc = go.AddComponent<CircleCollider2D>() as CircleCollider2D;
-        //cc.isTrigger = true;
-        // 
 
         return go;
     }

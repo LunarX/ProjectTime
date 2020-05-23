@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ResumeMenu : MonoBehaviour
 {
-
+    
     public static bool GameIsPaused = false;
+    [Header("GameObject du Menu")]
     public GameObject pauseMenuUI;
 
     // Update is called once per frame
@@ -16,13 +17,9 @@ public class ResumeMenu : MonoBehaviour
             print("PAUSE !!");
 
             if(GameIsPaused)
-            {
                 Resume();
-            }
             else
-            {
                 Pause();
-            }
         }
 
     }

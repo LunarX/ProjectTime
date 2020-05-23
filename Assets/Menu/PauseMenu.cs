@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    [Header("Texte à modifier")]
     public TextMeshProUGUI ScoreText;
     private int score = 0;
     GameManager gm;
+
     // Start is called before the first frame update
     void Start()
     {

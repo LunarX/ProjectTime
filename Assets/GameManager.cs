@@ -15,14 +15,22 @@ public class GameManager : MonoBehaviour
     public const int DOWN = 3;
 
 
-    [Header("Playing Key Settings")]
+    [HideInInspector]
     public KeyCode right = KeyCode.RightArrow;
+    [HideInInspector]
     public KeyCode left = KeyCode.LeftArrow;
+    [HideInInspector]
     public KeyCode up = KeyCode.UpArrow;
+    [HideInInspector]
     public KeyCode down = KeyCode.DownArrow;
+
+    [HideInInspector]
     public KeyCode right2 = KeyCode.D;
+    [HideInInspector]
     public KeyCode left2 = KeyCode.A;
+    [HideInInspector]
     public KeyCode up2 = KeyCode.W;
+    [HideInInspector]
     public KeyCode down2 = KeyCode.S;
 
     [Header("Settings")]
@@ -37,22 +45,8 @@ public class GameManager : MonoBehaviour
     private const float centerRadius = 0.175f;
     private const float borderRadius = 0.35f;
 
-    //[Tooltip("Time the target sticks at the end of its path before being considered as missed")]
-    //public float disapearanceTime = 0.2f;
-    //[Tooltip("Time it takes for a target to scale to its final size before starting to move")]
-    //public float scalingTime = 1.2f;
-
     [HideInInspector]
     public ScoreManager sm;
-
-
-    [Header("Testing Key Settings")]
-    public KeyCode t_up = KeyCode.W;
-    public KeyCode t_down = KeyCode.S;
-    public KeyCode t_left = KeyCode.A;
-    public KeyCode t_right = KeyCode.D;
-    public KeyCode t_double_vertical = KeyCode.E;
-    public KeyCode t_double_horizontal = KeyCode.Q;
 
     [Header("Santé du joueur :")]
     public HealthBar healthBar;
@@ -60,6 +54,7 @@ public class GameManager : MonoBehaviour
     public Health health;
 
     private int bestscore;
+    public bool Music = false;      // Présence (True ou False) des musiques
 
     private List<GameObject> right_stack = new List<GameObject>();
     private List<GameObject> left_stack = new List<GameObject>();
@@ -89,6 +84,7 @@ public class GameManager : MonoBehaviour
     private float slowdownActualLength;
     private bool isRecovering = false;
 
+    [HideInInspector]
     public string sBpm = "";    // Pour stocker les BPM
 
 
@@ -105,8 +101,6 @@ public class GameManager : MonoBehaviour
         health.healthBar = healthBar;
 
         sm = new ScoreManager();
-        //sm = GetComponent<ScoreManager>()
-
 
         // BGM Management
         AudioClip[] clips = new AudioClip[3];
@@ -114,10 +108,14 @@ public class GameManager : MonoBehaviour
         clips[1] = Resources.Load<AudioClip>("BGM/RoccoW-Electric_Donkey_Muscles");
         clips[0] = Resources.Load<AudioClip>("BGM/Komiku-Together_we_are_stronger");
 
-        bgm = gameObject.AddComponent<AudioSource>();
-        bgm.loop = true;
-        bgm.clip = clips[PlayerPrefs.GetInt("Difficulty")];
-        bgm.Play();
+        Music = (PlayerPrefs.GetInt("Music") == 1);   // Renvoyer un booléan
+        if (Music)
+        {
+            bgm = gameObject.AddComponent<AudioSource>();
+            bgm.loop = true;
+            bgm.clip = clips[PlayerPrefs.GetInt("Difficulty")];
+            bgm.Play();
+        }
 
         bestscore = PlayerPrefs.GetInt("BestScore");
         print("Best score :" + bestscore);
@@ -134,12 +132,12 @@ public class GameManager : MonoBehaviour
 
         //print("difficulty: " + (1.5f - 0.5f * orch.GetDifficulty()));
         //bgm.pitch = (2 - orch.GetDifficulty());
-        bgm.pitch = (1.5f - 0.5f*orch.GetDifficulty());
+        if (Music)
+            bgm.pitch = (1.5f - 0.5f*orch.GetDifficulty());
 
         if (Input.GetKeyDown(activateSlowdown))
-        {
             DoSlowmotion();
-        }
+
 
         if (isRecovering)
         {
@@ -170,64 +168,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void DebugTargetGeneration()
-    {
-        // For testing purposes, generate targets using keyboard.
-        if (Input.GetKeyDown(t_up))
-        {
-            GameObject t = tg.GenerateSingleTarget(UP, 3f, 0.2f);
-            up_stack.Add(t);
-        }
-        if (Input.GetKeyDown(t_down))
-        {
-            GameObject t = tg.GenerateSingleTarget(DOWN, 3f, 0.2f);
-            down_stack.Add(t);
-        }
-        if (Input.GetKeyDown(t_left))
-        {
-            GameObject t = tg.GenerateSingleTarget(LEFT, 3f, 0.2f);
-            left_stack.Add(t);
-        }
-        if (Input.GetKeyDown(t_right))
-        {
-            GameObject t = tg.GenerateSingleTarget(RIGHT, 3f, 0.2f);
-            right_stack.Add(t);
-        }
-
-        if (Input.GetKeyDown(t_double_horizontal))
-        {
-            var ts = tg.GenerateDoubleTarget(LEFT, RIGHT, 3f, 0.2f);
-            right_stack.Add(ts.Item1);
-            left_stack.Add(ts.Item2);
-        }
-
-        if (Input.GetKeyDown(t_double_vertical))
-        {
-            var ts = tg.GenerateDoubleTarget(UP, DOWN, 3f, 0.2f);
-            down_stack.Add(ts.Item1);
-            up_stack.Add(ts.Item2);
-        }
-    }
 
     void CheckTargets()
     {
         // Handles the click hit of targets
         if (Input.GetKeyDown(right) || Input.GetKeyDown(right2))
-        {
             ClickTarget(RIGHT);
-        }
         if (Input.GetKeyDown(left) || Input.GetKeyDown(left2))
-        {
             ClickTarget(LEFT);
-        }
         if (Input.GetKeyDown(up) || Input.GetKeyDown(up2))
-        {
             ClickTarget(UP);
-        }
         if (Input.GetKeyDown(down) || Input.GetKeyDown(down2))
-        {
             ClickTarget(DOWN);
-        }
 
         // Handles the destruction of missed targets
         // For each stack check if the oldest target should be destroyed because the user missed
@@ -266,7 +218,7 @@ public class GameManager : MonoBehaviour
             var idx = 0; // stacks[direction].Count - 1;
             var t = stacks[direction][idx].GetComponent(typeof(Target)) as Target;
             var d = t.GetDistanceLeft();    // Distance entre la cible et le controlleur (?)
-            //print("D = " + d);
+
             if (d < borderRadius)           // Si on a atteint au suffisamment bon moment
             {
                 vfx.PlayHaxagones(direction, t.GetTargetType());    // Active les effets visuels ??

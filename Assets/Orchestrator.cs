@@ -6,30 +6,32 @@ public class Orchestrator : MonoBehaviour
 {
 
 
-
     // Variables pour la génération aléatoire des cibles
     private float currentTime;
     private float oldTime;
     private float levelTime;
-    //private static readonly Vector2[] acceptedDir = { Vector2.left, Vector2.down, Vector2.right, Vector2.up };
+    private float patternTime = 0f;
+    
     private int randDir;
     private int toolbarInt = 0;
     private string[] toolbarStrings = new string[] { "Lent", "Moyen", "Rapide" };
-    public static float interv = 2.5f;
-    public static float intervGenerate;
-
-    public static int numbSkel = 0;
+    private float interv = 2.5f;
+    private float intervGenerate;
 
     public static Dictionary<int, GameObject> dicSkel = new Dictionary<int, GameObject>();
 
-    public static int indexx = 0;
-    public int Zombie;      // Nombre max de zombie
+    public static int indexx = 0;       // Index pour les squelettes générés (cf. dicSkel)
+    
     private PatternGenerator PG = new PatternGenerator();
     private List<(int[], float)> pattern;
     GameManager gm;
     private bool patternBool = false;
     private bool targetBool = true;
-    private float patternTime = 0f;
+
+    [Header("Activer les éléments")]
+    public bool Zombie = true;      // Présence (True ou False) des zombies
+    public bool Target = true;      // Présence (True ou False) des targets
+
     public static float intervPattern = 5f;
     private int i = 0;
     private string level = "";
@@ -38,17 +40,19 @@ public class Orchestrator : MonoBehaviour
     private float BPMstoreTime = 0f;
     
 
-    public PythonConnexion PC;
+    private PythonConnexion PC;
 
     // Start is called before the first frame update
     void Start()
     {
         currentTime = 0;        // Temps initial (au lancement du jeu)
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        Zombie = 0;
+
         toolbarInt = PlayerPrefs.GetInt("Difficulty");
         SetDifficulty();
-        Zombie = PlayerPrefs.GetInt("Zombie");
+
+        Zombie = (PlayerPrefs.GetInt("Zombie") == 1);   // Renvoyer un booléan
+        Target = (PlayerPrefs.GetInt("Target") == 1);   // Renvoyer un booléan
         levelTime = 0;
 
         if(GameObject.Find("PythonConnexion") != null)
@@ -85,15 +89,11 @@ public class Orchestrator : MonoBehaviour
             i = 0;
         }
 
-        if (patternBool)
-        {
+        if (patternBool && Target)
             GeneratePattern();      // Génération des patterns, si le moment est venu (cf patternBool)
-        }
 
         if (PC != null)     // Permet d'éviter une erreur, si on joue sans le PC (Python Controller)
-        {
             PC_control();   // Mesure du BPM, et mise à jour de la difficulté
-        }
 
         if (PC != null)
             storeBPM();
@@ -122,37 +122,40 @@ public class Orchestrator : MonoBehaviour
     public void GenerateSkeletton()
     {
         // Génère les squelettes :
-        if ((numbSkel < 10) && (Zombie == 1))      // Limite du nombre de squelette && si Skelette autorisé
+        if (Zombie)     // Limite du nombre de squelette && si Skelette autorisé
         {
             GameObject s = SkeletonGenerator.CreateSkel(indexx);
             dicSkel.Add(indexx, s);
-            numbSkel += 1;      // Nombre de skelette en jeu actuellement
             indexx += 1;        // ID du zombie
         }
     }
 
     public void GenerateTarget()
     {
-        randDir = Random.Range(0, 6);                   // Direction de la cible, générée aléatoirement
-        
-        if (randDir < 4)
+        if (Target)
         {
-            GameObject t = gm.tg.GenerateSingleTarget(randDir, 3f, 0.15f);
-            gm.stacks[randDir].Add(t);     // Evite de faire 4 if
-        }
-        else
-        {
-            if (randDir == 4)
+            randDir = Random.Range(0, 6);                   // Direction de la cible, générée aléatoirement
+
+            if (randDir < 4)
             {
-                var ts = gm.tg.GenerateDoubleTarget(GameManager.LEFT, GameManager.RIGHT, 3f, 0.15f);
-                gm.stacks[GameManager.LEFT].Add(ts.Item1);
-                gm.stacks[GameManager.RIGHT].Add(ts.Item2);
+                GameObject t = gm.tg.GenerateSingleTarget(randDir, 3f, 0.15f);
+                gm.stacks[randDir].Add(t);     // Evite de faire 4 if
             }
-            if (randDir == 5)
+            else
             {
-                var ts = gm.tg.GenerateDoubleTarget(GameManager.UP, GameManager.DOWN, 3f, 0.15f);
-                gm.stacks[GameManager.UP].Add(ts.Item1);
-                gm.stacks[GameManager.DOWN].Add(ts.Item2);
+                if (randDir == 4)
+                {
+                    var ts = gm.tg.GenerateDoubleTarget(GameManager.LEFT, GameManager.RIGHT, 3f, 0.15f);
+                    gm.stacks[GameManager.LEFT].Add(ts.Item1);
+                    gm.stacks[GameManager.RIGHT].Add(ts.Item2);
+                }
+                if (randDir == 5)
+                {
+                    var ts = gm.tg.GenerateDoubleTarget(GameManager.UP, GameManager.DOWN, 3f, 0.15f);
+                    gm.stacks[GameManager.UP].Add(ts.Item1);
+                    gm.stacks[GameManager.DOWN].Add(ts.Item2);
+                }
+
             }
 
         }

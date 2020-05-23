@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileGenerator : MonoBehaviour
 {
-
+    [Header("GameObject (viseur)")]
     public GameObject viseur;
     private Quaternion rotaViseur;
     private float angleViseur;
@@ -36,9 +36,7 @@ public class ProjectileGenerator : MonoBehaviour
             float angle = Vector3.Angle(mousePosition, Vector3.right);                                      // Angle entre la position de la souris et l'axe x (1, 0) (vecteur avec le point origine (0, 0) )
 
             if (mousePosition.y < 0)                                                                        // 'angle' est entre 0 et 180, donc on a besoin de rajouter le signe +/- (- si on en dessous de l'axe x)
-            {
                 angle = 0 - angle;
-            }
 
             Quaternion rota = Quaternion.Euler(0, 0, angle + 180);                                          // Variable pour la Rotation, de type Quaternion
 
@@ -46,14 +44,10 @@ public class ProjectileGenerator : MonoBehaviour
             GameObject go = new GameObject("Boule de feu");                                                 // Création de l'objet
 
             Sprite image = Resources.Load<Sprite>("Fireball/lazer");
-            //Sprite image = Resources.Load<Sprite>("Fireball/spritesheet-512px-by-197px-per-frame 1");       // On récupère l'image de la boule de feu      
-            //AnimationClip animation_Fireball = Resources.Load<AnimationClip>("Fireball/Fireball_AC");       // On récupère l'animation de la boule de feu
-
+            
             SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();                                    // Rajoute le Component 'Sprite Renderer' pour l'objet
             renderer.sprite = image;                                                                        // Fait le lien entre l'image et l'objet
 
-            //Animator animator = go.AddComponent<Animator>();                                                // Rajoute le Component 'Animator'
-            //animator.runtimeAnimatorController = Resources.Load("Fireball/Fireball_AC") as RuntimeAnimatorController;       // Ajoute l'animation à l'objet
             go.transform.position = posiFire;                                                          // Indique la position où placer la boule de feu
             go.transform.rotation = rota;                                                                   // Indique la rotation de l'objet
             Vector3 scaleChange = new Vector3(0.3f, 0.3f, 1f);

@@ -129,21 +129,15 @@ public class Window_Graph : MonoBehaviour {
     public void GetBPM()
     {
         sBpm = PlayerPrefs.GetString("BPM", sBpm);
-        print(sBpm.Split(' '));
         if (sBpm != "X")
         {
             foreach (string c in sBpm.Split(' '))
             {
                 if (c.Length > 0)
-                {
                     valueList.Add(Int16.Parse(c));
-                    
-                }
-                
             } 
         }
 
-        print("Message : " + valueList.Count);
     }
 
 }

@@ -32,11 +32,7 @@ public class SkeletonBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // A modifier (pas besoin de recalculer à chaque fois la direction)
-        // deltaTime pour 
-        
-        rb.position -= dir*Time.deltaTime;                                                         // Mise à jour de la position
-        //print("Temps Delta Time :" + Time.deltaTime);
+        rb.position -= dir*Time.deltaTime;                                                         // Mise à jour de la position (par rapport au temps, et non pas des frames)
     }
 
     private void OnTriggerEnter2D(Collider2D collision)                             // Nom de la fonction qui détecte une collision (est appelée si collision avec l'objet)
@@ -48,7 +44,6 @@ public class SkeletonBehaviour : MonoBehaviour
         if (missile != null)                                                        // Si c'est null, alors ce n'est pas un missile
         {
             Destroy(Orchestrator.dicSkel[index]);                                                     // Détruit l'objet
-            Orchestrator.numbSkel -= 1;
             gm.sm.TargetHitted("skeletton", "center");
             vfx.PlayPlus10(gameObject.transform.position);
             Orchestrator.dicSkel.Remove(index);
@@ -60,10 +55,7 @@ public class SkeletonBehaviour : MonoBehaviour
         if (center == "Center")
         {
             vfx.PlayMiss(gameObject.transform.position);
-            // TODO : modifier la destruction, en détruisant l'objet spécifique, en non pas juste gameObject (il faut donc stocker les objets dans une liste)
             Destroy(Orchestrator.dicSkel[index]);                                                        // Détruit l'objet
-            //print("Machin " + index + " détruit !");
-            Orchestrator.numbSkel -= 1;
             Orchestrator.dicSkel.Remove(index);
             gm.health.DamagePlayer(5);
             

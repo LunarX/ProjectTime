@@ -18,11 +18,6 @@ public class SoundManager : MonoBehaviour
         audioSrc.volume = volume;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public static void PlaySound(string clip)
     {

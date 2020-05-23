@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class ProjectilBehavior : MonoBehaviour
 {
-
-    public int projectilSpeed = 3;
+    private int projectilSpeed = 3;
     private Transform rb;
     private Vector3 dir;
 
     // Start is called before the first frame update
     void Start()
     {
-
         rb = GetComponent<Transform>();     // On récupère les infos concernant la position, rotation, etc...
         dir = Vector3.Normalize(rb.position) * 0.03f * projectilSpeed;      // Direction : Vector3.Normalize(rb.position) est le vecteur, normalisé (pour que toutes les boules aient la même vitesse) ; 0.03 pour diminuer la vitesse
     }
@@ -20,12 +18,10 @@ public class ProjectilBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         rb.position = rb.position + dir ;                                           // Mise à jour de la position
+
         if (Mathf.Abs(rb.position.x) > 10 || Mathf.Abs(rb.position.y) > 10)
-            {
             Destroy(gameObject);
-        }
     }   
 
     private void OnTriggerEnter2D(Collider2D collision)                             // Nom de la fonction qui détecte une collision (est appelée si collision avec l'objet)
@@ -34,8 +30,6 @@ public class ProjectilBehavior : MonoBehaviour
 
         // Si le squelette est touché par un missile, alors 'missile' ne sera pas nul
         if (skeletton != null)                                                        // Si c'est null, alors ce n'est pas un missile
-        {
             Destroy(gameObject);                                                        // Détruit l'objet
-        }
     }
 }

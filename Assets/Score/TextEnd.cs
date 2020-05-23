@@ -6,20 +6,18 @@ using TMPro;
 
 public class TextEnd : MonoBehaviour
 {
+    [Header("Texte à modifier")]
     public TextMeshProUGUI changingText;
-    public int finalScore;
+    private int finalScore;
+
     // Start is called before the first frame update
     void Start()
     {
         TextChange();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
+    // Change le texte pour le score de fin
     public void TextChange()
     {
         finalScore = PlayerPrefs.GetInt("Score");
