@@ -38,7 +38,12 @@ public class Orchestrator : MonoBehaviour
     private float difficulty = 1f;
     private float bpm0 = 0, bpm1 = 0, bpm2 = 0;
     private float BPMstoreTime = 0f;
-    
+
+    [Header("Vitesse des niveaux")]
+    public float level1 = 2.5f;
+    public float level2 = 1.5f;
+    public float level3 = 1.0f;
+
 
     private PythonConnexion PC;
 
@@ -51,8 +56,8 @@ public class Orchestrator : MonoBehaviour
         toolbarInt = PlayerPrefs.GetInt("Difficulty");
         SetDifficulty();
 
-        Zombie = (PlayerPrefs.GetInt("Zombie") == 1);   // Renvoyer un booléan
-        Target = (PlayerPrefs.GetInt("Target") == 1);   // Renvoyer un booléan
+        Zombie = (PlayerPrefs.GetInt("Zombie") == 1);   // Renvoye un booléan
+        Target = (PlayerPrefs.GetInt("Target") == 1);   // Pareil
         levelTime = 0;
 
         if(GameObject.Find("PythonConnexion") != null)
@@ -105,17 +110,17 @@ public class Orchestrator : MonoBehaviour
         if (toolbarInt == 0)
         {
             level = "easy";
-            interv = 2.5f;
+            interv = level1;
         }
         else if (toolbarInt == 1)
         {
             level = "medium";
-            interv = 1.5f;
+            interv = level2;
         }
         else if (toolbarInt == 2)
         {
             level = "hard";
-            interv = 0.5f;
+            interv = level3;
         }
     }
 

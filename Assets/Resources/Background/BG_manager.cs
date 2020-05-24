@@ -8,7 +8,7 @@ public class BG_manager : MonoBehaviour
     private SpriteRenderer renderer;
     GameManager gm;
     private double sante = 0;
-    public bool changeBG = false;
+    private bool changeBG = false;
     private float yellowVal = 0.688f;
     private float redVal = 0.332f;
     private string colorBG = "green";
@@ -16,6 +16,8 @@ public class BG_manager : MonoBehaviour
     private Sprite greenBG;
     private Sprite yellowBG;
     private Sprite redBG;
+
+    public bool background;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,8 @@ public class BG_manager : MonoBehaviour
         yellowBG = Resources.Load<Sprite>("Background/BG_yellow");
         redBG = Resources.Load<Sprite>("Background/BG_red");
         renderer.sprite = greenBG;
+
+        background = (PlayerPrefs.GetInt("BackGround") == 1);   // Renvoyer un booléan
     }
 
     // Update is called once per frame
@@ -34,7 +38,7 @@ public class BG_manager : MonoBehaviour
         //print("Santé : " + sante);
         NewColor();
 
-        if (changeBG)
+        if (changeBG && background)
         {
             changeBG = false;
             currentBG = colorBG;
