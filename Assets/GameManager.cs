@@ -247,6 +247,8 @@ public class GameManager : MonoBehaviour
     {
         health.DamagePlayer(10);
         sm.combos = 1;
+
+        SoundManager.PlaySound("targetMiss"); 
     }
 
     void DoSlowmotion()

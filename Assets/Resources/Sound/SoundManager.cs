@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
 
-    public static AudioClip SkelHit, TargetHit;
+    public static AudioClip SkelHit, TargetHit, TargetMiss;
     static AudioSource audioSrc;
     // Start is called before the first frame update
     public float volume = 0.7f;
@@ -13,6 +13,7 @@ public class SoundManager : MonoBehaviour
     {
         SkelHit = Resources.Load<AudioClip>("Explosion+1");
         TargetHit = Resources.Load<AudioClip>("TargetHit");
+        TargetMiss = Resources.Load<AudioClip>("Sound/NFF-robo-hit");
 
         audioSrc = GetComponent<AudioSource>();
         audioSrc.volume = volume;
@@ -28,6 +29,9 @@ public class SoundManager : MonoBehaviour
                 break;
             case "targetHit":
                 audioSrc.PlayOneShot(TargetHit);
+                break;
+            case "targetMiss":
+                audioSrc.PlayOneShot(TargetMiss);
                 break;
         }
     }
