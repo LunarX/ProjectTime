@@ -51,13 +51,14 @@ public class OptionMenu : MonoBehaviour
     }
     public void LaunchBPM()
     {
-        p.StartInfo.UseShellExecute = true;
-        p.StartInfo.FileName = Path + "/Heart_rate_light/output/NOGUI/NOGUI.exe";
-        p.StartInfo.WorkingDirectory = Path + "/Heart_rate_light/output/NOGUI";
+        var exePath = Application.streamingAssetsPath + "\\Heart_rate_light\\NOGUI.exe";
+        var wdPath = Application.streamingAssetsPath + "\\Heart_rate_light";
 
-        // Normalement, on doit pouvoir supprimer ça :
-        //p.StartInfo.FileName = "C:\\Users\\Gibran\\Documents\\Gibran\\Ecole\\_Uni\\Master 2\\TimeRythm\\Heart_rate_light\\output\\NOGUI\\NOGUI.exe";
-        //p.StartInfo.WorkingDirectory = "C:\\Users\\Gibran\\Documents\\Gibran\\Ecole\\_Uni\\Master 2\\TimeRythm\\Heart_rate_light\\output\\NOGUI";
+        p.StartInfo.UseShellExecute = true;
+
+        p.StartInfo.FileName = exePath;
+        p.StartInfo.WorkingDirectory = wdPath;
+
         p.Start();
     }
 
@@ -65,4 +66,10 @@ public class OptionMenu : MonoBehaviour
     {
         PlayerPrefs.SetInt("BestScore", 0);
     }
+
+    //void OnDestroy()
+    //{
+    //    print("Closing the python program");
+    //    p.CloseMainWindow();
+    //}
 }
