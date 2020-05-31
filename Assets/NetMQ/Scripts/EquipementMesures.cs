@@ -8,8 +8,6 @@ using System.Threading;
 using System.Globalization;
 
 /// <summary>
-///     Example of requester who only sends Hello. Very nice guy.
-///     You can copy this class and modify Run() to suits your needs.
 ///     To use this class, you just instantiate, call Start() when you want to start and Stop() when you want to stop.
 /// </summary>
 public class EquipementMesures : RunAbleThread
@@ -17,8 +15,13 @@ public class EquipementMesures : RunAbleThread
     public float bpm { get; private set; } = 0;
     public bool faceDetected { get; private set; } = false;
 
+    private int samplesAmount = 150;
+    private int count = 0;
+
+    public float averageBpm = 0;
+
     /// <summary>
-    ///     Request Hello message to server and receive message back. Do it 10 times.
+    ///     Receives bmp from python program.
     ///     Stop requesting when Running=false.
     /// </summary>
     protected override void Run()
@@ -43,11 +46,14 @@ public class EquipementMesures : RunAbleThread
                     CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
                     ci.NumberFormat.CurrencyDecimalSeparator = ".";
                     bpm = float.Parse(msgs[1], NumberStyles.Any, ci);
-                    //if (msgs[0] == "T")
-                    //    faceDetected = true;
-                    //else
-                    //    faceDetected = false;
-                    //= msgs[0] == "T" ? true : false;
+                    faceDetected = msgs[0] == "T";
+
+                    // Computes mean value of bmp right after the first results are received
+                    if(count < samplesAmount && bpm != 0)
+                    {
+                        count += 1;
+                        averageBpm += (1.0f / samplesAmount) * bpm;
+                    }
                 }
                 Thread.Sleep(5);
             }
