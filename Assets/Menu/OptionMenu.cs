@@ -12,6 +12,9 @@ public class OptionMenu : MonoBehaviour
     public string difficulty;
     private string m_Path;
     private string Path;
+
+    private PythonProgramHandler pph;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,8 @@ public class OptionMenu : MonoBehaviour
         int firstStringPosition = m_Path.IndexOf("Asset");
         
         Path = m_Path.Substring(0, firstStringPosition);
+
+        pph = GameObject.Find("PythonProgramHandler").GetComponent<PythonProgramHandler>();
     }
 
     // Update is called once per frame
@@ -49,27 +54,14 @@ public class OptionMenu : MonoBehaviour
         difficulty = "hard";
         PlayerPrefs.SetInt("Difficulty", 2);
     }
+
     public void LaunchBPM()
     {
-        var exePath = Application.streamingAssetsPath + "\\Heart_rate_light\\NOGUI.exe";
-        var wdPath = Application.streamingAssetsPath + "\\Heart_rate_light";
-
-        p.StartInfo.UseShellExecute = true;
-
-        p.StartInfo.FileName = exePath;
-        p.StartInfo.WorkingDirectory = wdPath;
-
-        p.Start();
+        pph.RunProgram();
     }
 
     public void ResetBS()
     {
         PlayerPrefs.SetInt("BestScore", 0);
     }
-
-    //void OnDestroy()
-    //{
-    //    print("Closing the python program");
-    //    p.CloseMainWindow();
-    //}
 }
