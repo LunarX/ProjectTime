@@ -27,25 +27,29 @@ public class Orchestrator : MonoBehaviour
     GameManager gm;
     private bool patternBool = false;
     private bool targetBool = true;
+    private bool MGSsound = false;
 
     [Header("Activer les éléments")]
     public bool Zombie = true;      // Présence (True ou False) des zombies
     public bool Target = true;      // Présence (True ou False) des targets
+    
+    private bool slowPossible = true;
 
     public static float intervPattern = 5f;
     private int i = 0;
     private string level = "";
-    private float difficulty = 1f;
+    private float difficulty;
     private float bpm0 = 0, bpm1 = 0, bpm2 = 0;
     private float BPMstoreTime = 0f;
 
     [Header("Vitesse des niveaux")]
-    public float level1 = 2.5f;
-    public float level2 = 1.5f;
-    public float level3 = 1.0f;
+    public float level1 = 2.7f;
+    public float level2 = 1.7f;
+    public float level3 = 1.2f;
 
 
     private PythonConnexion PC;
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +63,7 @@ public class Orchestrator : MonoBehaviour
         Zombie = (PlayerPrefs.GetInt("Zombie") == 1);   // Renvoye un booléan
         Target = (PlayerPrefs.GetInt("Target") == 1);   // Pareil
         levelTime = 0;
+        difficulty = 1f;
 
         if(GameObject.Find("PythonConnexion") != null)
             PC = GameObject.Find("PythonConnexion").GetComponent<PythonConnexion>();
@@ -69,7 +74,7 @@ public class Orchestrator : MonoBehaviour
     {
         currentTime = Time.time;
 
-        intervGenerate = interv * difficulty;
+        intervGenerate = interv*difficulty;
 
         if (Mathf.Abs(currentTime - levelTime) > 1f)
         {
@@ -83,6 +88,8 @@ public class Orchestrator : MonoBehaviour
             GenerateSkeletton();
             if (targetBool)
                 GenerateTarget();
+
+            slowPossible = true;
         }
 
         if (Mathf.Abs(currentTime - patternTime) > intervPattern)        // Pattern activé tout les 'intervalPattern' secondes
@@ -91,6 +98,7 @@ public class Orchestrator : MonoBehaviour
             pattern = PG.GetRandomPattern();
             patternBool = true;
             targetBool = false;
+            MGSsound = true;
             i = 0;
         }
 
@@ -173,7 +181,14 @@ public class Orchestrator : MonoBehaviour
         var cible = pattern[i];
         float offset = cible.Item2;
         int[] dir = cible.Item1;
-        if (Mathf.Abs(Time.time - patternTime) > offset)
+
+        if (MGSsound)
+        {
+            SoundManager.PlaySound("MGS");
+            MGSsound = false;
+        }
+
+        if (Mathf.Abs(Time.time - patternTime) > offset*difficulty+1)
         {
             if (dir.Length == 1)
             {
@@ -194,6 +209,7 @@ public class Orchestrator : MonoBehaviour
             patternBool = false;
             targetBool = true;
         }
+
             
     }
 
@@ -208,6 +224,13 @@ public class Orchestrator : MonoBehaviour
         {
             difficulty += 0.1f;
         }
+
+        if ((bpm0 > 150) && (slowPossible))
+        {
+            gm.DoSlowmotion();
+            slowPossible = false;
+        }
+            
 
         if (Mathf.Abs(currentTime - levelTime) > 1)
         {
@@ -253,6 +276,7 @@ public class Orchestrator : MonoBehaviour
         {
             BPMstoreTime = Time.time;
             gm.sBpm += (int) Mathf.Round(bpm0) + " ";
+            gm.sFaceOk += PC.equipementMesures.faceDetected;
         }
     }
 

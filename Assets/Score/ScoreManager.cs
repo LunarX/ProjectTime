@@ -11,11 +11,14 @@ public class ScoreManager
     private const int scoreCenterSkel = 10; 
     private const int scoreBorderSkel = 5;
     public float combos = 1;
+    AudioClip[] clips = new AudioClip[3];
 
     void Start()
     {
         score = 0;
         //comboLength = 0;
+
+        clips[0] = Resources.Load<AudioClip>("Sound/Explosion");
     }
 
     // Update is called once per frame

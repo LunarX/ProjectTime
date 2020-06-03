@@ -903,18 +903,15 @@ MonoBehaviour:
   minRange: 0.74
   scalingFactor: 0.85
   vfx: {fileID: 1995303271}
-  t_up: 119
-  t_down: 115
-  t_left: 97
-  t_right: 100
-  t_double_vertical: 101
-  t_double_horizontal: 113
   healthBar: {fileID: 1005509107}
   health: {fileID: 0}
+  Music: 0
   slowdownFactor: 0.4
   slowdownLength: 5
   recoveryLength: 1
   activateSlowdown: 118
+  sBpm: 
+  sFaceOk: 
 --- !u!4 &379339203
 Transform:
   m_ObjectHideFlags: 0
@@ -967,7 +964,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Zombie: 0
-  PC: {fileID: 0}
+  Target: 1
+  level1: 2.5
+  level2: 1.5
+  level3: 1
 --- !u!114 &379339209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,7 +1226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b01bd2b310c51e45a27583ff892b139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeBG: 0
+  background: 0
 --- !u!1 &555159557
 GameObject:
   m_ObjectHideFlags: 0

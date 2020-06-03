@@ -5,15 +5,16 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
 
-    public static AudioClip SkelHit, TargetHit, TargetMiss;
+    public static AudioClip SkelHit, TargetHit, Miss, MGS;
     static AudioSource audioSrc;
     // Start is called before the first frame update
     public float volume = 0.7f;
     void Start()
     {
-        SkelHit = Resources.Load<AudioClip>("Explosion+1");
+        SkelHit = Resources.Load<AudioClip>("Explosion");
         TargetHit = Resources.Load<AudioClip>("TargetHit");
-        TargetMiss = Resources.Load<AudioClip>("Sound/NFF-robo-hit");
+        Miss = Resources.Load<AudioClip>("Miss");
+        MGS = Resources.Load<AudioClip>("MGS");
 
         audioSrc = GetComponent<AudioSource>();
         audioSrc.volume = volume;
@@ -30,8 +31,13 @@ public class SoundManager : MonoBehaviour
             case "targetHit":
                 audioSrc.PlayOneShot(TargetHit);
                 break;
-            case "targetMiss":
-                audioSrc.PlayOneShot(TargetMiss);
+            case "missSound":
+                audioSrc.PlayOneShot(Miss);
+                break;
+            case "MGS":
+                audioSrc.volume -= 0.3f;
+                audioSrc.PlayOneShot(MGS);
+                audioSrc.volume += 0.3f;
                 break;
         }
     }

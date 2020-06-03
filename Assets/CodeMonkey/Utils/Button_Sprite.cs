@@ -9,9 +9,12 @@
                unitycodemonkey.com
     --------------------------------------------------
  */
- 
+
 //#define SOUND_MANAGER // Has Sound_Manager in project
 //#define CURSOR_MANAGER // Has Cursor_Manager in project
+
+//Top of the script
+#pragma warning disable 0649
 
 using System;
 using UnityEngine;
@@ -70,7 +73,7 @@ namespace CodeMonkey.Utils {
         public bool triggerMouseOutFuncOnClick = false;
         public bool clickThroughUI = false;
 
-        private Action internalOnMouseDownFunc, internalOnMouseEnterFunc, internalOnMouseExitFunc;
+        public Action internalOnMouseDownFunc, internalOnMouseEnterFunc, internalOnMouseExitFunc;
 
 #if SOUND_MANAGER
         public Sound_Manager.Sound mouseOverSound, mouseClickSound;
