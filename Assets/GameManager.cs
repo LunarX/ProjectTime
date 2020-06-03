@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         clips[1] = Resources.Load<AudioClip>("BGM/RoccoW-Electric_Donkey_Muscles");
         clips[0] = Resources.Load<AudioClip>("BGM/Komiku-Together_we_are_stronger");
 
-        
+
 
         Music = (PlayerPrefs.GetInt("Music") == 1);   // Renvoyer un booléan
         if (Music)

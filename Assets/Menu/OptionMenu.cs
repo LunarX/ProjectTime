@@ -12,6 +12,9 @@ public class OptionMenu : MonoBehaviour
     public string difficulty;
     private string m_Path;
     private string Path;
+
+    private PythonProgramHandler pph;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,8 @@ public class OptionMenu : MonoBehaviour
         int firstStringPosition = m_Path.IndexOf("Asset");
         
         Path = m_Path.Substring(0, firstStringPosition);
+
+        pph = GameObject.Find("PythonProgramHandler").GetComponent<PythonProgramHandler>();
     }
 
     // Update is called once per frame
@@ -49,16 +54,10 @@ public class OptionMenu : MonoBehaviour
         difficulty = "hard";
         PlayerPrefs.SetInt("Difficulty", 2);
     }
+
     public void LaunchBPM()
     {
-        p.StartInfo.UseShellExecute = true;
-        p.StartInfo.FileName = Path + "/Heart_rate_light/output/NOGUI/NOGUI.exe";
-        p.StartInfo.WorkingDirectory = Path + "/Heart_rate_light/output/NOGUI";
-
-        // Normalement, on doit pouvoir supprimer ça :
-        //p.StartInfo.FileName = "C:\\Users\\Gibran\\Documents\\Gibran\\Ecole\\_Uni\\Master 2\\TimeRythm\\Heart_rate_light\\output\\NOGUI\\NOGUI.exe";
-        //p.StartInfo.WorkingDirectory = "C:\\Users\\Gibran\\Documents\\Gibran\\Ecole\\_Uni\\Master 2\\TimeRythm\\Heart_rate_light\\output\\NOGUI";
-        p.Start();
+        pph.RunProgram();
     }
 
     public void ResetBS()
