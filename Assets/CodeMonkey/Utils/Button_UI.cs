@@ -9,9 +9,12 @@
                unitycodemonkey.com
     --------------------------------------------------
  */
- 
+
 //#define SOUND_MANAGER // Has Sound_Manager in project
 //#define CURSOR_MANAGER // Has Cursor_Manager in project
+
+//Top of the script
+#pragma warning disable 0649
 
 using System;
 using UnityEngine;

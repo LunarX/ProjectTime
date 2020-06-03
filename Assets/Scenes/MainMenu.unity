@@ -682,6 +682,11 @@ PrefabInstance:
       propertyPath: m_FontData.m_MinSize
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 222082010020656094, guid: f736ef895720643b3b2e8a3a5f092df6,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224024841653902356, guid: f736ef895720643b3b2e8a3a5f092df6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2583,7 +2588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ea727458381154c953eb34b1d5585a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 1
+  isOn: 0
   onColorBg: {r: 0.33333334, g: 0.7176471, b: 0.10196079, a: 1}
   offColorBg: {r: 0.77647066, g: 0, b: 0, a: 1}
   toggleBgImage: {fileID: 2047137299}
@@ -2999,7 +3004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8347bd29578f28a4d800e659cf0980bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 0
+  isOn: 1
   onColorBg: {r: 0.33333334, g: 0.7176471, b: 0.10196079, a: 1}
   offColorBg: {r: 0.77647066, g: 0, b: 0, a: 1}
   toggleBgImage: {fileID: 743916669}
@@ -3909,7 +3914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOn: 1
   onColorBg: {r: 0.33333334, g: 0.7176471, b: 0.10196079, a: 1}
-  offColorBg: {r: 0.8705883, g: 0.18039216, b: 0.3019608, a: 1}
+  offColorBg: {r: 0.77647066, g: 0, b: 0, a: 1}
   toggleBgImage: {fileID: 1348018201}
   toggle: {fileID: 1756906815}
   handle: {fileID: 995379404}

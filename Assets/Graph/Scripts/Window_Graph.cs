@@ -10,12 +10,17 @@
     --------------------------------------------------
  */
 
+//Top of the script
+#pragma warning disable 0649
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using CodeMonkey.Utils;
+using System.Text;
+using System.IO;
 
 public class Window_Graph : MonoBehaviour {
 
@@ -138,6 +143,24 @@ public class Window_Graph : MonoBehaviour {
             } 
         }
 
+        Save(sBpm);
+
+    }
+
+    // Following method is used to retrive the relative path as device platform
+    private string getPath()
+    {
+        return Application.dataPath + "/CSV/" + "Saved_data.txt";
+    }
+
+    void Save(String sb)
+    {
+        string filePath = getPath();
+
+        StreamWriter outStream = System.IO.File.CreateText(filePath);
+        outStream.WriteLine(sb);
+        outStream.Close();
     }
 
 }
+

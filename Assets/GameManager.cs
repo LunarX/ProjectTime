@@ -86,7 +86,8 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public string sBpm = "";    // Pour stocker les BPM
-
+    [HideInInspector]
+    public string sFaceOk = "";    // Pour stocker les BPM
 
     // Start is called before the first frame update
     void Start()
@@ -107,6 +108,8 @@ public class GameManager : MonoBehaviour
         clips[2] = Resources.Load<AudioClip>("BGM/BossMain");
         clips[1] = Resources.Load<AudioClip>("BGM/RoccoW-Electric_Donkey_Muscles");
         clips[0] = Resources.Load<AudioClip>("BGM/Komiku-Together_we_are_stronger");
+
+        
 
         Music = (PlayerPrefs.GetInt("Music") == 1);   // Renvoyer un booléan
         if (Music)
@@ -247,9 +250,10 @@ public class GameManager : MonoBehaviour
     {
         health.DamagePlayer(10);
         sm.combos = 1;
+        SoundManager.PlaySound("missSound");
     }
 
-    void DoSlowmotion()
+    public void DoSlowmotion()
     {
         print("Activating Bullet Time");
         Time.timeScale = slowdownFactor;

@@ -43,11 +43,10 @@ public class EquipementMesures : RunAbleThread
                     CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
                     ci.NumberFormat.CurrencyDecimalSeparator = ".";
                     bpm = float.Parse(msgs[1], NumberStyles.Any, ci);
-                    //if (msgs[0] == "T")
-                    //    faceDetected = true;
-                    //else
-                    //    faceDetected = false;
-                    //= msgs[0] == "T" ? true : false;
+                    if (msgs[0] == "T")
+                        faceDetected = true;
+                    else
+                        faceDetected = false;
                 }
                 Thread.Sleep(5);
             }

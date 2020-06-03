@@ -12,7 +12,7 @@ public class SkeletonBehaviour : MonoBehaviour
 
     GameManager gm;
     public VFXManager vfx;
-
+    
     public void init(int indexV)
     {
         this.index = indexV;
@@ -27,12 +27,13 @@ public class SkeletonBehaviour : MonoBehaviour
 
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         vfx = GameObject.Find("VFXManager").GetComponent<VFXManager>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        rb.position -= dir*Time.deltaTime;                                                         // Mise à jour de la position (par rapport au temps, et non pas des frames)
+        rb.position -= dir * Time.deltaTime;                                                         // Mise à jour de la position (par rapport au temps, et non pas des frames)
     }
 
     private void OnTriggerEnter2D(Collider2D collision)                             // Nom de la fonction qui détecte une collision (est appelée si collision avec l'objet)
@@ -43,21 +44,25 @@ public class SkeletonBehaviour : MonoBehaviour
         // Si le squelette est touché par un missile, alors 'missile' ne sera pas nul
         if (missile != null)                                                        // Si c'est null, alors ce n'est pas un missile
         {
+            
             Destroy(Orchestrator.dicSkel[index]);                                                     // Détruit l'objet
             gm.sm.TargetHitted("skeletton", "center");
-            vfx.PlayPlus10(gameObject.transform.position);
+            vfx.PlayPlus10(gameObject.transform.position);      // Pop +5 / +10 
             Orchestrator.dicSkel.Remove(index);
             SoundManager.PlaySound("skeletton");
+            
         }
 
         // Si le skelette touche le cercle du centre
         string center = collision.gameObject.name;
         if (center == "Center")
         {
-            vfx.PlayMiss(gameObject.transform.position);
+            vfx.PlayMiss(gameObject.transform.position);        // Pop "miss"
             Destroy(Orchestrator.dicSkel[index]);                                                        // Détruit l'objet
             Orchestrator.dicSkel.Remove(index);
             gm.health.DamagePlayer(5);
+            print("Miss !");
+            SoundManager.PlaySound("missSound");
             
         }
 
