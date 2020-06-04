@@ -19,6 +19,7 @@ public class EquipementMesures : RunAbleThread
     private int count = 0;
 
     public float averageBpm = 0;
+    public bool avgIsReady = false;
 
     /// <summary>
     ///     Receives bmp from python program.
@@ -49,10 +50,17 @@ public class EquipementMesures : RunAbleThread
                     faceDetected = msgs[0] == "T";
 
                     // Computes mean value of bmp right after the first results are received
-                    if(count < samplesAmount && bpm != 0)
+                    if(count < samplesAmount )
                     {
-                        count += 1;
-                        averageBpm += (1.0f / samplesAmount) * bpm;
+                        if(bpm != 0)
+                        {
+                            count += 1;
+                            averageBpm += (1.0f / samplesAmount) * bpm;
+                        }
+                    }
+                    else
+                    {
+                        avgIsReady = true;
                     }
                 }
                 Thread.Sleep(5);
