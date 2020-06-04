@@ -30,8 +30,8 @@ public class Orchestrator : MonoBehaviour
     private bool MGSsound = false;
 
     [Header("Activer les éléments")]
-    public bool Zombie = true;      // Présence (True ou False) des zombies
-    public bool Target = true;      // Présence (True ou False) des targets
+    public bool Zombie;      // Présence (True ou False) des zombies
+    public bool Target;      // Présence (True ou False) des targets
     
     private bool slowPossible = true;
 
@@ -60,6 +60,9 @@ public class Orchestrator : MonoBehaviour
         toolbarInt = PlayerPrefs.GetInt("Difficulty");
         SetDifficulty();
 
+
+        Zombie = true;
+        Target = true;
         Zombie = (PlayerPrefs.GetInt("Zombie") == 1);   // Renvoye un booléan
         Target = (PlayerPrefs.GetInt("Target") == 1);   // Pareil
         levelTime = 0;
@@ -86,7 +89,7 @@ public class Orchestrator : MonoBehaviour
         {
             oldTime = Time.time;                            // Pour la prochaine cible
             GenerateSkeletton();
-            if (targetBool)
+            if (Target)
                 GenerateTarget();
 
             slowPossible = true;
@@ -102,8 +105,9 @@ public class Orchestrator : MonoBehaviour
             i = 0;
         }
 
-        if (patternBool && Target)
-            GeneratePattern();      // Génération des patterns, si le moment est venu (cf patternBool)
+        if (patternBool)
+            if (Target)
+                GeneratePattern();      // Génération des patterns, si le moment est venu (cf patternBool)
 
         if (PC != null)     // Permet d'éviter une erreur, si on joue sans le PC (Python Controller)
             PC_control();   // Mesure du BPM, et mise à jour de la difficulté

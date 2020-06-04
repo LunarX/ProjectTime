@@ -34,6 +34,7 @@ public class ToggleBG : MonoBehaviour
 
     void Awake()
     {
+        isOn = false;
         handleTransform = handle.GetComponent<RectTransform>();
         RectTransform handleRect = handle.GetComponent<RectTransform>();
         handleSize = handleRect.sizeDelta.x;

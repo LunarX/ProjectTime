@@ -150,7 +150,7 @@ public class Window_Graph : MonoBehaviour {
     // Following method is used to retrive the relative path as device platform
     private string getPath()
     {
-        return Application.dataPath + "/CSV/" + "Saved_data.txt";
+        return Application.dataPath + "/Saved_data.txt";
     }
 
     void Save(String sb)
