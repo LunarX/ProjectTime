@@ -49,6 +49,7 @@ public class Orchestrator : MonoBehaviour
 
 
     private PythonConnexion PC;
+    private float meanBPM = 90;
 
 
     // Start is called before the first frame update
@@ -68,8 +69,12 @@ public class Orchestrator : MonoBehaviour
         levelTime = 0;
         difficulty = 1f;
 
-        if(GameObject.Find("PythonConnexion") != null)
+        if (GameObject.Find("PythonConnexion") != null)
+        {
             PC = GameObject.Find("PythonConnexion").GetComponent<PythonConnexion>();
+            meanBPM = PC.equipementMesures.averageBpm;
+
+        }
     }
 
     // Update is called once per frame
@@ -224,25 +229,26 @@ public class Orchestrator : MonoBehaviour
         bpm1 = bpm0;
         bpm0 = PC.equipementMesures.bpm;
 
-        if (bpm2 - bpm0 > 70)       // Si le BPM augmente brutalement
+        if (bpm2 - bpm0 > 100)       // Si le BPM augmente brutalement
         {
             difficulty += 0.1f;
         }
 
-        if ((bpm0 > 150) && (slowPossible))
+        if ((bpm0 > meanBPM*1.4) && (slowPossible))
         {
             gm.DoSlowmotion();
             slowPossible = false;
+            difficulty = 1;
         }
             
 
         if (Mathf.Abs(currentTime - levelTime) > 1)
         {
-            if ((bpm0 < 60) && (bpm2 < 60))     // Si c'est assez calme
+            if ((bpm0 < (meanBPM*1.05f)) && (bpm2 < meanBPM*1.05))     // Si c'est assez calme
             {
                 difficulty -= 0.05f;
             }
-            else if (((bpm0 < 80) && (bpm0 > 60)) && ((bpm2 < 80) && (bpm2 > 60)))      // Léger stress
+            else if (((bpm0 < meanBPM*1.2f) && (bpm0 > meanBPM*1.05f)) && ((bpm2 < meanBPM * 1.2f) && (bpm2 > meanBPM * 1.05f)))      // Léger stress
             {
                 difficulty -= 0.01f;
             }

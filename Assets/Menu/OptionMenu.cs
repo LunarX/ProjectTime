@@ -14,6 +14,7 @@ public class OptionMenu : MonoBehaviour
     private string Path;
 
     private PythonProgramHandler pph;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -23,9 +24,8 @@ public class OptionMenu : MonoBehaviour
 
         m_Path = Application.dataPath;
         UnityEngine.Debug.Log("dataPath : " + m_Path);
-        int firstStringPosition = m_Path.IndexOf("Asset");
-        
-        Path = m_Path.Substring(0, firstStringPosition);
+
+        PlayerPrefs.SetInt("BPM", 0);
 
         pph = GameObject.Find("PythonProgramHandler").GetComponent<PythonProgramHandler>();
     }
@@ -58,10 +58,12 @@ public class OptionMenu : MonoBehaviour
     public void LaunchBPM()
     {
         pph.RunProgram();
+        PlayerPrefs.SetInt("BPM", 1);
     }
 
     public void ResetBS()
     {
         PlayerPrefs.SetInt("BestScore", 0);
+        
     }
 }
