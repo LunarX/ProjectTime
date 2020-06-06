@@ -80,7 +80,6 @@ public class Window_Graph : MonoBehaviour {
 
         GameObject lastCircleGameObject = null;
         for (int i = 0; i < valueList.Count; i++) {
-            print("i = " + i);
             float xPosition = xSize + i * xSize;
             float yPosition = (valueList[i] / yMaximum) * graphHeight;
             GameObject circleGameObject = CreateCircle(new Vector2(xPosition, yPosition));
@@ -157,9 +156,13 @@ public class Window_Graph : MonoBehaviour {
     {
         string filePath = getPath();
 
-        StreamWriter outStream = System.IO.File.CreateText(filePath);
-        outStream.WriteLine(sb);
-        outStream.Close();
+        //StreamWriter outStream = System.IO.File.Open(filePath);
+        using (StreamWriter outStream = File.AppendText("log.txt"))
+        {
+            outStream.WriteLine(sb);
+        }
+            
+        //outStream.Close();
     }
 
 }

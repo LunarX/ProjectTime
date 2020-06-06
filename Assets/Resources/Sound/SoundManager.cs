@@ -14,7 +14,7 @@ public class SoundManager : MonoBehaviour
         SkelHit = Resources.Load<AudioClip>("Explosion");
         TargetHit = Resources.Load<AudioClip>("TargetHit");
         Miss = Resources.Load<AudioClip>("Miss");
-        MGS = Resources.Load<AudioClip>("MGS");
+        MGS = Resources.Load<AudioClip>("MGS_low");
 
         audioSrc = GetComponent<AudioSource>();
         audioSrc.volume = volume;
@@ -35,9 +35,9 @@ public class SoundManager : MonoBehaviour
                 audioSrc.PlayOneShot(Miss);
                 break;
             case "MGS":
-                audioSrc.volume -= 0.3f;
+                audioSrc.volume = 0;
                 audioSrc.PlayOneShot(MGS);
-                audioSrc.volume += 0.3f;
+                audioSrc.volume = 0.7f;
                 break;
         }
     }
