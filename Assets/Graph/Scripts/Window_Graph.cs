@@ -32,6 +32,8 @@ public class Window_Graph : MonoBehaviour {
     private RectTransform dashTemplateY;
 
     private string sBpm = "";    // Pour stocker les BPM
+    private string level;
+    private string bulletTime;
     private List<int> machin = new List<int>() { 0 };
 
     public List<int> valueList = new List<int>() { 0 };
@@ -51,7 +53,7 @@ public class Window_Graph : MonoBehaviour {
         dashTemplateY = graphContainer.Find("dashTemplateY").GetComponent<RectTransform>();
 
         //List<int> valueList = new List<int>() { 5, 98, 56, 45, 30, 22, 17, 15, 13, 17, 25, 37, 40, 36, 33, 15, 15, 15 };
-        ShowGraph(valueList, (int _i) => "t "+(_i+1), (float _f) => " " + Mathf.RoundToInt(_f));
+        ShowGraph(valueList, (int _i) => "" + (_i+1), (float _f) => " " + Mathf.RoundToInt(_f));
     }
 
     private GameObject CreateCircle(Vector2 anchoredPosition) {
@@ -155,11 +157,29 @@ public class Window_Graph : MonoBehaviour {
     void Save(String sb)
     {
         string filePath = getPath();
+        string level = "";
+
+        // Mettre sous forme de texte
+        int intLevel = PlayerPrefs.GetInt("Difficulty");
+        if (intLevel == 0)
+            level = "easy";
+        else if (intLevel == 1)
+            level = "medium";
+        else if (intLevel == 1)
+            level = "hard";
+
+        string sBT = PlayerPrefs.GetString("BulletTime");
+        string sPattern = PlayerPrefs.GetString("Pattern");
+
 
         //StreamWriter outStream = System.IO.File.Open(filePath);
         using (StreamWriter outStream = File.AppendText("log.txt"))
         {
-            outStream.WriteLine(sb);
+            outStream.WriteLine("");
+            outStream.WriteLine("BPM        : " + sb);
+            outStream.WriteLine(level);
+            outStream.WriteLine(sBT);
+            outStream.WriteLine(sPattern);
         }
             
         //outStream.Close();

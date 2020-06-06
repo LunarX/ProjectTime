@@ -88,6 +88,10 @@ public class GameManager : MonoBehaviour
     public string sBpm = "";    // Pour stocker les BPM
     [HideInInspector]
     public string sFaceOk = "";    // Pour stocker les BPM
+    [HideInInspector]
+    public string sBT = "BulletTime : ";    // Pour stocker les moments o de déclenchement du bullet time
+    [HideInInspector]
+    public string sPattern = "Pattern    : ";    // Pour stocker les moments o de déclenchement du bullet time
 
     // Start is called before the first frame update
     void Start()
@@ -168,6 +172,9 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetString("BPM", sBpm);
             else
                 PlayerPrefs.SetString("BPM", "X");
+
+            PlayerPrefs.SetString("BulletTime", sBT);
+            PlayerPrefs.SetString("Pattern", sPattern);
         }
     }
 
@@ -260,11 +267,13 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = Time.timeScale * .02f;
 
         Invoke("BackToNormal", slowdownActualLength);
+
+        sBT += Mathf.Round(Time.time) + " ";
     }
 
     private void BackToNormal()
     {
-        print("Starting Recovery");
+        //print("Starting Recovery");
         isRecovering = true;
     }
 }

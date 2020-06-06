@@ -25,9 +25,9 @@ public class Orchestrator : MonoBehaviour
     private PatternGenerator PG = new PatternGenerator();
     private List<(int[], float)> pattern;
     GameManager gm;
-    private bool patternBool = false;
-    private bool targetBool = true;
-    private bool MGSsound = false;
+    private bool patternBool;
+    private bool targetBool;
+    private bool MGSsound;
 
     [Header("Activer les éléments")]
     public bool Zombie;      // Présence (True ou False) des zombies
@@ -35,26 +35,34 @@ public class Orchestrator : MonoBehaviour
     
     private bool slowPossible = true;
 
-    public static float intervPattern = 5f;
-    private int i = 0;
+    public static float intervPattern;
+    private int i;
     private string level = "";
     private float difficulty;
     private float bpm0 = 0, bpm1 = 0, bpm2 = 0;
     private float BPMstoreTime = 0f;
 
     [Header("Vitesse des niveaux")]
-    public float level1 = 2.7f;
-    public float level2 = 1.7f;
-    public float level3 = 1.2f;
+    public float level1 = 3.0f;
+    public float level2 = 2.0f;
+    public float level3 = 1.5f;
 
 
     private PythonConnexion PC;
     private float meanBPM = 90;
 
+    private float oldBulletTime = 0;
+    private float bulletTime = 0;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        patternBool = false;
+        targetBool = true;
+        intervPattern = 5f;
+        i = 0;
+
         currentTime = 0;        // Temps initial (au lancement du jeu)
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
@@ -96,9 +104,10 @@ public class Orchestrator : MonoBehaviour
             GenerateSkeletton();
             if (Target)
                 GenerateTarget();
-
-            slowPossible = true;
         }
+
+        if (Mathf.Abs(bulletTime - oldBulletTime) > 6.0)
+            slowPossible = true;
 
         if (Mathf.Abs(currentTime - patternTime) > intervPattern)        // Pattern activé tout les 'intervalPattern' secondes
         {
@@ -191,10 +200,11 @@ public class Orchestrator : MonoBehaviour
         float offset = cible.Item2;
         int[] dir = cible.Item1;
 
-        if (MGSsound)
+        if (MGSsound)   // Au début du pattern
         {
             SoundManager.PlaySound("MGS");
             MGSsound = false;
+            gm.sPattern += Mathf.Round(Time.time) + " ";
         }
 
         if (Mathf.Abs(Time.time - patternTime) > offset*difficulty+1)
@@ -213,7 +223,7 @@ public class Orchestrator : MonoBehaviour
 
             i++;        // On passe à la prochaine cible
         }
-        if (i == pattern.Count)
+        if (i == pattern.Count) 
         {
             patternBool = false;
             targetBool = true;

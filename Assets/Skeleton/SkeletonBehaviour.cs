@@ -38,18 +38,19 @@ public class SkeletonBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)                             // Nom de la fonction qui détecte une collision (est appelée si collision avec l'objet)
     {
-
+        print("Collision !");
         ProjectilBehavior missile = collision.gameObject.GetComponent<ProjectilBehavior>();     // Permet de s'assurer que la collision soit avec un missile (seule une boule de feu contient le Component 'ProjectilBehavior')
 
         // Si le squelette est touché par un missile, alors 'missile' ne sera pas nul
         if (missile != null)                                                        // Si c'est null, alors ce n'est pas un missile
         {
             
-            Destroy(Orchestrator.dicSkel[index]);                                                     // Détruit l'objet
+            Destroy(gameObject);                                                     // Détruit l'objet
             gm.sm.TargetHitted("skeletton", "center");
             vfx.PlayPlus10(gameObject.transform.position);      // Pop +5 / +10 
             Orchestrator.dicSkel.Remove(index);
             SoundManager.PlaySound("skeletton");
+            print("paf !");
             
         }
 
@@ -61,7 +62,6 @@ public class SkeletonBehaviour : MonoBehaviour
             Destroy(Orchestrator.dicSkel[index]);                                                        // Détruit l'objet
             Orchestrator.dicSkel.Remove(index);
             gm.health.DamagePlayer(5);
-            print("Miss !");
             SoundManager.PlaySound("missSound");
             
         }

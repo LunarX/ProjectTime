@@ -51,7 +51,7 @@ public class LevelLoader : MonoBehaviour
         else
         {
             StartCoroutine(LoadLevel(1));
-            print("PC pas trouvé !");
+            //print("PC pas trouvé !");
         }
             
         
