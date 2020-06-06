@@ -171,13 +171,36 @@ public class Window_Graph : MonoBehaviour {
         string sBT = PlayerPrefs.GetString("BulletTime");
         string sPattern = PlayerPrefs.GetString("Pattern");
 
+        int hexa = PlayerPrefs.GetInt("Zombie");
+
+        string hexaS = "HexaOff";
+        if (hexa == 1)
+            hexaS = "HexaOn";
+
+        int musikS = PlayerPrefs.GetInt("Music");
+        string musik = "MusicOff";
+        if (musikS == 1)
+            musik = "MusicOn";
+
+        int bgS = PlayerPrefs.GetInt("BackGround");
+        string bg = "BGoff";
+        if (bgS == 1)
+            bg = "BGoff";
+
+        string bpmTime = PlayerPrefs.GetString("BPM-Time");
+
+        string bpmOn = PlayerPrefs.GetString("BPM-On");
+
+
 
         //StreamWriter outStream = System.IO.File.Open(filePath);
         using (StreamWriter outStream = File.AppendText("log.txt"))
         {
             outStream.WriteLine("");
             outStream.WriteLine("BPM        : " + sb);
-            outStream.WriteLine(level);
+            outStream.WriteLine("BPM-Detect : " + sb);
+            outStream.WriteLine("BPMTime    : " + bpmTime);
+            outStream.WriteLine("Info-Level : " + level + "," + hexaS + "," + bg);
             outStream.WriteLine(sBT);
             outStream.WriteLine(sPattern);
         }

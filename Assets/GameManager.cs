@@ -85,13 +85,19 @@ public class GameManager : MonoBehaviour
     private bool isRecovering = false;
 
     [HideInInspector]
-    public string sBpm = "";    // Pour stocker les BPM
+    public string sBpm;    // Pour stocker les BPM
+    [HideInInspector]
+    public string sBpmOn = "";    // Pour stocker les BPM
+    [HideInInspector]
+    public string sBpmTime;    // Pour stocker le moment où sont stocker les BPM
     [HideInInspector]
     public string sFaceOk = "";    // Pour stocker les BPM
     [HideInInspector]
-    public string sBT = "BulletTime : ";    // Pour stocker les moments o de déclenchement du bullet time
+    public string sBT;    // Pour stocker les moments o de déclenchement du bullet time
     [HideInInspector]
-    public string sPattern = "Pattern    : ";    // Pour stocker les moments o de déclenchement du bullet time
+    public string sPattern;    // Pour stocker les moments o de déclenchement du bullet time
+
+    public float timeStart;
 
     // Start is called before the first frame update
     void Start()
@@ -105,6 +111,11 @@ public class GameManager : MonoBehaviour
         health = GetComponent<Health>();
         health.healthBar = healthBar;
 
+        sBpmTime = "";
+        sBpm = "";
+        sBT = "BulletTime : ";
+        sPattern = "Pattern    : ";
+
         sm = new ScoreManager();
 
         // BGM Management
@@ -113,6 +124,8 @@ public class GameManager : MonoBehaviour
         clips[1] = Resources.Load<AudioClip>("BGM/RoccoW-Electric_Donkey_Muscles");
         clips[0] = Resources.Load<AudioClip>("BGM/Komiku-Together_we_are_stronger");
 
+        timeStart = Time.time;      // Moment où on commence le jeu
+        print("Début : " + timeStart);
 
 
         Music = (PlayerPrefs.GetInt("Music") == 1);   // Renvoyer un booléan
@@ -169,7 +182,12 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetInt("BestScore", sm.GetScore());
             SceneManager.LoadScene("EndMenu");
             if (sBpm != "")
+            {
                 PlayerPrefs.SetString("BPM", sBpm);
+                PlayerPrefs.SetString("BPM-On", sBpmOn);
+                PlayerPrefs.SetString("BPM-Time", sBpmTime);
+            }
+                
             else
                 PlayerPrefs.SetString("BPM", "X");
 
@@ -262,13 +280,13 @@ public class GameManager : MonoBehaviour
 
     public void DoSlowmotion()
     {
-        print("Activating Bullet Time");
+        //print("Activating Bullet Time");
         Time.timeScale = slowdownFactor;
         Time.fixedDeltaTime = Time.timeScale * .02f;
 
         Invoke("BackToNormal", slowdownActualLength);
 
-        sBT += Mathf.Round(Time.time) + " ";
+        sBT += Mathf.Round(Time.time - timeStart) + " ";
     }
 
     private void BackToNormal()

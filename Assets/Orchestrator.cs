@@ -58,6 +58,7 @@ public class Orchestrator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         patternBool = false;
         targetBool = true;
         intervPattern = 5f;
@@ -77,6 +78,7 @@ public class Orchestrator : MonoBehaviour
         levelTime = 0;
         difficulty = 1f;
 
+
         if (GameObject.Find("PythonConnexion") != null)
         {
             PC = GameObject.Find("PythonConnexion").GetComponent<PythonConnexion>();
@@ -84,6 +86,7 @@ public class Orchestrator : MonoBehaviour
 
         }
     }
+
 
     // Update is called once per frame
     void Update()
@@ -204,7 +207,7 @@ public class Orchestrator : MonoBehaviour
         {
             SoundManager.PlaySound("MGS");
             MGSsound = false;
-            gm.sPattern += Mathf.Round(Time.time) + " ";
+            gm.sPattern += Mathf.Round(Time.time - gm.timeStart) + " ";
         }
 
         if (Mathf.Abs(Time.time - patternTime) > offset*difficulty+1)
@@ -296,6 +299,8 @@ public class Orchestrator : MonoBehaviour
         {
             BPMstoreTime = Time.time;
             gm.sBpm += (int) Mathf.Round(bpm0) + " ";
+            gm.sBpmOn += PC.equipementMesures.faceDetected == true ? 1 : 0;
+            gm.sBpmTime += (int)Mathf.Round(Time.time - gm.timeStart) + " ";
             gm.sFaceOk += PC.equipementMesures.faceDetected;
         }
     }
