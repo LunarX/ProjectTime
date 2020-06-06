@@ -276,4 +276,11 @@ public class GameManager : MonoBehaviour
         //print("Starting Recovery");
         isRecovering = true;
     }
+
+
+    void OnDestroy()
+    {
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = Time.deltaTime;
+    }
 }

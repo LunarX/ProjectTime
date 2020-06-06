@@ -20,7 +20,8 @@ public class PatternGenerator
         //var file = Resources.Load("patterns") as TextAsset;
         //var patternsSource = file.text;
 
-        var patternsSource = File.ReadAllText("./Assets/Resources/patterns.txt");
+        //var patternsSource = File.ReadAllText("./Assets/Resources/patterns.txt");
+        var patternsSource = File.ReadAllText(Application.streamingAssetsPath + "/patterns.txt");
 
         string[] stringSeparators = new string[] { "\r\n\r\n", "\n\n" };
         var textPatterns = patternsSource.Split(stringSeparators, StringSplitOptions.None);
