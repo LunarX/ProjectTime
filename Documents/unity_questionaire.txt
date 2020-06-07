@@ -19,55 +19,42 @@ Jouer ~2 minutes pour se familiariser
 
 
 
-* Tâches:
+* Tâches (à faire sur le même niveau, choisit par l'utilisateur avant de commencer les tâches):
 
-Tâche:		Jouer une partie facile avec hexgaones
+Tâche:		Jouer une partie sans hexagones sans indicateurs
 État initial:	Menu principal
-Critère succès:	Plus de 5 cibles ont été touchées avant de mourir et la partie est terminée
-Benchmark:	Partie terminée
+Critère succès:	A terminé la partie sans bugs ou imprévus
+Benchmark:	Mesure du pouls du joueur au cours de la partie
 
-Tâche:		Jouer une partie normal avec hexgaones
+Tâche:		Jouer une partie avec hexagones sans indicateurs
 État initial:	Menu principal
-Critère succès:	Plus de 5 cibles ont été touchées avant de mourir et la partie est terminée
-Benchmark:	Partie terminée
+Critère succès:	A terminé la partie sans bugs ou imprévus
+Benchmark:	Mesure du pouls du joueur au cours de la partie
 
-Tâche:		Jouer une partie difficile avec hexgaones
+Tâche:		Jouer une partie sans hexagones avec indicateurs
 État initial:	Menu principal
-Critère succès:	Plus de 5 cibles ont été touchées avant de mourir et la partie est terminée
-Benchmark:	Partie terminée
+Critère succès:	A terminé la partie sans bugs ou imprévus
+Benchmark:	Mesure du pouls du joueur au cours de la partie
 
-Tâche:		Jouer une partie à choix sans hexagones
+Tâche:		Jouer une partie avec hexagones avec indicateurs
 État initial:	Menu principal
-Critère succès:	Plus de 5 cibles ont été touchées avant de mourir et la partie est terminée
-Benchmark:	Partie terminée
-
-Tâche:		Jouer 3 parties avec niveaux de difficultée à choix avec ou sans hexagones
-État initial:	Menu principal
-Critère succès:	Plus de 5 cibles ont été touchées avant de mourir dans chaque partie et les deux partise sont terminées
-Benchmark:	Parties terminées
+Critère succès:	A terminé la partie sans bugs ou imprévus
+Benchmark:	Mesure du pouls du joueur au cours de la partie
 
 
 
 
 * Questionaire post-expérimental:
 
-Noter de "Trop facile" à "Parfait" à "Trop difficile" (de 1 à 5) la difficultée de chaque niveau
-Êtes-vous d'accord avec l'affirmation: "Lorsque je n'avais presque plus de vie, je me suis sentie plus stressé que le reste du temps". Noter parmis "Tout à fait d'accord, Plutôt d'accord, ni l'un ni l'autre, Plutôt pas d'accord, Pas du tout d'accord" (de 1 à 5)
-Êtes-vous d'accord avec l'affirmation: "J'ai préféré jouer avec les hexagones que sans". Noter parmis "Tout à fait d'accord, Plutôt d'accord, ni l'un ni l'autre, Plutôt pas d'accord, Pas du tout d'accord" (de 1 à 5)
-Êtes-vous d'accord avec l'affirmation: "Il est plus facile de jouer sans hexagones qu'avec hexagones". Noter parmis "Tout à fait d'accord, Plutôt d'accord, ni l'un ni l'autre, Plutôt pas d'accord, Pas du tout d'accord" (de 1 à 5)
-Êtes-vous d'accord avec l'affirmation: "J'ai apprecié le jeu". Noter parmis "Tout à fait d'accord, Plutôt d'accord, ni l'un ni l'autre, Plutôt pas d'accord, Pas du tout d'accord" (de 1 à 5)
-Êtes-vous d'accord avec l'affirmation: "J'aimerais rejouer à ce jeu chez moi". Noter parmis "Tout à fait d'accord, Plutôt d'accord, ni l'un ni l'autre, Plutôt pas d'accord, Pas du tout d'accord" (de 1 à 5)
+«Lorsque je n'avais presque plus de vie, je me suis sentie plus stressé que le reste du temps» 
+«Il est plus stressant de jouer avec hexagones que sans hexagones»
+«Il est plus stressant de jouer avec indicateurs que sans indicateurs»
+«J'ai préféré jouer avec les hexagones que sans»
+«J'ai préféré jouer avec les indicateurs que sans»
+«J'ai remarqué que la musique qui change de rythme donnait une indication sur la partie»
+«J'ai remarqué que le fond d'écran qui changent de couleur donnait une indication sur la partie»
+Noter de 1 à 5 le niveau de stresse expérimenté durant chacune des 4 tâches
 
-
-
-
-* Récolte des données:
-
-Score moyen de toutes les parties par niveau de difficulté
-Temps moyen de jeu pour toutes les parties par niveau de difficulté
-Choix des difficultées lors que le choix est laissé à l'utilisateur
-Nombre de parties avec hexagones lorsque le choix est laissé à l'utilisateur
-Nombre de fois où le ralentissement s'est déclanché
 
 
 
@@ -76,5 +63,26 @@ Nombre de fois où le ralentissement s'est déclanché
 
 Sujet de l'évalution: L'émotion
 
+
+
+==========
+
+
+H1 - Rallentissement: Mesures du pouls et questionaire subjectif
+
+H2 - Hexagones: Questionaire subjectif
+H3 - Indicateurs visuels/auditifs: Questionaire subjectif
+
+
+Questionnaire post-expérimental:
+
+«Lorsque je n'avais presque plus de vie, je me suis sentie plus stressé que le reste du temps» 
+«Il est plus stressant de jouer avec hexagones que sans hexagones»
+«Il est plus stressant de jouer avec indicateurs que sans indicateurs»
+«J'ai préféré jouer avec les hexagones que sans»
+«J'ai préféré jouer avec les indicateurs que sans»
+«J'ai remarqué que la musique qui change de rythme donnait une indication sur la partie»
+«J'ai remarqué que le fond d'écran qui changent de couleur donnait une indication sur la partie»
+Noter de 1 à 5 le niveau de stresse expérimenté durant chacune des 4 tâches
 
 
