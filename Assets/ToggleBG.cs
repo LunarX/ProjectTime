@@ -34,7 +34,7 @@ public class ToggleBG : MonoBehaviour
 
     void Awake()
     {
-        isOn = true;
+        //isOn = true;
         handleTransform = handle.GetComponent<RectTransform>();
         RectTransform handleRect = handle.GetComponent<RectTransform>();
         handleSize = handleRect.sizeDelta.x;
@@ -90,7 +90,7 @@ public class ToggleBG : MonoBehaviour
         else
         {
 
-            PlayerPrefs.SetInt("Music", 0);
+            PlayerPrefs.SetInt("BackGround", 0);
             print("BackGround désactivée !");
         }
     }
