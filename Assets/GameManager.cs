@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetString("BPM-On", sBpmOn);
                 PlayerPrefs.SetString("BPM-Time", sBpmTime);
             }
-                
+
             else
                 PlayerPrefs.SetString("BPM", "X");
 

@@ -185,8 +185,8 @@ public class Window_Graph : MonoBehaviour {
         int bgS = PlayerPrefs.GetInt("BackGround");
         string bg = "BGoff";
         if (bgS == 1)
-            bg = "BGoff";
-
+            bg = "BGon";
+    
         string bpmTime = PlayerPrefs.GetString("BPM-Time");
 
         string bpmOn = PlayerPrefs.GetString("BPM-On");
