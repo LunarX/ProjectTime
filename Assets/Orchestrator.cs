@@ -43,9 +43,9 @@ public class Orchestrator : MonoBehaviour
     private float BPMstoreTime = 0f;
 
     [Header("Vitesse des niveaux")]
-    public float level1 = 3.0f;
-    public float level2 = 2.0f;
-    public float level3 = 1.5f;
+    public float level1 = 8.0f;
+    public float level2 = 5.0f;
+    public float level3 = 2.0f;
 
 
     private PythonConnexion PC;
@@ -53,6 +53,8 @@ public class Orchestrator : MonoBehaviour
 
     private float oldBulletTime = 0;
     private float bulletTime = 0;
+
+    private float diffilPattern = 0;
 
 
     // Start is called before the first frame update
@@ -99,6 +101,7 @@ public class Orchestrator : MonoBehaviour
         {
             levelTime = Time.time;
             difficulty -= 0.01f;
+            
         }
 
         if (Mathf.Abs(currentTime - oldTime) > intervGenerate)      // S'active seul toutes les 'interv' secondes
@@ -140,16 +143,19 @@ public class Orchestrator : MonoBehaviour
         {
             level = "easy";
             interv = level1;
+            diffilPattern = 4f;
         }
         else if (toolbarInt == 1)
         {
             level = "medium";
             interv = level2;
+            diffilPattern = 3f;
         }
         else if (toolbarInt == 2)
         {
             level = "hard";
             interv = level3;
+            diffilPattern = 1f;
         }
     }
 
@@ -210,7 +216,7 @@ public class Orchestrator : MonoBehaviour
             gm.sPattern += Mathf.Round(Time.time - gm.timeStart) + " ";
         }
 
-        if (Mathf.Abs(Time.time - patternTime) > offset*difficulty+1)
+        if (Mathf.Abs(Time.time - patternTime) > diffilPattern*offset*difficulty+1)
         {
             if (dir.Length == 1)
             {
