@@ -2589,7 +2589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ea727458381154c953eb34b1d5585a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 0
+  isOn: 1
   onColorBg: {r: 0.33333334, g: 0.7176471, b: 0.10196079, a: 1}
   offColorBg: {r: 0.77647066, g: 0, b: 0, a: 1}
   toggleBgImage: {fileID: 2047137299}
