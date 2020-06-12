@@ -198,7 +198,7 @@ public class Window_Graph : MonoBehaviour {
         {
             outStream.WriteLine("");
             outStream.WriteLine("BPM        : " + sb);
-            outStream.WriteLine("BPM-Detect : " + sb);
+            outStream.WriteLine("BPM-Detect : " + bpmOn);
             outStream.WriteLine("BPMTime    : " + bpmTime);
             outStream.WriteLine("Info-Level : " + level + "," + hexaS + "," + bg);
             outStream.WriteLine(sBT);
