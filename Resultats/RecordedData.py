@@ -1,4 +1,5 @@
 import glob
+import numpy as np
 
 class RecordedData:
     def __init__(self, data_path):
@@ -48,15 +49,16 @@ class RecordedData:
                     post = [int(value) for value in self.data[user]["bpm"][i][center+1:center+length+1]]
 
     def avg_bt(self):
-        tasks = [0, 0, 0, 0]
+        tasks = [[], [], [], []]
         for user in self.data:
+            print(user)
             for i in range(len(self.data[user]["bullet_time"])):
                 bullet_times = self.data[user]["bullet_time"][i]
+                tasks[RecordedData.params_to_task_id(self.data[user]["params"][i])].append(len(bullet_times))
 
-                tasks[RecordedData.params_to_task_id(self.data[user]["params"][i])] += len(bullet_times)
-
-        tasks = [t / len(self.data) for t in tasks]
-        return tasks
+        means = [np.mean(t) for t in tasks]
+        stds = [np.std(t) for t in tasks]
+        return means, stds
 
     def params_to_task_id(params):
         return (params[1] == "HexaOn") + ((params[2] == "BGon") * 2)
