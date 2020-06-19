@@ -38,20 +38,29 @@ class RecordedData:
         self.data = data
 
 
-    def get_bt_neighbor(self, length):
+    def get_bt_neighbor_means(self, length):
+        prevs = []
+        posts = []
         for user in self.data:
             for i in range(len(self.data[user]["bullet_time"])):
                 centers = self.data[user]["bullet_time"][i]
 
                 for center in centers:
                     center = int(center)
-                    prev = [int(value) for value in self.data[user]["bpm"][i][center-length:center]]
+                    first = max(0, center-length)
+                    prev = [int(value) for value in self.data[user]["bpm"][i][first:center]]
                     post = [int(value) for value in self.data[user]["bpm"][i][center+1:center+length+1]]
+
+                    if(len(prev) == 0 or len(post) == 0):
+                        continue
+
+                    prevs.append(np.mean(prev))
+                    posts.append(np.mean(post))
+        return prevs, posts
 
     def avg_bt(self):
         tasks = [[], [], [], []]
         for user in self.data:
-            print(user)
             for i in range(len(self.data[user]["bullet_time"])):
                 bullet_times = self.data[user]["bullet_time"][i]
                 tasks[RecordedData.params_to_task_id(self.data[user]["params"][i])].append(len(bullet_times))
@@ -59,6 +68,28 @@ class RecordedData:
         means = [np.mean(t) for t in tasks]
         stds = [np.std(t) for t in tasks]
         return means, stds
+
+
+    def avg_bpm(self):
+        tasks = [[], [], [], []]
+        for user in self.data:
+            for i in range(len(self.data[user]["bpm"])):
+                bpm = [int(e) for e in self.data[user]["bpm"][i]]
+                tasks[RecordedData.params_to_task_id(self.data[user]["params"][i])].append(np.mean(bpm))
+
+        means = [np.mean(t) for t in tasks]
+        stds = [np.std(t) for t in tasks]
+        return means, stds
+
+    def avg_bpm_over_time(self):
+        tasks = [[], [], [], []]
+        for user in self.data:
+            for i in range(len(self.data[user]["bpm"])):
+                bpm = [int(e) for e in self.data[user]["bpm"][i]]
+                tasks[RecordedData.params_to_task_id(self.data[user]["params"][i])].append(bpm)
+
+        return tasks
+
 
     def params_to_task_id(params):
         return (params[1] == "HexaOn") + ((params[2] == "BGon") * 2)
