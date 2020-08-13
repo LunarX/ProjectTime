@@ -20,7 +20,7 @@ The difficulty of the game is then adapted to this value (high stress meaning de
 
 # Report
 At the end of the project, a report has been written, in order to present the project, the collected data and the analysis of it.   
-[Whole PDF file at this link](https://github.com/LunarX/ProjectTime/blob/master/Documents/Rapport.pdf)
+[PDF file of the report at this link](https://github.com/LunarX/ProjectTime/blob/master/Documents/Rapport.pdf)
 
 # Professors of the course :
 There is the list of the professors who took part in the course :
