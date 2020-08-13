@@ -22,6 +22,10 @@ The difficulty of the game is then adapted to this value (high stress meaning de
 At the end of the project, a report has been written, in order to present the project, the collected data and the analysis of it.   
 [Whole PDF file at this link](https://github.com/LunarX/ProjectTime/blob/master/Documents/Rapport.pdf)
 
-# Professor to the course :
-* moi  
-* toi
+# Professors of the course :
+There is the list of the professors who took part in the course :
+* Guillaume Chanel  
+* Gilles Falquet
+* Laurent Moccozet  
+* Patrick Roth
+* Alexandre de Masi (assistant)
